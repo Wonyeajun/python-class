@@ -1,0 +1,82 @@
+# a = int(input())
+# if 90<=a:
+#     print("A")
+# elif 80<=a<=89:
+#     print("B")
+# elif 70<=a<=79:
+#     print("C")
+# elif 60<=a<=69:
+#     print('D')
+# else:
+#     print('F')
+
+#입력함수
+# a = input()
+# print(type(a)) #input으로 받은 값은 모두 문자열이다.
+#숫자로 입력받기
+# a = int(input)
+
+
+# n = int(input())
+# print(n*n)
+
+# a = (input())
+# b = (input())
+
+# c = (input())
+# d = (input())
+# print(int(a)+int(b)+int(c)+int(d))
+
+# n = int(input())
+# if n == 0:
+#    print(0)
+# elif 0==n%2:
+#     print("짝")
+# elif 1==n%2:
+#     print("홀")
+
+# n = int(input())
+# if n==0:
+#     print(0)
+# elif n*-1 < 0:
+#     print("양")
+# elif n*-1 > 0:
+#     print("음")
+# n = int(input())
+# if n==0:
+#     print(0)
+# elif n>0:
+#     print("양")
+# elif n<0:
+#     print("음")
+
+#제어문 - 반복문
+#반목문 for, while
+#for문 - 반복해야할 횟수가 정해져 있을 때
+#while문 - 특정 조건을 만족할 때까지 반복해야할 때
+# for 변수 이름 in range(반복횟수):
+# #   반복해야할 코드
+
+#i의 역할
+# for i in range(10):
+#      print(i)
+
+# for i in range(10)
+#     1. i = 0
+#     2. i값은 10미만까지 가도록 한다.
+#     3.반복문 안의 코드를 전부 실행했다면 i값을 1더해주고 다시 반복
+
+#확장
+# for i in range(시작값, 끝값):
+#     반복코드
+#for i in range(시작값, 끝값, 증가값):
+#     반복코드
+
+#for i in range(3, 7):
+#      print(1)
+# for i in range(5, 15, 3):
+#     print(i)
+
+#별찍기 - 10단
+# for i in range(1, 11):
+#     print(i*"*")
