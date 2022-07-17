@@ -1,0 +1,104 @@
+#별짓기 - 20단 2칸씩 확장
+# for i in range( 2, 21 ,2 ):
+#     print(i*"*")
+
+#제어문 - 반복문 - while
+# while 조건:
+#     반복 코드
+
+# a=0
+# while a < 10:
+#     print(a)
+#     a+=1
+
+# a=0
+# while a < 21:
+#     print(a*"*")
+#     a+=2
+
+
+#while - 무한반복문
+# while True:
+#     반복코드
+
+#반복문 - 특수 함수
+#break, continue
+
+#break - 반복문 탈출 함수
+# for i in range(10):
+#     if i==7:
+#         break
+#     print(i)
+# print("a")
+
+#continue - 반복문 생략 함수
+# for i in range(10):
+#     if i==7:
+#         continue
+#     print(i)
+# print("a")
+
+
+#format 매서드 포맷, %포맷
+
+
+#매서드 포맷
+# print("안녕하세요. 저는 {}입니다. 제 나이는 {}살입니다.".format("김철수", 17))
+#
+# #퍼센트 포맷
+# print("안녕하세요. 저는 %s입니다. 제 나이는 %d살입니다."%("김철수", 17))
+
+#구구단
+
+# for i in range(2 , 10):
+#  for e in range(1 , 10):
+#     print(" %d X %d = %d"%(i , e , i*e))
+
+
+#import
+# import random
+#
+# a = random.randrange(1 , 10)
+# print(a)
+
+
+
+
+import random
+a=int(input())
+HP1=100
+MP1=100
+b=random.randrange(1 , 4)
+HP2=80
+MP2=120
+
+
+if a==1:
+    B = random.randrange(10, 31)
+    HP2=HP2-B
+    print("Player가 AI에게 %d피해를 주었습니다.  Player의 현재 남은 체력:%d  AI의 현재 남은 체력:%d"%(B , HP1 , HP2))
+if a==2:
+    C = random.randrange(30 , 41)
+    HP2=HP2-C
+    MP1=MP1-30
+    print("Player가 AI에게 %d피해를 주었습니다.  Player의 현재 남은 체력:%d  AI의 현재 남은 체력:%d" % (C, HP1, HP2))
+if a==3:
+    D = random.randrange(10 ,21)
+    HP1=HP1+D
+    MP1=MP1-30
+    print("Player가 자신의 HP1를 %d회복했습니다.  Player의 현재 남은 체력:%d  AI의 현재 남은 체력:%d"%(D , HP1, HP2))
+
+if b==1:
+    B = random.randrange(10, 31)
+    HP1=HP1-B
+    print(HP1)
+if b==2:
+    C = random.randrange(30 , 41)
+    HP1=HP1-C
+    MP2=MP2-30
+    print(HP1)
+if b==3:
+    D = random.randrange(10 ,21)
+    HP2=HP2+D
+    MP2=MP2-30
+    print(HP2)
