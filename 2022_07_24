@@ -1,0 +1,43 @@
+# a=int(input())
+# if a==0:
+#     print(0)
+# elif a%2==1:
+#     print("홀")
+# else:
+#     print("짝")
+
+# a=int(input())
+#
+# for i in range(1 , 10):
+#     print("%d * %d = %d" %(a , i , a*i))
+
+
+# a="treestar"
+# b="10114abcd"
+#
+#
+# a = (input("아이디 입력:"))
+# b = (input("비밀번호 입력:"))
+#
+# if a=="treestar" and b=="10114abcd":
+#     print("환영합니다 고객님.")
+# elif a !="treestar" or b !="10114abcd":
+#     print("아이디 또는 비밀번호가 잘못되었습니다. 다시 로그인 해주세요.")
+# else:
+#     print("아이디 또는 비밀번호가 잘못되었습니다. 다시 로그인 해주세요.")
+
+
+
+# ID_pre = "treestar0309"
+# PW_pre= "10119Loveey"
+# ID_ad = 0
+# PW_ad = 00
+#
+#
+# while ID_ad!=ID_pre or PW_ad !=PW_pre:
+#     ID_ad = input("아이디 입력:")
+#     PW_ad = input("비밀번호 입력:")
+#     if ID_ad==ID_pre and PW_ad ==PW_pre:
+#         print("환영합니다 고객님.")
+#     else:
+#         print("아이디 또는 비밀번호가 잘못되었습니다.다시 시도해 주세요")
