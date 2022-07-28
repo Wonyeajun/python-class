@@ -1,0 +1,75 @@
+# a = []
+# for i in range(1, 101):
+#     if (((i//10%3 ==0) and (i//10 !=0)) and ((i%10==3)or(i%10==6)or(i%10==9))):
+#         a.append('**')
+#     elif (((i//10%3 ==0) and (i//10 != 0)) or (i%10==3) or (i%10==6) or (i%10==9)):
+#         a.append('*')
+#     else:
+#         a.append(i)
+# print(a)
+
+#튜플 tuple
+
+#튜플의 생성
+# a = ()
+# b = (3,)
+# c = (52, 5, 9, 87)
+# d = 8,
+# e = 1, 2, 3
+# print(type(a), type(b), type(c), type(d), type(e))
+
+#튜플의 추가, 수정, 삭제
+#a = (1, 2, 3, 4)
+#a.append(5) 추가X
+#a[1] = 2# 수정X
+#print(a[2]) #접근 가능
+#del a[2] # 특정 위치의 값 삭제 X
+#del a #전체 삭제 가능
+#print(a)
+
+# a = [1, 2, 3, 4, 5, "abcd"]_# < - > (1, 2, 3, 4, 5, "abcd")
+# a = tuple(a)_# < - > list(a)
+# a[2]
+# print(a)
+
+
+#딕셔너리
+# a = {}
+# b = {"abc" : 13, 19 : "p", 3 : 10} # key값 : value값
+# b["u"] = 4 #값 추가
+# print (b[19])#값 접근
+# b["abc"] = "h"#값 수정
+# del b["abc"]#값 삭제
+# print(b)
+
+
+# import random
+# a=random.randrange(1, 11)
+# print(a)
+a = [0, 0, 0, 0, 0]
+# import random
+# for i in range(1, 101):
+#     b = random.randrange(1, 6)
+#     if b==1:
+#         a[0]=a[0]+1
+#     elif b == 2:
+#         a[1]=a[1]+1
+#     elif b == 3:
+#         a[2]=a[2]+1
+#     elif b == 4:
+#         a[3]=a[3]+1
+#     elif b == 5:
+#          a[4]=a[4]+1
+# print(a)
+
+# import random
+# lst = [0, 0, 0, 0, 0]
+# for i in range(100):
+#     a = random.randrange(1, 6)
+#     lst[a-1] +=1
+# print(lst)
+
+
+# for i in range(2, 10):
+#     for a in range(1, 10):
+#         print("%d X %d = %d"%(i, a, i*a))
