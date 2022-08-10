@@ -1,0 +1,93 @@
+# a = int(input())
+# if a==0:
+#     print("둘다 아니다")
+# elif a-1%2==0:
+#     print("홀")
+# elif a%2==0:
+#     print("짝")
+#집합 set
+#특징 : 값 중복 X
+# a = set([6, 7, 4, 2, 3])
+# b = {1, 2, 3, 4, 5}
+# print(a, b)
+# print(type(a), type(b))
+# c = [5, 7, 6, 5, 5, 4, 7, 1, 1, 1]
+# c = list(set(c))
+# print(c)
+
+
+
+# a = int(input())
+# if a == 0 or a >=10001:
+#     print("조건에 맞지 않습니다.")
+# elif a % (a%10 + (a//10%10) + (a//10//10) + (a//10//10//10//10)) == 0:
+#     print("하샤드 수입니다.")
+# elif a % (a%10 + (a//10%10) + (a//10//10) + (a//10//10//10//10)) != 0:
+#     print("하샤드 수가 아닙니다.")
+
+
+
+# n = int(input())
+# m = n
+# sum_num = 0
+# while True:
+#     sum_num += m % 10
+#     m = m // 10
+#     if m == 0:
+#         break
+# if n % sum_num == 0:
+#     print("하샤드 수입니다.")
+# else:
+#     print("하샤드 수가 아닙니다.")
+
+
+
+# n = int(input())
+# a = 0
+# for i in range(1 , n+1):
+#     if n%i == 0:
+#         a += i
+# print(a)
+
+
+
+# left = int(input())
+# right = int(input())
+# a = 0
+# b = 0
+# for i in range (left, right + 1):
+#     for u in range (1, left + 1):
+#         if i%u == 0:
+#             a += 1
+#     for e in range (1, right + 1):
+#         if i%e == 0:
+#             b += 1
+# if a%2 == 0:
+#     a*1
+# elif a%2 != 0:
+#     a*-1
+# if b%2 == 0:
+#     b*1
+# elif b%2 != 0:
+#     b*-1
+# print(left + right)
+
+
+
+
+
+
+# left = int(input())
+# right = int(input())
+# sum_num = 0
+# counter = 0
+# for i in range(left, right + 1):
+#     for j in range(1, i + 1):
+#         if i % j == 0:
+#             counter +=1
+#     if counter % 2 == 0:
+#         sum_num +=i
+#     else:
+#         sum_num -=i
+#     counter = 0
+# print(sum_num)
