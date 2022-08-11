@@ -1,0 +1,63 @@
+board = ["ㅁ","ㅁ","ㅁ", "ㅁ", "ㅁ", "ㅁ", "ㅁ", "ㅁ", "ㅁ"]
+import random
+AI = random.randrange( 1, 10)
+player = int(input())
+while True:
+    if player==AI:
+        print("다른 장소에 놔주십시오")
+    elif player == 1:
+        board[0] = "O"
+        print(board)
+    elif player == 2:
+        board[1] = "O"
+        print(board)
+    elif player == 3:
+        board[2] = "O"
+        print(board)
+    elif player == 4:
+        board[3] = "O"
+        print(board)
+    elif player == 5:
+        board[4] = "O"
+        print(board)
+    elif player == 6:
+        board[5] = "O"
+        print(board)
+    elif player == 7:
+        board[6] = "O"
+        print(board)
+    elif player == 8:
+        board[7] = "O"
+        print(board)
+    elif player == 9:
+        board[8] = "O"
+        print(board)
+        break
+    if AI == 1:
+        board[0] = "O"
+        print(board)
+    elif AI == 2:
+        board[1] = "O"
+        print(board)
+    elif AI == 3:
+        board[2] = "O"
+        print(board)
+    elif AI == 4:
+        board[3] = "O"
+        print(board)
+    elif AI == 5:
+        board[4] = "O"
+        print(board)
+    elif AI == 6:
+        board[5] = "O"
+        print(board)
+    elif AI == 7:
+        board[6] = "O"
+        print(board)
+    elif AI == 8:
+        board[7] = "O"
+        print(board)
+    elif AI == 9:
+        board[8] = "O"
+        print(board)
+        break
