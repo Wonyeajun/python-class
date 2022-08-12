@@ -1,0 +1,45 @@
+# num = [2, 1, 3, 4, 1]
+# result = []
+# for i in range(0, 5):
+#     for j in range(i+1, 5):
+#         result.append(num[i] + num [j])
+# print(result)
+# a = [1, 4, 5, 2]
+# for i in range(len(a)):
+#     print(a[i])
+
+
+
+#for문과 리스트의 조합
+# lst = [80, 90, 100]
+#
+# for temp in lst:
+#     print(temp)
+
+
+#정렬함수 - 퀵 정렬
+# lst = [4, 77, 1234, 98, 684, 908]
+#lst.sort() #오름차순
+# lst.sort(reverse = True) #내림차순
+# print(lst)
+
+
+#리스트 값 반전함수
+# lst = [3, 7, 2, 5]
+# lst.reverse()
+# print(lst)
+
+
+
+#최댓값, 최솟값 문제
+# lst = [33, -9, 678, 23, 1568, 70]
+# lst.sort(reverse=True)
+# print("최댓값은 %d입니다.그리고 최솟값은 %d입니다."%(lst[0], lst[len(lst)-1]))
+
+
+
+# \n : 줄바꿈 코드
+# \t : 들여쓰기 코드
+#\'' : 따옴표 코드
+#\"" : 큰 따옴표 코드
+# print("\"hello\npython.\' \t welcome!\"")
