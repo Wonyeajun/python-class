@@ -1,0 +1,75 @@
+#시퀀스 자료형
+#리스트, 튜플, 딕셔너리, 집합(set)
+#집합은 순서가 없으므로 특정 값에 접근이 불가능하다
+#집합의 추가 방법
+#st.add(13)
+#st.upate(14 5, 3, 1)
+
+# lst = [5, 44, 18, 253, 14, 78, 6, 99, 7, 14]
+# for i in range(0, len(lst)):
+#     print(lst[i])
+
+# num = int(input())
+# lst = [0, 1]
+# x = 0
+# while True:
+#     lst.append(lst[x] + lst[x+1])
+#     x +=1
+#     if len(lst) == num:
+#         break
+# print(lst)
+#
+#
+#
+#
+# inp = int(input())
+# lst = [0, 1]
+# for i in range(inp):
+#     lst.append(lst[i] + lst[i+1])
+# print(lst)          #피보나치의 수
+
+
+
+#객체 지향 프로그래밍
+#함수
+
+#함수 생성
+#def 함수이름(매개변수):
+#    실행코드
+
+# def test():
+#     print("hello")
+# 
+# test()# 함수 호출
+
+
+#매개변수가 있는 함수(실행에 값을 요구함)
+# def test2(a,b):
+#     print("result :", a+b)
+#
+#
+# test2(3, 2)
+# test2(0.1, 2.7)
+# test2("hi", "py")
+
+
+#반환값이 있는 함수 - return
+# def test3():
+#     return 100
+# 
+# print(test3())
+
+
+
+#여러 개의 값을 한 줄로 입력받기
+# a, b, c = map(int, input().split())
+# print(a, b, c)
+#리스트로 모두 저장하기
+# lst = list(map(int, input().split()))
+# a = input()
+# print(lst, a)
+
+
+#계산기
+#두 정수값과 하나의 기호를 입력받는다.
+#기호에 따라 두 정수를 게산하여 출력한다.
