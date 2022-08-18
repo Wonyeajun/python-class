@@ -1,0 +1,28 @@
+# def test2(a,b,c):
+#     print("result :", a+b+c)
+#
+#
+#
+# test2("wonhayun", "babo", "wooyoungwoo")
+
+# def test3(a,b,c):
+#     print("result :", a*b+c)
+#
+#
+#
+# test3(2, 51, 8)
+# test3(52,8, 99999)5
+
+
+
+
+# print("연산기호를 입력한뒤 두 수를 입력해주세요")
+# lst = list(map(int, input().split()))
+# if list[1] == "+":
+#      print(list[2] + list[3])
+# if list[1] == "-":
+#       print(list[2] - list[3])
+# if list[1] == "X":
+#      print(list[2] * list[3])
+# if list[1] == "/":
+#      print("몫은 %s이고 나머지는 %s입니다."%((list[2]//list[3])), (list[2] % list[3]))
