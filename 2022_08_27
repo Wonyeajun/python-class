@@ -1,0 +1,77 @@
+# def solution(survey, choices):
+#     answer = ''
+#     point = [0, -3, -2, -1, 0, 1, 2, 3]   #성격 유형 점수
+#     #음수와 양수로 유형을 구분
+#     type = {"RT": 0, "CF": 0, "JM": 0, "AN": 0}
+#
+#     for i in range(len(survey)):
+#         # 유형 타입에 없다면 유형 이름을 뒤집어주고, 더해줄 값도 변경해준다.
+#         if survey[i] not in type:
+#             type[survey[i][::-1]] += -point[choices[i]]
+#         else:
+#             type[survey[i]] += point[choices[i]]
+#
+#
+#     #최종 결과 값이 음수 또는 0이면 왼쪽유형, 양수면 오른쪽 유형을 정답에 넣어준다
+#     for j in type:
+#         if type [j] <= 0:
+#             answer += j[0]
+#         else:
+#             answer += j[1]
+#     return answer
+# survey = ["AN", "CF", "MJ", "RT", "NA"]
+# print(solution(["AN", "CF", "MJ", "RT", "NA"], [5, 3, 2, 7, 5]))
+
+
+
+
+
+
+
+
+
+
+import random
+answer = random.randint(0, 9)
+number = []
+for i in range(3):
+    answer = random.randrange(0, 10)
+    if answer not in number:
+        number.append(answer)
+cnt = 10
+
+while True:
+    a = input().split()
+    for i in range(len(a)):
+            a[i] = int(a[i])
+    for j in range(len(a)):
+        if answer in number:
+            if a[0] == number[0] or a[1] == number[1] or a[2] == number[2]:
+                print("Strike")
+            elif a[0] != number[0] and a[1] != number[1] and a[2] != number[2]:
+                print("Ball")
+        if answer not in number:
+            print("Foul")
+cnt -= 1
+if cnt == 0:
+    print("YOU LOSE")
+    print("정답은",answer)
+ exit()
+
+
+
+
+
+
+
+
+
+
+
+
+import random
+#로또 = 1 ~ 45까지 정수값 중에 6개를 선택해서 맞춘다. 중복 X
+lotto = []         #로또 번호를 담아줄 그릇
+
+while len(lotto) <= 5:
+    number = random.randint
