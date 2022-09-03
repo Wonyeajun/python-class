@@ -15,6 +15,9 @@
 # 절댓값 -> abs
 # 예) abs(-1)
 #
+# 제곱 -> power
+# 예) a =4 pow(a, 3)
+#
 # #자료형을 알려주는 함수 type(값)
 # print(type(2))
 # print(type(-3.1))
