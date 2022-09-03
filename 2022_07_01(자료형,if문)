@@ -12,6 +12,9 @@
 # 불 -> bool
 # 예) True False
 #
+# 절댓값 -> abs
+# 예) abs(-1)
+#
 # #자료형을 알려주는 함수 type(값)
 # print(type(2))
 # print(type(-3.1))
