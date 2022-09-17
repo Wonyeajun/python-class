@@ -40,6 +40,8 @@
 # print (b[19])#값 접근
 # b["abc"] = "h"#값 수정
 # del b["abc"]#값 삭제
+# print(b.items()) 딕셔너리의 (key, value)모아 리스트에 저장
+# b = {"c" : "3", "d" : "2"} # 추가
 # print(b)
 
 
