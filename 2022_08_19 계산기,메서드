@@ -64,6 +64,7 @@
 
 #print(st.remove(H)) # 원하는 값 삭제
 
+#print(a.extend(8, 6)) #넓히기
 
 # lst = [3, 6, 2, 1, "8a", "vd"]
 # st = "21d9csj2nrf_"
