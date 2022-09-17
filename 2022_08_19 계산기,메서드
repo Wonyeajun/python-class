@@ -62,6 +62,7 @@
 #
 # print(st.isalnum()) # 문자열이 알파벳과 숫자만 있다면 True 그렇지 않다면 False
 
+#print(st.remove(H)) # 원하는 값 삭제
 
 
 # lst = [3, 6, 2, 1, "8a", "vd"]
