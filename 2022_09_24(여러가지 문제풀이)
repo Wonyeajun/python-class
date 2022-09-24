@@ -1,0 +1,61 @@
+# n = 5
+# for i in range(n, 0, -1):
+#     print('*' * i + ' ' * n - i)
+
+
+# for i in range(1, n + 1): print(" " *(n - i) + "*" * (2 * (i - 1) + 1) )
+#
+# for j in range(1, n):
+#     print(" " * j + "*" * (2 * (n - j)-1))               #7번
+
+# for u in range(1, n + 1):
+#     print('*' * u + ' ' * (n -u) + ' ' * (n - u) + '*' * u)
+# for i in range(1, n):
+#     print('*' * (n - i) + ' ' * i + ' ' * i + '*' * (n - i))    # 8번
+
+
+# for i in range(n, 0, -1):
+#     print(' ' * (n - i) + '*' * (2 *i -1))
+# for j in range(1, n):
+#     print(' ' * (n - j - 1) + '*' * (2 * j +1))           9번
+
+#벌집 문제
+
+# n = int(input())
+# layer = 1 #층(지나온 방의 개수)
+# num = 1
+#
+# while num <n :
+#     layer +=1
+#     num += (layer -1) * 6
+# print(layer)
+
+#달팽이 문제
+
+# a, b, v = map(int, input().split())
+# cnt = 0
+# while v > 0:
+#     cnt += 1
+#     v = v - a
+#     if v <= 0:
+#         break
+#     v = v + b
+# print(cnt)
+
+#설탕 배달
+
+# n = int(input())      #설탕 총 무게
+#
+# cnt = 0
+#
+# while n >= 0:
+#     if n % 5 == 0:
+#         break
+#     n -= 3
+#     cnt += 1
+#
+# if n % 5 == 0:
+#     cnt += n // 5
+# else:
+#     cnt = -1
+# print(cnt)
