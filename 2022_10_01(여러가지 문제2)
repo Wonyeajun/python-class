@@ -1,0 +1,119 @@
+# def solution(letter):
+#     answer = ""
+#     letter = letter.split()
+#     morse = {
+#         '.-':'a','-...':'b','-.-.':'c','-..':'d','.':'e','..-.':'f',
+#         '--.':'g','....':'h','..':'i','.---':'j','-.-':'k','.-..':'l',
+#         '--':'m','-.':'n','---':'o','.--.':'p','--.-':'q','.-.':'r',
+#         '...':'s','-':'t','..-':'u','...-':'v','.--':'w','-..-':'x',
+#         '-.--':'y','--..':'z'}
+#     for i in letter:
+#         answer += morse[i]
+#     return answer
+#
+# L1 = ".... . .-.. .-.. ---"
+# L2 = ".--. -.-- - .... --- -."
+#
+# print(solution(L1))
+# print(solution(L2))                              모스부호
+
+# def cal(sik):   #sik = s = [3, 4]
+#     x,op,y = sik
+#     if op == '-':
+#         return int(x) - int(y)
+#     else:
+#         return int(x) + int(y)
+#
+#
+# def solution(quiz):
+#     answer = []
+#     for q in quiz:
+#         l,r = q.split('=') #계산식, r = 결과값
+#         s = l.split()      # s = [3, 4]
+#         print(s)
+#         if cal(s) == int(r):
+#             answer.append("O")
+#         else:
+#             answer.append('X')
+#     return answer
+#
+#
+#
+# q = ["3 - 4 = -3", "5 + 6 = 11"]
+# print(solution(q))                                  #OX퀴즈
+
+
+# num1 = int(input())
+# denum1 = int(input())
+# num2 = int(input())
+# denum2 = int(input())
+# num3 = num1
+# denum3 = denum1
+#
+#
+# denum1 = denum1 * denum2
+# num1 = num1 * denum2
+# denum2 = denum2 * denum3
+# num2 = num2 * denum3
+# for i in range(2, 1001, 1):
+#     if (num1 + num2) % i == 0 and denum1 % i ==0:
+#         (num1 + num2) / i
+#         denum1 / i
+#
+#  print("%d / %d"%(num1 + num2, denum1))             #분수의 덧셈 - 내 코딩
+
+
+
+
+
+# def solution(denum1, num1, denum2, num2):
+#     rdnum = denum1 * num2 + denum2 * num1           #분자 결과
+#     rnum = num1 * num2                              #분모 결과
+#     gcd = 0         #약분한 최대 공약수(Greatest Common Divisor, GCD)
+#     # 최대 공약수를 구한다.
+#
+#     for i in range(min(rdnum, rnum) ,1,-1):
+#         if rdnum % i == 0 and rnum % i == 0:
+#             gcd = i
+#             break
+#         if gcd != 0:
+#             rdnum //= gcd
+#             rnum //= gcd
+#
+#         return [rdnum,rnum]
+# denum1,num1,denum2,num2 = [1, 2, 3, 4]
+# print(solution(denum1, num1, denum2, num2))      #[5, 4]         #분수의 덧셈-답
+
+
+
+
+def solution(dartResult):
+    answer = 0
+    score = []
+    area = {"S" : 1, "D" : 2, "T" : 3}          #제곱을 받을 영역
+    for result in dartResult:
+        if len(score) == 0:
+            score.append(result)
+        elif result.isdigit():
+            if type(score[-1]) == str:
+                score.append(score.pop() + result)
+            else:
+                score.append(result)
+        elif result in area:
+            score.append(int(score.pop()) ** area[result])
+
+        elif result == '*':
+            if len(score) == 1:
+                score.append(int(score.pop()) * 2)
+            else:
+                num2 = score.pop()
+                num1 = score.pop()
+                score.append(int(num1)*2)
+                score.append(int(num2) * 2)
+        elif result == '#':
+            score.append(int(score.pop())* -1)
+
+    answer = sum(score)
+    return answer
+
+    d = "1S2D*3T"
