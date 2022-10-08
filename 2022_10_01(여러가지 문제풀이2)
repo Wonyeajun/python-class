@@ -115,5 +115,5 @@ def solution(dartResult):
 
     answer = sum(score)
     return answer
-
-    d = "1S2D*3T"
+print(solution("1T2D3D#"))
+    
