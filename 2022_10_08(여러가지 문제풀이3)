@@ -1,0 +1,84 @@
+# answer = []            #숨어있는 숫자들 더하기
+# b = []
+# my_string = input()  #"aAb1B2cC34oOp"
+# my_string = (",".join(my_string).split(","))
+# while True:
+#     for i in range(1, 10):
+#         if i in my_string:
+#             answer.append(i)
+#     if 1 and 2 and 3 and 4 and 5 and 6 and 7 and 8 and 9 not in my_string:
+#         break
+# a = 0
+# for i in range(len(my_string)):
+#     b.append(answer[a])
+#     a += 1                                            #내 코딩(실패)
+
+
+
+
+
+# def solution(my_string):
+#     answer = 0
+#     for i in my_string:
+#         if i.isalpha():
+#             my_string = my_string.replace(i, ' ')
+#     my_string = my_string.split()
+#     for i in my_string:
+#         answer += int(i)
+#     return answer
+# m = "aAb1B2cC34oOp"
+# print(solution(m))
+# ax = []
+# astr = []
+# trashcan = []
+# polynomial = "x + x + x"
+# polynomial = polynomial.split(' ')
+# print(polynomial)
+# for i in range(1, len(polynomial)):
+#     if (polynomial[i].isalnum()) == True:
+#         ax.append(i)
+#     else:
+#         trashcan.append(i)
+#     if (polynomial[i].isalpha()) == True:
+#         i = 1
+#         ax.append(i)
+#     else:
+#         trashcan.append(i)
+# print(ax)                                                      #내 코딩(실패)
+
+
+# def solution(polynomial):
+#     answer = ' '
+#     polynomial = polynomial.replace('+', '')
+#     p = polynomial.split()
+#     constant = 0           #상수
+#     term1 = []             #X붙은애들
+#     for i in p:
+#         if i.isdigit():
+#             constant += int(i)
+#         else:
+#             term1.append(i)
+# 
+#     term1.sort(key = lambda x : x[-1])
+#     result = []
+#     for t in term1:
+#         if len(result) == 0:
+#             result.append(t)
+#         elif t[-1] == result[-1][-1]:
+#             last = result.pop()
+#             if len(t) == 1:
+#                 t = '1' + t
+#             if len(last) == 1:
+#                 last = '1' + last
+#             result.append(str(int(t[:-1]) + int(last[:-1])) + last[-1])
+#         else:
+#             result.append(t)
+#     for i in result:
+#         answer += i + ' + '
+#     if constant != 0:
+#         return answer + str(constant)
+# 
+#     return answer[:-3]
+# 
+# p = "4x + 5 + 8x + 9 + 13x"
+# print(solution(p))
