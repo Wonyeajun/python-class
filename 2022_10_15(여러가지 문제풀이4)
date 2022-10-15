@@ -1,0 +1,110 @@
+# def solution(polynomial):
+#     answer = ' '
+#     xconstant = 0            #x의 상수항
+#     constant = 0             # 상수
+#     polynomial = polynomial.split(' + ')
+#
+#     for i in polynomial:
+#         if i.isdigit():        #참이면 constant에 정수로 더해주고
+#             constant += int(i)
+#         else:                  #X항일 경우
+#             if len(i) == 1:    # 길이가 1이면 x항의 차수는 1
+#                 xconstant +=1
+#             else:
+#                 xconstant += int(i[:-1])
+#
+#
+#     if xconstant == 1:         #x항의 차수가 1이면 x만
+#         answer += 'x'
+#     elif xconstant >= 2:       #x항의 차수가 2이상이면 차수x
+#         answer += str(xconstant)+'x'
+#
+#     if constant != 0 and len(answer) != 0:      #상수가 0이 아니고 x항이 존재할때
+#         answer += ' + ' + str(constant)
+#     elif constant != 0 and len(answer) == 0:     #상수가 0이 아니고 x항이 없을 때
+#         answer = str(constant)
+#
+#     return answer
+#
+# print(solution('x + x + x'))
+
+#---------------------------------------------------------------------------------------
+
+# def solution(keyinput, board):
+#     answer = []
+#     if keyinput == 'up':
+#        board[0] = board[0] +1
+#     elif keyinput == 'down':
+#         board[0] = board[0] -1
+#     elif keyinput == 'left':
+#          board[1] -= 1
+#     elif keyinput == 'right':
+#         board[1] -=1
+#         answer = board
+#     return answer
+# print(solution((11,11), ('left', 'right', 'up')))           #내 코딩(하다 맘(실패))
+#----------------------------------------------------------------------------------------------
+# def solution(keyinput, board):
+#     answer = [0, 0]
+#     for i in keyinput:
+#         if i == 'left':
+#             if answer[0] !=-(board[0]//2):
+#                 answer[0]-=1
+#         if i == 'right':
+#             if answer[0]!=board[0]//2:
+#                 answer[0]+=1
+#         if i == 'up':
+#             if answer[1]!=board[1]//2:
+#                 answer[1]+=1
+#         if i=='down':
+#             if answer[1]!=-(board[1]//2):
+#                 answer[1]-=1
+#     return answer
+# print(solution(["left", "right", "up", "right", "right"],[11,11]))
+#---------------------------------------------------------------------------------------------
+# def solution(keyinput, board):
+#     pos = [0, 0]
+#     limit_x = (board[0] - 1) // 2
+#     limit_y = (board[1] - 1) // 2
+#
+#     lr = {'left' : -1, "right" : 1}
+#     ud = {"up" : 1, "down" : -1}
+#
+#     for k in keyinput:
+#         if k in lr:
+#             if abs(pos[0] + lr[k]) > limit_x:
+#                 continue
+#             pos[0] += lr[k]
+#         elif k in ud:
+#             if abs(pos[1] + ud[k]) > limit_y:
+#                 continue
+#             pos[1] += ud[k]
+#     return pos
+# print(solution(["left", "right", "up", "right", "right"],[11,11]))
+
+
+# def solution(X,Y):
+#     answer = ' '
+#     for i in range(0, 10):
+#         X.count(str(i))
+#         Y.count(str(i))
+#
+#     return answer
+# print(solution("12321", "42531"))                        #내코딩
+#----------------------------------------------------------------------------------------------
+# def solution(X, Y):
+#     answer = ''
+#     mate = []                   #짝꿍이 될 수들을 모아줄 공간
+#     X_cnt = []           # X에 0~9까지의 수들이 몇개씩 있는지 넣어준다.
+#     Y_cnt = []           # Y에 0~9까지의 수들이 몇개씩 있는지 넣어준다.
+#     for i in range(10):
+#         X_cnt.append(X.count(str(i)))
+#         Y_cnt.append(Y.count(str(i)))
+#     print(X_cnt, Y_cnt)
+#     for j in range(10):
+#         if X_cnt[j] > 0 and Y_cnt[j] > 0:
+#             mate += [str(j)] * min(X_cnt[j], Y_cnt[j])
+# 
+#     mate.sort(reverse = True)
+#     return ''.join(mate)
+# print(solution(("12321"),("45231")))
