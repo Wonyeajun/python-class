@@ -106,5 +106,11 @@
 #             mate += [str(j)] * min(X_cnt[j], Y_cnt[j])
 # 
 #     mate.sort(reverse = True)
-#     return ''.join(mate)
-# print(solution(("12321"),("45231")))
+#     answer = ''.join(mate)
+#     if len(answer) == 0:
+#         return '-1'
+#     elif len(answer) == answer.count('0'):
+#         return '0'
+#     else:
+#          return answer
+# print(solution(a,b))
