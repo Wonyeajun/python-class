@@ -32,6 +32,9 @@
 
 
 #문자열 메서드
+#a = [4, 1, 3, 2]
+#a.insert(2, 5)           #중간 삽입 메서드
+#
 # st = "Hello Python 3!"
 # st2 = "     pycharm     "
 # print(st.upper()) #대문자 메서드
@@ -51,6 +54,7 @@
 # print(st2.rstrip()) # 오른쪽에서부터 반복되는 값 제거 메서드
 # print(st2.lstrip()) # 왼쪽에서부터 반복되는 값 제거 메서드
 # print(st2.strip()) # 양방향에서 반복되는 값 제거 메서드
+#
 #
 #
 # print(st.isupper()) #문자열이 대문자만 있다면 True 그렇지 않다면 False
