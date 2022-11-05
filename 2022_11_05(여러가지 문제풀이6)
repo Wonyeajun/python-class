@@ -1,0 +1,32 @@
+# n, m = map(int,input().split())       #3, 3
+# #둘째 줄부터 N개의 줄에 행렬 A의 원소 M개가 차례대로 주어진다.
+# #이어서 N개의 줄에 행렬 B의 원소의 M개가 차례대로 주어진다.
+# A = []
+# B = []
+# for _ in range(n):
+#     a = list(map(int,input().split()))
+#     A.append(a)
+# for _ in range(n):
+#     b = list(map(int,input().split()))
+#     B.append(b)
+#
+# for i in range(n-1):
+#     for j in range(m-1):
+#         print(A[i][j] + B[i][j], end = ' ')
+#     print()
+
+
+# max_num = 0 #최대값
+# row = -1
+# col = -1
+# #격자판은 9X9
+#
+# for i in range(9):
+#     _list = list(map(int,input().split()))
+#     if max(_list) > max_num:
+#         max_num = max(_list)
+#         row = i+1
+#         col = _list.index(max_num)+1
+#
+# print(max_num)
+# print(row,col)
