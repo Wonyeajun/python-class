@@ -1,0 +1,91 @@
+# def is_prime(n):
+#     for i in range(2, n):
+#         if n % i == 0:
+#             return False
+#     return True
+#
+# def solution(nums):
+#     answer = 0
+#
+#     for i,n0 in enumerate(nums):
+#         for j,n1 in enumerate(nums[i+1:]):
+#             for n2 in nums[i+j+2:]:
+#                 if is_prime(n0+n1+n2):
+#                     answer += 1
+#     return answer
+# print(solution([1,2,7,6,4]))                                    #(소수 만들기(정답))
+#----------------------------------------------------------------------------------
+#
+# import itertools
+# def is_prime(n):
+#     for i in range(2,n):
+#         if n % i == 0:
+#             return False
+#     return True
+#
+# def solution(nums):
+#     result = 0
+#     a = list(itertools.combinations(nums, 3))
+#     for i in a:
+#         if is_prime(sum(i)):
+#             result += 1
+#     return result
+#--------------------------------------------------------------------------------
+# def solution(number):
+#     answer = 0
+#     for i in range(0, len(number)):
+#         for j in range(i+1, len(number)):
+#             for k in range(j+1, len(number)):
+#                 if(number[i]+number[j]+number[k] == 0):
+#                     answer += 1
+#     return answer
+# print(solution([-2, 3, 0, 2, -5]))
+#----------------------------------------------------------------------------
+# def solution(a,b,n):
+#     answer = 0
+#     coke = []
+#     c = 0
+#     while True:
+#         if a > n:
+#             break
+#         coke.append(n // a *b)
+#         n = n % a + (n // a * b)
+#     for i in range(0, len(coke)):
+#          c+= coke[i]
+#     answer = c
+#     return answer
+# print(solution(3, 1, 20))                           #(콜라문제(정답)(내풀이)
+#-------------------------------------------------------------------------------------
+# def solution(a,b,n):
+#     total = 0          #빈 병으로 받은 콜라의 총 개수
+#     remain = 0         #교환하지 못하고 남은 콜라
+#
+#     while n >= a:
+#         # 0. 교환하지 못하고 남은 콜라의 개수를 구한다.
+#         remain = n % a
+#         # 1. 빈병을 새 병으로 교환
+#         n = n // a * b
+#         # 2. 받은 새병의 개수를 기억
+#         total += n
+#         n += remain
+#     return total
+# a = 2
+# b = 1
+# n = 20
+#
+#
+# print(solution(a,b,n))                                          #콜라문제(정답)(선생님풀이)
+#----------------------------------------------------------------------------
+def solution(babbling):
+    cnt = 0
+    can = ["aya", "ye", "woo", "ma"]
+    for i in range(0, len(babbling)):
+        for j in range(0, 4):
+            if can[j] in babbling[i]:
+                
+
+
+
+
+
+b = ["ayaye", "uuuma", "ye", "yemawoo", "ayaa"]
