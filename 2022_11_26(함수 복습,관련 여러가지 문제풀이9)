@@ -1,0 +1,82 @@
+# def solution(babbling):
+#     answer = 0
+#     can = ["aya", "ye", "woo", "ma"]
+#
+#     for bab in babbling:
+#         d = bab
+#         for c in can:
+#             i = d.find(c) + len(c)
+#             if d[i: i + len(c)] == c:
+#                 break
+#             d = d.replace(c, '1', 1)
+#         if d.isdigit():
+#             answer += 1
+#     return answer                             #(옹알이 문제(정답(선생님풀이)))
+# #------------------------------------------------------------------------------
+# def test(): # 매개변수 설정 X -> 인자를 못받음 -> 그냥 호출 가능
+#     pass
+# def test2(a,b): #매개변수 설정 o -> 인자를 받아야만 함 -> 인자가 있어야만 호출 가능
+#     pass
+# def test3():
+#     #함수 실행 코드 ~ ~ ~
+#     return 반환값 # 함수를 호출했을 때 값을 반환
+#함수의 입력값이 없는 경우  ex) pop(), upper(),lower()
+# def return_A():         #입력값이 없어도 함수의 실행이 가능하다.
+#     return "A"
+#
+# print(return_A())        #출력값 => 'A'
+# #함수의 반환값이 없는 경우    ex) append(), insert()
+# def print_string(string:str):         #입력값이 있지만 결과값을 반환하지는 않는다.
+#     print(string)
+#
+# print(print_string("Hello"))     #출력값 => "Hello"           <-함수의 실행문
+#                                  #          None             <-함수의 반환값
+#
+# #입력값, 반환값 둘 다 없는 경우
+#
+# def what_time_is_it_now():
+#     import datetime
+#     print(str(datetime.datetime.now())[:16])
+#----------------------------------------------------------------------
+#매개변수의 형태
+#매개변수의 개수가 몇 개가 필요할지 모를경우
+# def sum_nums(*args):
+#     total = 0
+#     for num in args:
+#         total += num
+#     return total
+# print(sum_nums(1, 2, 3, 4, 5, 6, 7, 8, 9))  #출력값 => 45
+#
+# #입력한 인수를 딕셔너리 형태로 사용하고 싶을 때
+# def print_dict(**kwargs):
+#     print(kwargs)
+#
+# print_dict(A = 1, B = 2)               #출력값 = {"A" : 1, "B" : 2}
+#------------------------------------------------------------------------
+#<<재귀 함수>>(Recursion Function)  ->#함수 안의 함수
+# def print_num(num):
+#     print(num, end = ' ')
+#     if num == 1: return
+#     print(end = '-> ')
+#     return print_num(num -1)
+# print_num(10)
+#-------------------------------------------------------------------------
+# def SumToN(n):
+#     if n == 1: return 1
+#     return n + SumToN(n-1)
+# print(SumToN(99))
+#----------------------------------------------------------------------------
+# def SumToN(n):
+#     if n == 1: return 1
+#     return n * SumToN(n-1)
+# print(SumToN())               #팩토리얼
+#-----------------------------------------------------------------------------
+n = int(input())
+def solution(n):
+    if n == 0:
+        return 0
+    elif n == 1 or n == 2:
+        return 1
+    else:
+        return solution(n-1) + solution(n-2)
+print(solution(n))
