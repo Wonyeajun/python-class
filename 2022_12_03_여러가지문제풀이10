@@ -1,0 +1,58 @@
+# def fib (n):
+#     if n == 1:
+#         return 0
+#     elif n == 2 or n == 3:
+#         return 1
+#     else:
+#         return fib(n-2) + fib(n-1)
+# print(fib(5))                    # 피보나치의 수
+#------------------------------------------------------------
+# def fib (n):
+#     if n == 1:
+#         return 1
+#     else:
+#        return  2 * fib(n-1) + 1
+# print(fib(4))              # 규칙 찾기 (성공(내 코딩))
+#-------------------------------------------------------------
+# fib = []  #리스트의 index번째에는 피보나치수열 F(index)의 값이 들어갈 것이다.
+# n = int(input())
+# for i in range(n+1):
+#     fib.append(0)
+# fib = [0 for _ in range(n+1)]   #22,23번째 줄과 같음
+# # F(n) = F(n-1) + F(n-2)
+#
+# fib[1] = 1
+# print(fib)
+# for i in range(2, n+1):
+#     fib[i] = fib[i - 1] + fib[i - 2]
+# print(fib[n])
+#------------------------------------------------------------------------
+# T = int(input())   #테스트케이스개수
+# def recursion(s, l, r):
+#     if l >= r: return 1, l+ 1
+#     elif s[l] != s[r]: return 0, l+1
+#     else: return recursion(s, l+1, r-1)
+# 
+# def isPalindrome(s):
+#     return recursion(s, 0, len(s)-1)
+# 
+# for _ in range(T):
+#     s = input()
+#     a = isPalindrome(s)
+#     print(a[0], a[1])#출력값 : 펠린드롬의 결과, recursion 함수의 결과 호출   #재귀의 귀재문제(해설)
+#-----------------------------------------------------------------------------
+# def solution(s):
+#     return recursion(s)
+# 
+# def recursion(s):
+#     if s == '1':
+#         return [recursion함수의 호출횟수, '0'을 제거한 횟수]
+#     return 재귀
+# 
+# 
+# s = "110010101001"
+# print(solution(s))
+# 
+# s = "111111"
+# recursion함수 호출 = 1회
+# 0제거 = 6개
