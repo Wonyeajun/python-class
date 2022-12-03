@@ -79,4 +79,4 @@ def solution(n):
         return 1
     else:
         return solution(n-1) + solution(n-2)
-print(solution(n))
+print(solution(n))              #피보나치의 수
