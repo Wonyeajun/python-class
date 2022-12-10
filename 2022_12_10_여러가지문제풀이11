@@ -1,0 +1,75 @@
+# def F(s, c, d):
+#     d += s.count('0')
+#     if s == '1':
+#         return [c, d]
+#     else:
+#         l = bin(s.count('1'))[2:]
+#         c += 1
+#         return F(l, c, d)
+#
+# def solution(s):
+#     return F(s, 0, 0)
+#
+# s = '110010101001'
+# print(solution(s))                                         #정답(선생님풀이) (이진법 관련 문제)
+#---------------------------------------------------------------------------------
+# def solution(s):
+#     cnt = 0
+#     answer = 0
+#     b = s.remove(0)
+#     while True:
+#         if s == 1:
+#             break
+#         answer += s % 2
+#         s = s//2
+#         cnt += 1
+#         return answer
+# s = '110010101001'
+# print(solution(s))                       #내 풀이(실패)
+#-----------------------------------------------------------------------------------
+# def solution(n):                                          #3진법 문제
+#     answer = 0
+#     a = ' '
+#     while True:
+#         if n < 3:
+#             a += n
+#             break
+#         n//=3
+#         a += n % 3
+#     while True:                                      #내 풀이(실패)
+#----------------------------------------------------------------------------------------
+# def solution(n):
+#     remain = [] #나머지 저장소
+#     answer = 0
+#     #3진수 변환
+#     while n != 0:
+#         remain.append(n % 3)
+#         n = n // 3
+#     #remain = [0, 0, 2, 1]
+#     l = 0 #지수
+#     remain.reverse()
+#     #remain = [1, 2, 0, 0]
+#     for j in range(len(remain)):
+#         if l == 0:
+#             answer += remain[j]
+#             l += 1
+#         else:
+#             answer += remain[j] * (3 ** l)
+#             l += 1
+#     return answer
+# n = 125
+# print(solution(n))                                   #선생님 풀이(정답)
+#----------------------------------------------------------------------------------------------
+def solution(n, arr1, arr2):
+    answer = []
+    a = []
+    b = []
+    for i in range(0, n+1):
+       a.append(bin(arr1[i]))
+       b.append(bin(arr2[i]))
+    for j in range(0, n+1):
+       a = a[j][2:len(a)]
+       b = b[j][2:len(b)]
+        
+
+    return answer
