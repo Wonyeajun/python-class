@@ -1,0 +1,83 @@
+# def solution(new_id):
+#     answer = ''
+#     # 1단계
+#     new_id = new_id.lower()
+#     # 2단계
+#     allow_array = ['-', '_', '.']
+#     for i in new_id:
+#         if not (i in allow_array or i.isalnum()):#(i.islower() or i.isdigit() or i == '-' or i == '_' or i == '.'):
+#             new_id = new_id.replace(i, '')
+#     # 3단계
+#     i = 0
+#     while i != len(new_id):
+#         if i == len(new_id) -1:
+#             break
+#         if new_id[i] == '.' and new_id[i + 1] == '.':
+#             new_id = new_id[:i +1] + new_id[i + 2:] #new_id.replace("..", ".")
+#         else:
+#             i += 1
+#     # 4단계
+#     new_id = new_id.strip('.')
+#     # 5단계
+#     if len(new_id) == 0:
+#         new_id += 'a'
+#     # 6단계
+#     if len(new_id) >= 16:
+#         new_id = new_id[:15]
+#         new_id = new_id.strip('.')
+#     # 7단계
+#     if len(new_id) <= 2:
+#         new = new_id[-1]
+#         while len(new_id) != 3:
+#             new_id += new
+#
+#     return  new_id
+# print(solution("...!@BaT#*..y.abcdefghijklm"))             # 신규 아이디 추천(선생님 풀이(정답))
+#--------------------------------------------------------------------------------------------
+# def solution(k, m, score):
+#     #사과 하나의 점수k가 최상품 1점이 최하품
+#     #사과 한상자의 가격: 사과의 개수 m * 상자의 사과중 가장 낮은점수 p
+#     score.sort()
+#     print(score)
+#     while len(score) % m:
+#         del score[0]
+#     answer = 0
+#
+#     for i in range(0, len(score), m):
+#         answer += m * score[i]
+#     return answer
+#
+# k,m,score = 4,3,[4, 1, 2, 2, 4, 4, 4, 4, 1, 2, 4, 2]
+# print(solution(k,m,score))             #과일 장수 문제(선생님 풀이(정답))
+#--------------------------------------------------------------------------------
+# def solution(t, p):
+#     answer = 0               #  5
+#     for i in range(0, len(t)-(len(p)-1)+1):
+#         if (t[i] * 100) + (t[i+1] * 10) + t[i+2] < p:
+#             answer += 1
+#         elif i+2 == len(t) - (len(p)-1)+1:
+#                 break
+#
+#     return answer
+# print(solution("500220839878", '7'))
+#t:3141592 / p:271 / 2                        #크기가 작은 부분 문자열 문제(내 코딩(거의 실패))
+#------------------------------------------------------------------------------------
+# def solution(t, p):
+#     length = len(p)     #length = 3
+#     cnt = 0
+#     for i in range(len(t) - length+1):
+#         if int(t[i:i+length]) <= int(p):
+#             cnt += 1
+#     return cnt
+# t,p = "3141592", "271"
+# print(solution(t,p))                         #크기가 작은 부분 문자열 문제(선생님 코딩(성공))
+#--------------------------------------------------------------------------------------------
+def solution(board):
+    answer = 0
+    for i in range(n):
+        for j in range(0, n):
+            if board[i][j] == 1:
+                board
+    return
+
+n = 5
