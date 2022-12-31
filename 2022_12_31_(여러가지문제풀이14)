@@ -1,0 +1,79 @@
+# def solution(board):
+#     answer = 0
+#     zone = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
+#     for i in range(0, len(board)):
+#         for j in range(0, len(board)):
+#             if board[i][j] == 1 and (i == 0 and j == 0):
+#                 zone[i][j] = 1
+#                 zone[i][j+1] = 1
+#                 zone[i+1][j+1] = 1
+#                 zone[i+1][j] = 1
+#             if board[i][j] == 1 and (i == 0 and j == len(board)):
+#                 zone[i][j]= 1
+#                 zone[i][j-1] = 1
+#                 zone[i+1][j-1] = 1
+#                 zone[i+1][j] = 1
+#             if board[i][j] == 1 and (i == len(board) and j == 0):
+#                 zone[i][j] = 1
+#                 zone[i-1][0] = 1
+#                 zone[i-1][j+1] = 1
+#                 zone[i][j+1] = 1
+#             if board[i][j] == 1 and (i == len(board) and j == len(board)):
+#                 zone[i][j] = 1
+#                 zone[i-1][j] = 1
+#                 zone[i-1][j-1] = 1
+#                 zone[i][j-1] = 1
+#
+#
+#     answer = zone
+#     return answer
+# board = [[1, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [1, 0, 0, 0, 1]]
+# print(solution(board))                      #내 코딩(모서리부분 위험지역 코딩 완료(나머진 못함))(실패)        <위험지역 문제>
+#-----------------------------------------------------------------------------------------------------------
+# def solution(numlist, n):
+#     answer = []
+#
+#     for i in range(len(numlist)):
+#         d = n - numlist[i]
+#         if d < 0:
+#             d = -d
+#         numlist[i] = [d,numlist[i]]
+#
+#     numlist.sort()
+#
+#     for i in range(len(numlist)):
+#         if numlist[i-1][0] == numlist[i][0] and numlist[i-1][1] < numlist[i][1]:
+#             answer.insert(i-1, numlist[i][1])
+#         else:
+#             answer.append(numlist[i][1])
+#     return answer
+# print(solution([1, 2, 3, 4, 5, 6], 4))                        #특별한 정렬 문제(선생님 풀이(정답))
+#-------------------------------------------------------------------------------------------------
+# def solution(numlist, n):
+#     answer = sorted(numlist,key = lambda x : (abs(x-n), n-x))
+#     return answer
+# print(solution([1, 2, 3, 4, 5, 6], 4))                               #다른 사람 풀이(정답)
+#---------------------------------------------------------------------------------------------------
+# def solution(numlist,n):
+#     numlist.sort(key = lambda x : (abs(n - x), -x))
+#     return numlist
+# print(solution([1, 2, 3, 4, 5, 6], 4))                                #선생님 다른 풀이(정답)
+#-----------------------------------------------------------------------------------------------------------
+def solution(k, score):
+    answer = []
+    check = []
+    for i in score:
+        index = 0
+        while len(check) > index:
+            if check[index] >= i:
+                break
+            index += 1
+        check.insert(index,i)
+        if len(check) < k:
+            answer.append(check[0])
+        else:
+            answer.append(check[-k])
+    return answer
+score = [10, 100, 20, 150, 1, 100, 200]
+k = 3
+print(solution(k,score))
