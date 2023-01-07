@@ -1,0 +1,90 @@
+# def solution(brown, yellow):
+#     answer = []
+#     a = 0
+#     a = (brown + yellow)
+#     num = []
+#     for i in range(1, a+1):
+#         if a % i == 0:
+#             num.append(i)
+#     if len(num) % 2 == 0:
+#         answer = [num[len(num) // 2], num[len(num) // 2 - 1]]
+#     else:
+#         answer = [num[(len(num) -1) // 2], num[(len(num) - 1) // 2]]
+#
+#
+#
+#
+#     return answer
+# print(solution(8, 1)) # 1 2 3 4 6 12            #내 코딩(정답) 카펫 문제
+#-----------------------------------------------------------------------------
+# def solution(brown, yellow):
+#     total = brown + yellow
+#     for tx in range(3, total // 3 +1):
+#         ty = total // tx
+#         if tx * ty == total and (tx-2) * (ty - 2) == yellow:
+#             return [max(tx,ty),min(tx,ty)]
+# print(solution(10, 2))                #선생님풀이(정답)
+#---------------------------------------------------------------------------
+# a = [1, 2, 3, 4]
+#
+# def test(x):
+#     x[0] = 500
+#
+# test(a)
+# print(a)
+#------------------------------------------------------------------------------
+# a = [1, 2, 3]
+# b = [4, 5, 6]
+# # id(object):id()함수는 object의 고유값(일련번호)를 리턴한다.
+# print("a = ",id(a))
+# print("b = ",id(b))
+#
+# b = a
+# print("a = ",id(a))
+# print("b = ",id(b))
+# print(b)
+#----------------------------------------------------------------------------
+#<정렬 알고리즘>
+#O(n제곱)인것 -> Big-O표기법으로,입력값이 증가함에 따라 시간이 n의 제곱 비율로 증가한다는 것
+#거품 정렬(Bubble Sort)
+#두 인접한 원소를 검사하여 교환하는 형식의
+#List_A = [5, 2, 3, 6, 8, 9, 7, 1, 4]
+# def Bubble_sort(_list:list, reverse = False):
+#     if reverse:
+#         for i in range(len(_list)-1):        # 반복 사이클은 원소 개수 -1번
+#             for j in range(len(_list)-1 - i):   # 2개씩 비교하므로 -1, 사이클마다 반복횟수 감소 -i
+#                 if _list[j] < _list[j + 1]:
+#                     tmp = _list[j]
+#                     _list[j] = _list[j + 1]
+#                     _list[j + 1] = tmp
+#                 print(_list)
+#     else:
+#         for i in range(len(_list)-1):        # 반복 사이클은 원소 개수 -1번
+#             for j in range(len(_list)-1 - i):   # 2개씩 비교하므로 -1, 사이클마다 반복횟수 감소 -i
+#                 if _list[j] > _list[j + 1]:
+#                     tmp = _list[j]
+#                     _list[j] = _list[j + 1]
+#                     _list[j + 1] = tmp
+#                 print(_list)
+# Bubble_sort(List_A,reverse = False)
+# print(List_A)
+#선택 정렬(Selection Sort)
+#오름차순 기준으로 주어진 리스트에서 최소값을 찾은 후 가장 왼쪽자리와 교환하는 형식의
+#정렬방법이며, 시간 복잡도는 O(n제곱)이다.
+def SelectionSort(_list : list):
+    for i in range(len(_list) - 1):               # 사이클 횟수
+        minimum = i
+        for j in range(i + 1, len(_list)): # j = 최솟값이 위치할 자리
+            if _list[minimum] > _list[j]:
+                minimum = j
+        tmp = _list[i]
+        _list[i] = _list[minimum]
+        _list[minimum] = tmp
+        print(_list)
+
+
+
+
+List_A = [3, 7, 2, 9, 1, 5, 6, 4, 8]
+SelectionSort(List_A)
+print(List_A)
