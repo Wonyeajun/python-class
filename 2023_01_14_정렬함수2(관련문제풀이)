@@ -1,0 +1,89 @@
+#삽입정렬(Insertion Sort)
+
+#삽입정렬이란?
+#자료 배열의 모든 요소를 앞에서부터 차례대로 이미 정렬된 배열 부분과 비교하여,자신의 위치를 찾아 삽입함으로써 정렬을 완성하는 알고리즘이며 시간 복잡도는 O(n제곱)이다.
+List_A = [3, 7, 2, 9, 1, 5, 6, 4, 8]
+# def Insertion_sort(_list: list, reverse = False):
+#     answer = []
+#     if reverse:
+#         for j in range(1, len(List_A)):
+#             for i in range(j, 0, -1):
+#                 if List_A[i] < List_A[i - 1]:
+#                     tmp = _list[i]
+#                     _list[i] = _list[i - 1]
+#                     _list[i - 1] = tmp
+#                 else:
+#                     break
+#     else:
+#         for j in range(1, len(List_A)):
+#             for i in range(j, 0, -1):
+#                 if List_A[i] > List_A[i - 1]:
+#                     tmp = _list[i]
+#                     _list[i] = _list[i - 1]
+#                     _list[i - 1] = tmp
+#                 else:
+#                     break
+#     return _list
+# print(Insertion_sort(List_A, reverse = True))            #정답(for문)
+#--------------------------------------------------------------------------------------------------------
+# def Insertion_sort(_list:list):
+#     for i in range(1, len(_list)):
+#         j = i
+#         while _list[j - 1] > _list[j] and j > 0:
+#             _list[j - 1], _list[j] = _list[j], _list[j - 1]
+#             j -= 1
+#     return _list
+# print(Insertion_sort(List_A))                         #정답(for while문)
+#--------------------------------------------------------------------------------------------------------
+# N = int(input())
+# a = []
+# for i in range(N + 1):
+#     a.append(str(input()))
+# for i in range(0, len(a)):
+#     for j in range(i + 1, len(a)):
+#         if a[i] == a[j]:
+#             del a[i]
+# a.sort()
+# print(a)                           #내 코딩(백준 문자열 정렬 문제(실패))
+#--------------------------------------------------------------------------------------------------------
+# n = int(input())
+#
+# word = []
+# for i in range(n):
+#     word.append(input())
+#
+# set_word = list(set(word))
+#
+# sort_word = []
+# for i in set_word:
+#     sort_word.append((len(i), i))
+#
+# result = sorted(sort_word)
+#
+# for len_word, word in result:
+#     print(word)                              #다른 사람 풀이(정답)
+#-------------------------------------------------------------------------------------------------------
+# arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# #다음 리스트의 원소값들을 10배로 변경하시오
+#
+# for i in range(len(arr)):
+#     print((lambda x : x * 10)(arr[i]))
+#
+# arr2 = list(map(lambda x : x * 10, arr))
+# print(arr2)                                     #람다 함수
+#-------------------------------------------------------------------------------------------------------------------
+# n = int(input())
+# 
+# 
+# strings = []
+# for _ in range(n):
+#     x = input()
+#     if x not in strings:
+#         strings.append(x)
+# 
+# print(strings)
+# #정렬기준: 1. 길이가 작은 순서, 2. 길이가 같으면 알파벳 순서
+# strings.sort(key = lambda x : (len(x),x))
+# for i in strings:
+#     print(i)                                        #람다 함수를 이용한 백준 문제(문자열 정렬)선생님 풀이(정답)
+#-----------------------------------------------------------------------------------------------------------------
