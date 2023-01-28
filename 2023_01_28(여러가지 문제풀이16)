@@ -1,0 +1,77 @@
+# def solution(ingredient):
+#     answer = 0
+#     for i in range(0, len(ingredient)):
+#         if i + 3 == len(ingredient) + 1:
+#             break
+#         if ingredient[i] == 1 and ingredient[i + 1] == 2 and ingredient[i + 2] == 3 and ingredient[i + 3] == 4:
+#             answer += 1
+#             del(ingredient[i],ingredient[i], ingredient[i], ingredient[i])
+#             continue
+#     return answer
+# print(solution([2, 1, 1, 2, 3, 1, 2, 3, 1]))         # 내풀이(22.2%정답)  햄버거 만들기 문제
+#---------------------------------------------------------------------------------------------------------------------
+# def solution(ingredient):
+#     making = []
+#     answer = 0
+#     for i in ingredient:
+#         making.append(i)
+#         if len(making) >= 4 and making[-4:] == [1, 2, 3, 1]:
+#             del making[-4:]
+#             answer += 1
+#     return answer
+# print(solution([2, 1, 1, 2, 3, 1, 2, 3, 1]))                   #선생님 풀이(100% 정답)
+#----------------------------------------------------------------------------------------------------------------------
+# def solution(s):
+#     answer = 0
+#     s =".".join(s).split(".")
+#     a = 1
+#     b = 1
+#     for i in range(0, len(s)):
+#         if len(s) == 1:
+#             answer += 1
+#             break
+#         if s[i] == s[i + 1]:
+#             a += 1
+#         elif s[i] != s[i + 1]:
+#             b += 1
+#         elif a == b:
+#             answer += 1
+#             s = s[(a + b): -1]
+#             a = b = 1
+#
+#     return answer                         #내 풀이 (실패) 문자열 나누기 문제
+#-------------------------------------------------------------------------------------------------------------------
+# def solution(s):
+#     answer = 0
+#     x = 0
+#     while s:
+#         same = 0
+#         diff = 0
+#         for i in range(len(s)):
+#             if s[x] == s[i]:
+#                 same += 1
+#             else:
+#                 diff += 1
+#             if same == diff:
+#                 answer += 1
+#                 same = diff = 0
+#                 s = s[i + 1:]
+#                 break
+#             if i == len(s) - 1:
+#                 s = ""
+#                 answer += 1
+#     return answer                                 #선생님 풀이(정답)
+#-------------------------------------------------------------------------------------------------------------
+def solution(board, moves):
+    bucket = []
+    answer = 0 #네오 = 1 / 무지 = 2 / 콘 = 3 / 어피치 = 4 / 프로도 = 5
+    for j in moves:
+        for i in range(len(board)):
+            if board[i][j] != 0:
+                bucket.append(board[i][j])
+                if len(bucket) >= 2:
+                    for u in range(0, len(bucket)):
+                        if bucket[u] == bucket[u + 1]:
+                            del bucket[u], bucket[u]
+                            answer += 1
+    return answer
