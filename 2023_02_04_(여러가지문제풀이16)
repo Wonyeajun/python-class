@@ -1,0 +1,53 @@
+# def solution(board, moves):
+#     bucket = []
+#     answer = 0 #네오 = 1 / 무지 = 2 / 콘 = 3 / 어피치 = 4 / 프로도 = 5
+#     for j in moves:
+#         for i in range(len(board)):
+#             if board[i][j] != 0:
+#                 bucket.append(board[i][j])
+#                 board[i][j] = 0
+#                 i = 0
+#                 j = 0
+#                 break
+#             if len(bucket) >= 2:
+#                 for u in range(0, len(bucket)):
+#                     if u == len(bucket) - 1:
+#                         break
+#                     if bucket[u] == bucket[u + 1]:
+#                         del bucket[u], bucket[u]
+#                         answer += 1
+#     return answer                                                        #내 풀이(실패)
+#----------------------------------------------------------------------------------------------------------------------
+# def solution(board, moves):
+#     answer = 0
+#     stack = []
+#     for col in moves:
+#         for row in board:
+#             if row[col - 1] != 0:
+#                 stack.append(row[col - 1])
+#                 row[col - 1] = 0
+#                 break
+#         if len(stack) >= 2:
+#             if stack[-1] == stack[-2]:
+#                 stack.pop()
+#                 stack.pop()
+#                 answer+= 2
+#     return answer
+#-----------------------------------------------------------------------------------------------------------------------------
+def solution(today, terms, privacies):
+    ty, tm, td = map(int, today.split('.'))
+    today = ty * 12 * 28 + tm * 28 + td
+    answer = []
+    term = {}
+    cnt = 0
+    for j in terms:
+        A, B = j.split(" ")
+        term[A] = B
+    for i in privacies:
+        a,b = i.split(" ")
+        ty2, tm2, td2, e = map(int, a.split("."))
+        deadline = ty2 * 12 * 28 + tm2 * 28 + td2
+        if term[e] * 28 + deadline >= today:
+            answer.append(cnt+1)
+        cnt += 1
+    return answer                                  #내 풀이
