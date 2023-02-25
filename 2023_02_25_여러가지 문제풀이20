@@ -1,0 +1,89 @@
+# N, S, P = map(int, input().split())
+# a = []
+# answer = 0
+# a.append(list(map(int, input().split())))
+# a.append(S)
+# print(a)
+# if N == 0:
+#     answer = 1
+#     print(answer)
+#     exit()
+# elif a[-1] == a[0][-1]:
+#     answer = -1
+#     print(answer)
+#     exit()
+# for _ in range(len(a)):
+#     while a[0][-1] < a[-1]:
+#         del a[0][-1]
+#     print(a)
+#     if a[-1] < a[0][-1] :
+#         a[0].append(a[-1])
+#     answer = len(a[0])
+# print(answer)     #내 코딩(성공!!!!!!!!!!!!!!!!!!!!!)
+#------------------------------------------------------------
+# n,newscore,p = map(int,input().split())
+# if n == 0:
+#     print(1)
+# else:
+#     scores = list(map(int, input().split()))
+#     if n == p and scores[-1] >= newscore:
+#         print(-1)
+#     else:
+#         rank = n + 1
+#         for i in range(n):
+#             if scores[i] <= newscore:
+#                 rank = i + 1
+#                 break
+#         print(rank)            #선생님 코딩(성공)
+#--------------------------------------------------------------
+# def myint(x, base = 10):
+#     answer = 0
+#     cnt = 2
+#     if base == 16:
+#         x.replace("A", "10")
+#         x.replace("B", "11")
+#         x.replace("C", "12")
+#         x.replace("D", "13")
+#         x.replace("E", "14")
+#         x.replace("F", "15")
+#         ",".join(x).split(",")
+#         answer += 1
+#         answer += int(x[-2]) * 16
+#         for i in range(3, len(x)):
+#             answer += int(x[-i]) ** cnt
+#             cnt += 1
+#     ",".join(x).split(",")
+#     if base == 2:
+#         answer += 1
+#         answer += int(x[-2]) * 2
+#         for i in range(3, len(x)):
+#             answer += int(x[-i]) ** cnt
+#             cnt += 1
+#     elif base == 8:
+#         answer += 1
+#         answer += int(x[-2]) * 8
+#         for i in range(3, len(x)):
+#             answer += int(x[-i]) ** cnt
+#             cnt += 1
+# print(myint("1010", 2))    # 내 코딩(실패 ㅠㅠ)
+#-----------------------------------------------------------
+# def myint(x, base = 10):
+#     hexa = {"A":10, "B":11, "C":12, "D":13, "E":14, "F":15}
+#     answer = 0
+#     x = x[::-1]
+#     for i in range(len(x)):
+#         if x[i].isalpha():
+#             answer += hexa[x[i]] * (base ** i)
+#         else:
+#             answer += int(x[i]) * (base ** i)
+#     return answer
+# print(myint("51511F", 16))  #선생님 코딩(성공)
+#-----------------------------------------------------------
+a = "Hellx World"
+def myfind(string, substr, start = 0, end = -1):
+    if end == -1:
+        end = len(string)
+   for i in range(start, end):
+       if string[i] == substr[0]:
+           return i
+print(myfind(a, "lo"))
