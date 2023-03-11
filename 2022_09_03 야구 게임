@@ -32,39 +32,38 @@
 #     print("정답은",answer)
 # exit()
                                                #내 코딩(실패)
-# import random
-# answer = []
-#
-# while len(answer) < 3:
-#     number = random.randint(0, 9)
-#     if number not in answer:
-#         answer.append(number)
-# cnt = 10
-# print(answer)
-# ball = 0
-# strike = 0
-#
-# while True:
-#     a = list(map(int, input("숫자 3개를 입력하시오:").split()))
-#     print()
-#     cnt -=1
-#     print("남은 기회 %d" % cnt)
-#     if answer == a:
-#         print("Correct! You Win!")
-#         exit()
-#     if cnt == 0:
-#         print("You lose")
-#         print("정답 : ", answer)
-#         exit()
-#     for i in range(len(a)):
-#         if a[i] in answer:
-#             ball +=1
-#             if a[i] == answer[i]:
-#                 ball -= 1
-#                 strike += 1
-#     if ball == strike == 0:
-#         print("Foul!")
-#     else:
-#         print("Ball: %d, Strike: %d" % (ball, strike))
-#     ball = 0
-#     strike = 0
+import random
+answer = []
+
+while len(answer) < 3:
+    number = random.randint(0, 9)
+    if number not in answer:
+        answer.append(number)
+cnt = 10
+ball = 0
+strike = 0
+
+while True:
+    a = list(map(int, input("숫자 3개를 입력하시오:").split()))
+    print()
+    cnt -=1
+    print("남은 기회 %d" % cnt)
+    if answer == a:
+        print("Correct! You Win!")
+        exit()
+    if cnt == 0:
+        print("You lose")
+        print("정답 : ", answer)
+        exit()
+    for i in range(len(a)):
+         if a[i] in answer:
+            ball +=1
+            if a[i] == answer[i]:
+                ball -= 1
+                strike += 1
+    if ball == strike == 0:
+        print("Foul!")
+    else:
+        print("Ball: %d, Strike: %d" % (ball, strike))
+    ball = 0
+    strike = 0
