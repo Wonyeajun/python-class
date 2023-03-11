@@ -1,0 +1,59 @@
+# apart = []
+# def make_apart(층:int,호:int):
+#     a = []
+#     for i in range(1, 층 + 1):
+#         for j in range(1, 호 + 1):
+#             a.append('%s호'%(i * 100 + j))
+#         apart.append(a)
+#         a = []
+#
+#     return apart
+# 층 = int(input())
+# 호 = int(input())
+# print(make_apart(층,호)) #[['101호', '102호'], ['201호', '202호'], ['301호', '302호']
+#
+# apartment = make_apart(층,호)
+# info = [["1명", "3명"], ["2명", "0명"], ["3명", "4명"], ["8명", "62명"],["8명", "7명"]]
+# def apartment_info(apartment,info):
+#     answer = []
+#     a = {}
+#     for j in range(0, 층):
+#         for i in range(0, 호):
+#             a[apart[j][i]] = info[j][i]
+#         answer.append(a)
+#         a = {}
+#     return answer
+# print(apartment_info(apartment,info))                            #내 코딩(성공)
+# #---------------------------------------------------------------------------------------------------------------------
+# apart_info = info
+# new_info = [["203호", "2명"],["101호", "3명"],["104호", "4명"],["304호", "5명"]]
+# def update_info(apart_info,new_info):
+#     for f, i in new_info:
+#         floor = int(f[::3])
+#         apart_info[floor - 1][f] = i
+#     return apart_info
+# print(apart_info, new_info)            #(추가 코딩이나 내가 전에 한 코드와 맞지 않음)
+#-----------------------------------------------------------------------------------------------------------------------
+def solution(keymap, targets):
+    answer = []
+    a = []
+    b = []
+    c = 0
+    for i in range(0, len(keymap)):
+       a.append(",".join(keymap[i]).split(","))
+    for i in range(0, len(targets)):
+        b.append(",".join(targets[i]).split(","))
+    if targets not in keymap:
+        answer.append(-1)
+        exit()
+    print(a)
+    print(b)
+    for i in range(0, len(targets)):
+        for j in range(0, len(keymap)):
+            if targets[i] == keymap[0][j] or targets[i] == keymap[1][j]:
+                c += j + 1
+                i += 1
+    answer.append(c)
+    return answer
+print(solution(["ABACD", "BCEFD"], ["ABCD", "AABB"]))
+print(solution(["AGZ", "BSSS"], ["ASA", "BGZ"]))
