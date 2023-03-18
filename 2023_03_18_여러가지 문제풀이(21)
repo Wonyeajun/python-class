@@ -1,0 +1,35 @@
+# def solution(keymap, targets):
+#     answer = []
+#     a = []
+#     b = []
+#     c = 0
+#     for i in range(0, len(keymap)):
+#         a.append(",".join(keymap[i]).split(","))
+#     for i in range(0, len(targets)):
+#         b.append(",".join(targets[i]).split(","))
+#     print(a)
+#     print(b)
+#     for i in range(0, len(targets)):
+#         for j in range(0, len(keymap[1])):
+#             if targets[i][0] == keymap[0][j] or targets[i][0] == keymap[1][j]:
+#                 c += j + 1
+#                 i += 1
+#     answer.append(c)
+#     return answer
+# print(solution(["ABACD", "BCEFD"], ["ABCD", "AABB"]))
+# print(solution(["AGZ", "BSSS"], ["ASA", "BGZ"]))               #내 풀이(실패)
+#---------------------------------------------------------------------------------------------
+def solution(wallpaper):
+    answer = []
+    for i in wallpaper:
+        ",".join(i).split(",")
+    for i in range(0, len(wallpaper[0])):
+        for j in range(0, len(wallpaper)):
+            if wallpaper[j][i] == "#":
+                answer.append(j)
+                answer.append(i)
+    for i in range(1, len(wallpaper[0])):
+        for j in range(0, len(wallpaper)):
+            if wallpaper[j][-i] == "#":
+
+    return answer
