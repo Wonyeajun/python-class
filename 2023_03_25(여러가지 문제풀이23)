@@ -1,0 +1,73 @@
+# def solution(wallpaper):
+#     answer = []
+#     a = []
+#     Flag = 0
+#     for i in range(len(wallpaper)):
+#         if "#" in wallpaper[i]:
+#             answer.append(i)
+#             break
+#     for i in wallpaper:
+#         a.append((",".join(i).split(",")))
+#     print(a)
+#     for i in range(len(a[0])):
+#         for j in range(len(a)):
+#             if a[j][i] == "#":
+#                 answer.append(i)
+#                 Flag = 1
+#                 break
+#         if Flag == 1:
+#             Flag = 0
+#             break
+#     answer.append(len(a))
+#     for i in range(len(a[0]) - 1, 0, -1):
+#         if i -1 == 0:
+#             answer.append(i)
+#             break
+#         for j in range(len(a)):
+#             if a[j][i] == "#":
+#                 answer.append(i + 1)
+#                 Flag = 1
+#                 break
+#         if Flag == 1:
+#             Flag = 0
+#             break
+#     return answer
+# print(solution([".#...", "..#..", "...#."]))
+# print(solution(["..........", ".....#....", "......##..", "...##.....", "....#....."]))
+# print(solution([".##...##.", "#..#.#..#", "#...#...#", ".#.....#.", "..#...#..", "...#.#...", "....#...."]))
+# print(solution(["..", "#."]))          #내 풀이(거의 성공.....힘들었다.........)
+#---------------------------------------------------------------------------------------------------
+# def solution(s,skip,index):
+#     answer = ''
+#     alphabet = "abcdefghijklmnopqrstuvwxyz"
+#     for sk in skip:
+#         alphabet = alphabet.replace(sk,"")
+#     for i in s:
+#         idx = alphabet.find(i)
+#         idx += index
+#         answer += alphabet[idx % len(alphabet)]
+#     return answer
+# print(solution("aukks", "wbqd", 5))          #선생님 풀이(정답)(난 못 풀었다........ㅠㅠ)
+#--------------------------------------------------------------------------------------------------------------
+def solution(k, tangerine):
+    answer = 0
+    tangerinee = []
+    a = []
+    for i in range(0, len(tangerine) - 1):
+        for j in range(i + 1, len(tangerine) - 1):
+            if tangerine[i] == tangerine[j]:
+                a.append(tangerine[i])
+                a.append(tangerine[j])
+                tangerine.append(a)
+                del tangerine[i]
+                del tangerine[j]
+                i -= 1
+    answer +=len(tangerinee)  # tangerinee = [[3, 3],[2, 2]], k = 6
+    if len(tangerinee) * 2 < k:
+        while True:
+            answer += 1
+            if answer - len(tangerinee) == k - len(tangerinee) * 2:
+                break
+
+    return answer
+print(solution(6, [1, 3, 2, 5, 4, 5, 2, 3]))
