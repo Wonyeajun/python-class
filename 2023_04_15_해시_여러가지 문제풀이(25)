@@ -1,0 +1,74 @@
+# def solution(clothes):
+#     answer = 0
+#     closet = []
+#     multy_clothes = 0
+#     Flag = 0
+#     nomeaning = 0
+#     for i in range(len(clothes)):
+#         if clothes[i][1] not in closet:
+#             closet.append(clothes[i][1])
+#         elif (clothes[i][1] in closet and Flag == 0) or (Flag == 1 and clothes[i][1] in closet and clothes[i][1] != clothes[i-1][1]):
+#             multy_clothes += 2
+#             Flag = 1
+#         elif Flag == 1 and clothes[i][1] in closet:
+#             multy_clothes += 1
+#     for i in range(len(clothes)):
+#         if i == len(clothes) - 1:
+#             break
+#         elif clothes[i] == clothes[i + 1]:
+#             nomeaning += 1
+#     if multy_clothes == len(clothes):
+#         answer += len(clothes)
+#         return answer
+#     else:
+#         answer += len(clothes) + multy_clothes                              #내 코딩(실패 ㅠㅠㅠ)
+#         return answer
+# print(solution([["crow_mask", "face"], ["blue_sunglasses", "face"], ["smoky_makeup", "face"]]))
+# print(solution([["yellow_hat", "headgear"], ["blue_sunglasses", "eyewear"], ["green_turban", "headgear"]]))
+# print(solution([["yellow_hat", "headgear"], ["blue_sunglasses", "eyewear"], ["green_turban", "headgear"], ["black_sunglasses", "eyewear"]]))
+# #=--------------------------------------------------------------------------------------------------------------------------------------------------
+# def solution(clothes):
+#     answer = 1
+#     dictionary = {}
+#     for c in clothes:
+#         if c[-1] in dictionary:
+#             dictionary[c[-1]] += 1
+#         else:
+#             dictionary[c[-1]] = 1
+#     for k,v in dictionary.items():
+#         answer *= (v + 1)
+#     return answer - 1                     #선생님 코딩(성공)
+# print(solution([["crow_mask", "face"], ["blue_sunglasses", "face"], ["smoky_makeup", "face"]]))
+# print(solution([["yellow_hat", "headgear"], ["blue_sunglasses", "eyewear"], ["green_turban", "headgear"]]))
+# print(solution([["yellow_hat", "headgear"], ["blue_sunglasses", "eyewear"], ["green_turban", "headgear"], ["black_sunglasses", "eyewear"]]))
+#----------------------------------------------------------------------------------------------------------------------------------------------
+def solution(players, callings):
+    answer = []
+    a = {}
+    k = len(players)
+    for i in range(len(players)):
+        a[players[i]] = len(players) - i
+    for i in callings:
+        for j in players:
+            if i == j:
+                for u in range(0, len(a) - 1):
+                    if a[players[u]] + 1 == a[j]:
+                        a[u] -= 1
+                        a[j] += 1
+    sorted(a, key = lambda x : x[1], reverse = True)
+    for key,value in a.items():
+        if value == k:
+            answer.append(key)
+            k-= 1
+    return answer
+print(solution(["mumu", "soe", "poe", "kai", "mine"],	["kai", "kai", "mine", "mine"]))
+#-------------------------------------------------------------------------------------------------------------
+def solution(n):
+    answer = 0
+    while n!=0:
+        if n%2 ==0:
+            n = n//2
+        else:
+            n -=1
+            answer+=1
+    return answer
