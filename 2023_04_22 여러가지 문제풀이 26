@@ -1,0 +1,56 @@
+# def solution(fees, records):
+#     answer = []
+#     a = []
+#     b = []
+#     cars = {}
+#     for i in range(len(records)):
+#         a.append(records[i].split(" "))
+#     for i in range(len(records)):
+#         b.append(",".join(a[0][i]).split(","))
+#
+#     return answer                         #내 풀이(도저히 모르겠다)
+#-------------------------------------------------------------------------------------------
+def How_much(minutes, fees):
+    total_fee = 0
+    if minutes <= fees[0]:
+        total_fee = fees[1]
+    else:
+        if (minutes - fees[0]) % fees[2] == 0:
+            total_fee = ((minutes - fees[0]) // fees[2] * fees[3] + fees[1])
+        else:
+            total_fee = ((minutes - fees[0]) // fees[2] * fees[3] + fees[1] + fees[3])
+    return total_fee
+def solution(fees, records):
+    answer = []
+    intime = {}
+    parking = {}
+
+    for record in records:
+        time, number, log = record.split()
+        hour, minute = time.split(":")
+        minutes = int(hour) * 60 + int(minute)
+        if log == "IN":
+            intime[number] = minutes
+        elif log == "OUT":
+            if number not in parking:
+                parking[number] = minutes - intime[number]
+            else:
+                parking[number] += minutes - intime[number]
+            del intime[number]
+    for number, minute in intime.items():
+        if number not in parking:
+            parking[number] = 23 * 60 + 59 - minute
+        else:
+            parking[number] += 23 * 60 + 59 - minute
+    for number,time in sorted(parking.items()):
+        answer.append(How_much(time,fees))
+    return answer
+print(solution( [180, 5000, 10, 600],	["05:34 5961 IN", "06:00 0000 IN", "06:34 0000 OUT", "07:59 5961 OUT", "07:59 0148 IN", "18:59 0000 IN", "19:09 0148 OUT", "22:59 5961 IN", "23:00 5961 OUT"]))
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def solution(land):
+    answer = 0
+    not accepted = 4
+    for i in range(len(land)):
+        answer += max(land[i])
+        not accepted = land.index(max(land[i]))
+    return answer
