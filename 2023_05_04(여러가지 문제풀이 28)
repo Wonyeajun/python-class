@@ -1,0 +1,66 @@
+def solution(land):
+    answer = 0
+    for i in range(len(land)):
+        c = 0
+        d = 0
+        if land[i][0] == max(land[i]):
+            
+        if i == 0:
+            a = []
+            b = []
+            a.append(land[0])
+            b.append(land[1])
+            if 
+    return answer         (내 풀이(오답))
+---------------------------------------------------------
+def solution(land):
+    answer = 0
+    for i in range(1, len(land)):
+        for j in range(len(land[i])):
+            land[i][j] += max(land[i -1][:j] + land[i - 1][j + 1:])
+    return max(land[-1])     (정답)
+--------------------------------------------------------------------------------------------
+# def solution(lottos, win_nums):
+#     answer = []
+#     dict_ = {6:1,5:2,4:3,3:4,2:5,1:6,0:6}
+#     a = 0
+#     b = 0
+#     for i in range(len(lottos)):
+#         if lottos[i] in win_nums:
+#             a += 1
+#     b += lottos.count(0)
+#
+#     answer.append(dict_[a + b])
+#     answer.append(dict_[a])
+#     return answer
+# print(solution([44, 1, 0, 0, 31, 25],	[31, 10, 45, 1, 6, 19]))
+# print(solution([0, 0, 0, 0, 0, 0],	[38, 19, 20, 40, 15, 25]))
+#----------------------------------------------------------------------------------------------------
+def solution(str1, str2):
+    answer = 0
+    str1 = str1.lower()
+    str2 = str2.lower()
+    a = []
+    b = []
+    c = []
+    d = 0
+    for i in range(len(str1) - 1):
+        if str1[i:i + 2].isalpha():
+            a.append(str1[i:i + 2])
+    for i in range(len(str2) - 1):
+        if str2[i:i + 2].isalpha():
+            b.append(str2[i:i+2])
+    print(a,b)
+    for i in range(min(len(a),len(b))):
+            d += 1
+            if a[i] in b:
+                c.append(a[i])
+    print(c)
+    if d == 0:
+        answer = 65536
+    else:
+        answer += int((len(c) // (len(a) + len(b)) - (len(c))) * 65536)
+
+    return answer
+print(solution('FRANCE',	'french'))
+print(solution('aa1+aa2',	'AAAA12'))
