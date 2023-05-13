@@ -1,0 +1,53 @@
+# def solution(str1, str2):
+#     answer = 0
+#     str1 = str1.lower()
+#     str2 = str2.lower()
+#     a = []
+#     b = []
+#     c = []
+#     d = 0
+#     e = 0
+#     for i in range(len(str1) - 1):
+#         if str1[i:i + 2].isalpha():
+#             a.append(str1[i:i + 2])
+#     for i in range(len(str2) - 1):
+#         if str2[i:i + 2].isalpha():
+#             b.append(str2[i:i+2])
+#     print(a,b)
+#     for i in range(min(len(a),len(b))):
+#         d += 1
+#         if a[i] in b:
+#             c.append(a[i])
+#     print(c)
+#     for i in range(len(c)):
+#         if c.count(c[i]) != min(a.count(c[i]), b.count(c[i])):
+#             while c.count(c[i]) == 1:
+#                 e += 1
+#             del c[0]
+#     if d == 0:
+#         answer = 65536
+#     else:
+#         answer += int((len(c)) / ((len(a) + len(b)) - len(c)) * 65536)
+#
+#     return answer
+# print(solution('FRANCE',	'french'))
+# print(solution('aa1+aa2',	'AAAA12'))
+#----------------------------------------------------------------------------------------------------
+def solution(n, m):
+    answer = []
+    for i in range(n, 0, -1):
+        if n % i == 0 and m % i == 0:
+            answer.append(i)
+            break
+    answer.append(int((m * n) / answer[0]))
+
+    return answer
+print(solution(3, 12))
+print(solution(2, 5))
+#----------------------------------------------------------------------------------------------------
+def solution(n, t, m, p):
+    answer = ''
+    NUM = "0123456789ABCDEF"
+    for i in range(t):
+        
+    return answer
