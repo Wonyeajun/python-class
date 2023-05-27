@@ -1,0 +1,57 @@
+# def solution(msg):
+#     answer = []
+#     DICT = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ",range(1,27)))
+#     num = 27                           #새로 추가할 글자의 색인번호
+#     i = 0                              #msg에서 내가 볼 문자의 idx
+#     while i < len(msg):
+#         j = i + 1     # j = 1
+#         while msg[i:j] in DICT:
+#             j += 1
+#             if j > len(msg):
+#                 break
+#         if msg[i:j] not in DICT:
+#             DICT[msg[i:j]] = num
+#         num += 1
+#         answer.append(DICT[msg[i:j - 1]])
+#         i = j - 1
+#     return answer
+# print(solution('TOBEORNOTTOBEORTOBEORNOT'))
+# print(solution("KAKAO"))
+#-----------------------------------------------------------------------------------------------------------------------
+# def solution(files):
+#     answer = []
+#     H_N_F = []
+#     for file in files:
+#         HEAD = ''
+#         NUMBER = ''
+#         for i in range(len(file)):
+#             if file[i].isdigit():
+#                 HEAD = file[:i]
+#                 j = i
+#                 while file[j].isdigit():
+#                     j += 1
+#                     if j >= len(file):
+#                         break
+#                 NUMBER = file[i:j]
+#                 break
+#         H_N_F.append([HEAD.lower(),int(NUMBER),file])
+#     H_N_F.sort(key = lambda x : x[:2])
+#     for hnf in H_N_F:
+#         answer.append(hnf[-1])
+#     return answer
+# print(solution(["img12.png", "img10.png", "img02.png", "img1.png", "IMG01.GIF", "img2.JPG"]))
+#-----------------------------------------------------------------------------------------------------------------------
+def solution(book_time):
+    answer = 0
+    Time = []
+    for i in range(len(book_time)):
+        a = []
+        b = 0
+        c = 0#a = [[16,40], [18,20]]
+        a.append(book_time[i][0].split(":"))
+        a.append(book_time[i][1].split(":"))
+        b += int(a[0][0] * 60 + a[0][1])
+        c += int(a[1][0] * 60 + a[1][1])
+        Time.append([b,c])
+    return answer
+print(solution([["15:00", "17:00"], ["16:40", "18:20"], ["14:20", "15:20"], ["14:10", "19:20"], ["18:20", "21:20"]]))
