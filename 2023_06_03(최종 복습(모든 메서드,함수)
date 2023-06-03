@@ -1,0 +1,79 @@
+# def solution(book_time):
+#     answer = 0
+#     Time = []
+#     Hotel = []
+#     cnt = 0
+#     for i in range(len(book_time)):
+#         a = []
+#         b = 0
+#         c = 0 # a = [[16,40], [18,20]]
+#         a.append(book_time[i][0].split(":"))
+#         a.append(book_time[i][1].split(":"))
+#         b += int(a[0][0] * 60 + a[0][1])
+#         c += int(a[1][0] * 60 + a[1][1])
+#         Time.append([b,c])   # Time = [[900, 1020], [1000, 1100],[860, 920], [850, 1160],[1100,1280]]
+#     for i in range(len(Time)):
+#         if cnt == 0:
+#             answer += 1
+#             Hotel.append(Time[i])
+#         for j in range(len(Hotel)):
+#             if Time[i][0] >= int(Hotel[j][1]) + 10:
+#                     Hotel.append(Time[i])
+#             else:
+#                 answer += 1
+#                 Hotel.append(Time[i])
+#         cnt += 1
+#     return answer                                                 #내 풀이(실패.....ㅠㅠㅠ)
+# print(solution([["15:00", "17:00"], ["16:40", "18:20"], ["14:20", "15:20"], ["14:10", "19:20"], ["18:20", "21:20"]]))
+#------------------------------------------------------------------------------------------------------------------
+# def solution(book_time):   #book_time = [대실 시작 시각, 대실 종료 시각]
+#     # 퇴실 후 10분간 청소시간이 있다.
+#     for i in range(len(book_time)):
+#         for j in range(len(book_time[i])):
+#             h,m = book_time[i][j].split(":")
+#             minute = int(h) * 60 + int(m)
+#             book_time[i][j] = minute
+#     book_time.sort()
+#     out_time = []
+#     for IN,OUT in book_time:
+#         if not book_time:
+#             book_time.append(OUT + 10)
+#         else:
+#             for i in range(len(out_time)):
+#                 if out_time[i] <= IN:
+#                     out_time[i] = OUT + 10
+#                     break
+#             else:
+#                 out_time.append(OUT + 10)
+#     return len(out_time)                     #선생님 풀이(정답!!!!!)
+#------------------------------------------------------------------------------------------------
+#strip(메서드) 함수로 만들기
+# def mystrip(string: str, substr : str):
+#     l = 0
+#     r = len(string) - 1
+#     while string[l] == substr:
+#         l += 1
+#         if l >= len(string):
+#             break
+#     while string[r] == substr:
+#         r -= 1
+#         if r < 0:
+#             break
+#     return string[l:r + 1]
+#--------------------------------------------------------------------------------------------------
+# def myenumerate(arr:list,start):
+#     a = []
+#     for i in range(0 ,len(arr)):
+#         b = []
+#         b.append(start + i)
+#         b.append(arr[i])
+#         a.append(b)
+#     return a
+# print(myenumerate(["a", "b", "c", "d"], 0))  #내 풀이 (성공!!)
+#---------------------------------------------------------------------------------------------------------
+#딕셔너리 key : value
+d = {"apple" : "사과", "banana" : "바나나"}
+print(hash("apple"))
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+nums = range(1,27)
+print(list(zip(alphabet, nums)))   #알파벳 마다 숫자를 배치시켜줌
