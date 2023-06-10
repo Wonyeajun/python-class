@@ -1,0 +1,85 @@
+# def solution(storey):
+#     answer = 0
+#     a = []                                       # a = [['2', '5', '5', '4']]
+#     STOREY = ["0"]
+#     a.append(",".join(str(storey)).split(","))   # STOREY = ['0', '2', '5', '5', '4']
+#     for i in range(len(a[0])):
+#         STOREY.append(a[0][i])
+#     print(STOREY)
+#     for i in range(len(STOREY)):
+#         if int(STOREY[-i]) > 5:
+#             answer += 10 - int(STOREY[-i])
+#             STOREY[-i] = 0
+#             STOREY[-(i + 1)] = int(STOREY[-(i + 1)]) + 1
+#         elif int(STOREY[-i]) <= 5:
+#             answer += int(STOREY[-i])
+#             STOREY[-i] = 0
+#     return answer                                #내 풀이(실패) 몇개는 맞혔는데.........조건이 너무 머리아프다 ㅋㅋㅋㅋ
+# print(solution(2554))
+# print(solution(102))
+#--------------------------------------------------------------------------------------------------------------
+# def solution(storey):
+#     stone = 0
+#     while storey:
+#         n = storey % 10                    # n : storey를 10으로 나누었을 대의 나머지값 => 1의 자리
+#         nn = storey // 10 % 10             # nn : storey 10으로 나누었을 대의 몫을 10으로 나누었을 때의 나머지값 => 10의 자리
+#         if n == 5 and nn >= 5 or n > 5:
+#             stone += 10 - n
+#             storey += 10 - n
+#         else:
+#             stone += n
+#         storey //= 10
+#     return stone
+# print(solution(2554))
+# print(solution(16))                                       #선생님 풀이(정답 rp!....)
+#-----------------------------------------------------------------------------------------------------------------
+# 집합 set()
+# 집합의 특징 : 1. 중복 제거
+#            2. 순서 X => index 번호 사용 X
+# 집합의 연산 (합, 차, 교, 대칭차 집합)
+# s1 = {1, 2, 3, 4}
+# s2 = {3, 4, 5, 6}
+# print(s1 | s2)           # {1, 2, 3, 4, 5 ,6}  == 합집합
+# print(s1 - s2)                       # {1, 2}  == 차집합
+# print(s1 & s2)                       # {3, 4}  == 교집합
+# print(s1 ^ s2)           # {1, 2, 5, 6}        == 차집합
+#
+#
+# s1 -= s2
+# print(s1)     # {1, 2}
+#
+# s1 |= s2
+# print(s1)     # {1, 2, 3, 4, 5, 6}
+#
+# s3 = {1, 2, 3, 4, 3}
+# print(s3.pop())
+# print(s3)
+#
+# print(1, 2, 3, 4, 5, 6, sep = "->")
+#
+# a = 10
+# binary = ""
+# while a:
+#     binary += str(a % 2)
+#     a //= 2
+#     if a == 0:
+#         print(binary[::-1])
+#------------------------------------------------------------------------------------------------------
+# class TEST:
+#     # 생성자 함수 __init__은 클래스로 객체 생성시 가장 먼저 실행되는 함수
+#     # 가장 먼저 실행된다 => 클래스로 생성할 객체에 필요한 정보를 넘기는데 주로 사용
+#     def __init__(self,a):
+#         print("생성자 함수 실행")
+#         print(a)
+# 
+#     def func(self):
+#         print("메서드")
+# t = TEST(1)  # TEST 클래스를 이용해서 t라는 객체를 만듦
+#             # t객체는 TEST클래스의 인스턴스이다.
+# t.func()
+
+# 결과 :
+
+#생성자 함수 실행
+#1
+#메서드
