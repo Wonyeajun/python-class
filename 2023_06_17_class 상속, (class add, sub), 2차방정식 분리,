@@ -1,0 +1,71 @@
+# 식별자 : 변수나 함수의 이름
+# 영어 대소문자 구분
+# 숫자 붙일 수 있다. 단, 맨 앞은 안 된다.
+#  특수문자 가능한 것은 _만 가능하다.
+#------------------------------------------------------------------
+# class Country:                         #class 상속
+#     def __init__(self, name):
+#         self.name = name
+#         self.manager = None
+#         self.players = []
+#     def introduce(self):
+#         print("이 클래스는 국가를 의미하는 클래스입니다")
+# class KOREA(Country):
+#     #1개의 사용 위치
+#     def introduce(self):
+#         print(f"{self.name} 대표팀 감독은 {self.manager}이고, 대표 선수로는 {self.players}가 있다.")
+#     def input_info(self,manager, *players):
+#         self.manager = manager
+#         for p in players:
+#             self.players.append(p)
+# kr = KOREA('대한민국')
+# print(kr.name)
+# kr.input_info('과르디올라','이강인','김민재','모드리치')
+# kr.introduce()
+#---------------------------------------------------------------------
+# class mystr(str):
+#     def __init__(self, string):
+#         self.mystring = string
+#     def __add__(self, other):
+#         return (self.mystring + other) * 2
+#     def __sub__(self, other):
+#         #A - B일 때 A문자열에서 b와 겹치는 부분은 제외한 A를 리턴
+#         result = ""
+#         length = len(other)
+#         for s in range(len(self.mystring)):
+#             if self.mystring[s:s + length] not in other:
+#                 result += s
+# s = mystr("Hello World")
+# x = "o"
+# x2 = "l"
+# print(s - x)   # Hell Wrld
+# print(s - x2)  # Heo Word
+#--------------------------------------------------------------------------
+A = int(input())
+B = int(input())
+C = int(input())
+def solution(A,B,C):   # A : 1  B : 3  C : 2
+    # 위 조건에 맞추어서 결과값 return 하시오
+    a = []
+    if A == 0:
+        return "A는 0이 될 수 없습니다."
+    if B % 2 == 0:
+        B //= 2
+        a.append((-B + (B ** 2 - (A * C)) ** (1 / 2)) // A)
+        a.append((-B - (B ** 2 - (A * C)) ** (1 / 2)) // A)
+    else:
+        a.append((-B - (B ** 2 - (4 * A * C))**(1 / 2)) // (2 * A))
+        a.append((-B + (B ** 2 - (4 * A * C)) ** (1 / 2)) // (2 * A))
+    if B ** 2 - (4 * A * C) < 0:
+        return "해가 없습니다."
+    if a[0] * -1 > 0 and a[1] * -1 > 0:
+        return ("(x+%d)(x+%d)"%(-a[0], -a[1]))
+    elif a[0] * -1 > 0 and a[1] * -1 < 0:
+        return ("(x+%d)(x%d)"%(-a[0], -a[1]))
+    elif a[0] * -1 < 0 and a[1] * -1 > 0:
+        return ("(x%d)(x+%d)"%(-a[0], -a[1]))
+    else:
+        return ("(x%d)(x%d)"%(-a[0], -a[1]))
+print(solution(A, B, C))          #2차방정식 => 두 개의 2차항의 곱으로 표현하기
+                                  #성공!!!!!!! 드디어 내 힘으로....ㅠㅠㅠ
+#--------------------------------------------------------------------------
