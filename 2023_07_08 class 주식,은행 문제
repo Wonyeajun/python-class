@@ -1,0 +1,132 @@
+class Test:
+    # 생성자 함수 __init__은 객체 생성시 가장 먼서 실행되는 함수
+    # 클래스에 필요한 정보들을 넘겨준다.
+    def __init__(gimojji,x):
+        print("생성자 함수 실행")
+        print(x)
+
+
+t = Test(5)   #Test클래스를 이용해서 t라는 객체 생성
+#------------------------------------------------------
+class AAA:
+    share = 10
+    def __init__(self, value):
+        self.unique = value
+
+a = AAA(1)
+b = AAA(2)
+print(a == b)               # a객체와 b객체가 서로 같냐? 다르다 False
+print(a.unique == b.unique) # 1 == 2 False
+print(a.share == b.share)   # 10 == 10 True
+AAA.share = 0
+print(a.share == b.share)   # 0 == 0 True
+a.share = 5
+print(a.share == b.share)   # 5 == 0 False
+#---------------------------------------------------------------
+class Human:
+    def __init__(self, name, age,gender):
+        self.name = name
+        self.myage = age
+        self.myx = gender
+        print("응애응애")
+
+
+    def who(self):
+        print(f"이름: {self.name}, 나이: {self.myage}, 성별: {self.myx}")
+
+
+    def selfinfo(self,name,age, gender):
+        self.name = name
+        self.myage = age
+        self.myx = gender
+
+    def __repr__(self):
+        return f"제 이름은 {self.name}이고 나이는 {self.myage}인 {self.myx}입니다."
+
+
+areum = Human("아름", 25, "여성")
+print(areum)
+#__repr__이 없을 경우의 print(areum) == <__main__.Human object at 0x000001986F04FFD0>
+
+#__repr__이 정의된 경우의 print(areum) == 제 이름은 아름이고 나이는 25인 여성입니다
+#-------------------------------------------------------------------------
+class Stock:
+    def __init__(self,name,code,PER, PBR, 배당수익률):
+        self.name = name
+        self.code = code
+        self.PER = PER
+        self.PBR = PBR
+        self.배당수익률 = 배당수익률
+    def set_name(self, name):
+        self.name = name
+
+    def set_code(self, code):
+        self.code = code
+    def get_name(self):
+        return self.name
+    def get_code(self):
+        return self.code
+    def set_PER(self, PER):
+         self.PER = PER
+    def set_PBR(self, PBR):
+         self.PBR = PBR
+    def set_divined(self, divined):
+        self.divined = divined
+삼성 = Stock("삼성전자", "005930",15.79,1.33,2.83)
+삼성.set_PER(12.75)
+print(삼성.PER)
+#------------------------------------------------------
+종목 = []
+
+삼성 = Stock("삼성전자", "005930", 15.79, 1.33, 2.83)
+현대차 = Stock("현대차", "005380", 8.70, 0.35, 4.27)
+LG전자 = Stock("LG전자", "066570", 317.34, 0.69, 1.37)
+
+종목.append(삼성)
+종목.append(현대차)
+종목.append(LG전자)
+for i in 종목:
+    print(f"종목코드: {i.code}, PER: {i.PER}")
+#----------------------------------------------------------
+class Account:
+    cnt = 0
+    def __init__(self, 예금주, 초기잔액):
+        self.bankname = "SC은행"
+        self.account_number = "111-11-111111"
+        self.owner = 예금주
+        self.balance = 초기잔액
+        Account.cnt += 1
+    @classmethod
+    def get_account_num(cls):
+        print(cls.cnt)
+
+    def deposit(self, amount):
+        if amount >= 1:
+            self.balance += amount
+            print(f"입금되었습니다. 현재 잔액: {self.balance}")
+        else:
+            print("1원 이상의 금액만 입금할 수 있습니다.")
+
+    def withdraw(self, amount):
+        if self.balance > amount:
+            self.balance -= amount
+            print(f"출금되었습니다. 현재 잔액: {self.balance}")
+        else:
+            print(f"잔액이 부족합니다. 현재 잔액: {self.balance}")
+
+
+    def display_info(self):
+        print(f"은행이름: {self.bankname}")
+        print(f"예금주: {self.owner}")
+        print(f"계좌번호: {self.account_number}")
+        str_balance = ""
+
+        print("잔고: ", f"{self.balance:,}원")
+        # 은행이름 : SC은행
+        # 예금주 : 파이썬
+        # 계좌번호 : 111-11-111111
+        # 잔고 : 10, 000원
+won = Account("원예준", 1000000)
+won.deposit(20000)
+won.withdraw(8000)
+won.display_info()
