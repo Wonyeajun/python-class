@@ -1,0 +1,75 @@
+import random
+import time
+
+a = [i for i in range(10001)]
+random.shuffle(a) # 데이터 셔플
+start = time.time() # 시작 시간 기록
+# 정렬 함수 호출
+
+# def bubble_sort(a):
+#     answer = []
+#     for i in range(0, len(a) - 1):
+#         for j in range(0, len(a) - 1):
+#             if a[j] > a[j + 1]:
+#                 a[j], a[j + 1] = a[j + 1], a[j]
+#     answer = a
+#     return answer
+# print(bubble_sort(a))
+#-------------------------------------------------------------
+# def selection_sort(a):
+#     answer = []
+#     for i in range(len(a)):
+#         b = i
+#         for j in range(b+1, len(a)):
+#             if a[j] < a[b]:
+#                 b = j
+#             a[i], a[j] = a[j] , a[i]
+#     return answer
+# print(selection_sort([2, 3, 5, 4, 1, 6, 7, 8, 9]))
+#-------------------------------------------------------
+# def selection_sort(a):
+#     answer = []
+#     for i in range(len(a)): # 0 ~ 8
+#         b = 0
+#         for j in range(i, len(a)): # 0 ~ 8
+#             c = j
+#             while a[c] > a[c + 1]:
+#                 a[c + 1], a[c] = a[c], a[c + 1]
+#                 c -= 1
+#                 if c == -9:
+#                     break
+#         b = a[i]
+#         answer.append(b)
+#     return answer
+#
+# print(selection_sort([5, 4, 6, 3, 8, 9, 1, 2, 7]))
+#-----------------------------------------------------------
+# def SelectionSort(a):
+#     answer = []
+#     for i in range(len(a) - 1):               # 사이클 횟수
+#         c = i
+#         for j in range(i + 1, len(a)): # j = 최솟값이 위치할 자리
+#             if a[c] > a[j]:
+#                 c = j
+#         b = a[i]
+#         a[i] = a[c]
+#         a[c] = b
+#     answer = a
+#     return answer
+# print(SelectionSort(a))
+#---------------------------------------------------------------
+def Insertion_sort(_list):
+    for j in range(1, len(a)):
+        for i in range(j, 0, -1):
+            if a[i] < a[i - 1]:
+                tmp = _list[i]
+                _list[i] = _list[i - 1]
+                _list[i - 1] = tmp
+            else:
+                break
+    return _list
+print(Insertion_sort(a))
+#---------------------------------------------------------
+end = time.time() # 종료 시간 기록
+print(end - start)
+#---------------------------------------------------------
