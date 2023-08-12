@@ -1,0 +1,36 @@
+string1 =  "-일천이백삼십사조오천육백칠십팔억구천백이십삼만사천오백육십칠"
+string2 = "천이백십사"
+string3 = "천오"
+string4 = "삼천팔백이십칠"
+def str_to_int(string):
+    answer = 0
+    a = 1
+    b = 0
+    str_to_int_dict = {"일":1,"이":2,"삼":3,"사":4,"오":5,"육":6,"칠":7,"팔":8,"구":9}
+    smaller_dict = {"십":10,"백":100,"천":1000}
+    bigger_dict = {"만":10000,"억":100000000,"조":1000000000000}
+    buho = [-1,+1]
+    for i in range(len(string)):
+        if i == len(string) - 1:
+            answer += str_to_int_dict[string[i]]
+            answer += b
+        elif string[i] not in str_to_int_dict and string[i] not in bigger_dict and string[i] != "-":
+            a *= smaller_dict[string[i]]
+            b += a   #b = 3820
+            a = 1
+        elif string[i] not in str_to_int_dict and string[i] not in smaller_dict and string[i] != "-":
+            b += a
+            b *= bigger_dict[string[i]]
+            answer += b
+            b = 0
+        elif string[i] != "-" and string[i] in str_to_int_dict:
+            a = str_to_int_dict[string[i]]   # a = 1
+        if string[0] == '-' and i == len(string) - 1:
+            answer *= -1
+        else:
+            answer *= 1
+    return answer
+print(str_to_int(string1))
+# int_num = str_to_int(string2)
+# print(int_num, type(int_num))                 # 성공!
+#----------------------------------------------------------------------------------------
