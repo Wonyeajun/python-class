@@ -1,0 +1,14 @@
+def solution(people, limit):
+    answer = 0  # people = [70, 50, 60, 10, 80, 70]
+    people.sort()   # people = [10, 50, 60, 70, 70, 80]
+    a = 0
+    b = len(people) - 1
+    while a < b:
+        if people[a] + people[b] <= limit:
+            answer += 1
+            a += 1
+        b -= 1
+    return len(people) - answer # -->  answer + (len(people) - 2 * answer)
+print(solution([70, 80, 50, 50], 100))
+프로그래머스 "구명보트" 문제
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
