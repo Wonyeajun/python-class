@@ -1,0 +1,117 @@
+def solution(prices):
+    answer = []
+    for i in range(len(prices)-1):
+        a = 0
+        for j in range(i, len(prices)):
+            if j == 4:
+                break
+            elif prices[i] <= prices[j + 1]:
+                a += 1
+        answer.append(a)
+    answer.append(0)
+    return answer
+    내 코딩  --- 런 타임 에러(실패)            주식 가격(스택)
+    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    class TEST:
+#     def __init__(self):
+#         self.data = data
+# 
+#     def __add__(self, other):
+#         return t.data + other
+# t = TEST("TEST")
+# print(t.data)
+# print(t + "Class") # TESTClass
+# -----------------------------------------------------------------------------------------------------
+# class Calculator:
+#     def __init__(self,data=0):
+#         if type(data) != int:
+#             raise TypeError("정수값만 입력 가능합니다.")
+#         self.data = data
+#         self.rec = ""
+#     def __add__(self, other):
+#         self.rec += f"{self.data} + {other} = {self.data + other}\n"
+#         return self.data
+#     def __sub__(self, other):
+#         self.rec += f"{self.data} + {other} = {self.data + other}\n"
+#         return self.data
+#     def __mul__(self, other):
+#         self.rec += f"{self.data} + {other} = {self.data + other}\n"
+#         return self.data
+#     def __truediv__(self, other):
+#         self.rec += f"{self.data} + {other} = {self.data + other}\n"
+#         return self.data
+#     def get_rec(self):
+#         print("--------Record--------")
+#         for rec in self.rec[:-1].split('\n'):
+#             print(f'| {rec:} |')
+#     def clear(self):
+#         self.data = 0
+#         return self.data
+# cal1 = Calculator()
+# print(cal1 + 10)     # 10      __add__
+# print(cal1 - 2)      # 8       __sub__
+# print(cal1 * 3)      # 24      __mul__
+# print(cal1 / 2)      # 12.0    __div__
+# print(cal1.get_rec())  # 0 + 10 - 2 * 3 / 2 = 12.0
+# print(cal1.clear())    # 모든 기록을 지우고, 초기값을 0으로 변경
+# print(cal1.get_rec())  # 0
+#-----------------------------------------------------------------------------------------------------------------------------------------------
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+class DOG(Animal):
+    def __init__(self,name):
+        super().__init__(name)
+        self.울음소리 = '멍멍'
+        self.희귀도 = "LOW"
+        self.나이 = 7
+class WOLF(DOG):
+    def __init__(self,name):
+        super().__init__(name)
+        self.울음소리 = "아우"
+        self.희귀도 = "HIGH"
+        self.나이 = 9
+dog = DOG("비숑")
+print(dog.name)
+print(dog.나이)
+wolf = WOLF("늑대")
+print(wolf.name)
+print(wolf.희귀도)
+print(wolf.울음소리)
+print(wolf.나이)
+#------------------------------------------------------------------------------------------------------------
+class STUDENT:
+    def __init__(self,name,age,num):
+        self.name = name
+        self.age = age
+        self.num = num
+class CLASS:
+    def __init__(self,teacher):
+        self.teacher = teacher
+        self.students = []
+    
+    def input_stds(self,student):
+        self.students.append(student)
+        
+class SCHOOL:
+    def __init__(self):
+        self.g1 = []
+        self.g2 = []
+        self.g3 = []
+
+    def input_class(self,Class,n):
+        if n == 1:
+            self.g1.append(Class)
+        elif n == 2:
+            self.g2.append(Class)
+        else:
+            self.g3.append(Class)
+    
+s1 = STUDENT(name:"홍길동", age:19, num:1)
+c1 = CLASS("원예준")
+c1.input_stds(s1)
+부명중 = SCHOOL()
+부명중.input_class(c1, n:3)
+
+print(부명중.g3[0].students[0].name)
