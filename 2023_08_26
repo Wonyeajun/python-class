@@ -32,13 +32,13 @@ def solution(prices):
 #         self.rec += f"{self.data} + {other} = {self.data + other}\n"
 #         return self.data
 #     def __sub__(self, other):
-#         self.rec += f"{self.data} + {other} = {self.data + other}\n"
+#         self.rec += f"{self.data} - {other} = {self.data - other}\n"
 #         return self.data
 #     def __mul__(self, other):
-#         self.rec += f"{self.data} + {other} = {self.data + other}\n"
+#         self.rec += f"{self.data} X {other} = {self.data * other}\n"
 #         return self.data
 #     def __truediv__(self, other):
-#         self.rec += f"{self.data} + {other} = {self.data + other}\n"
+#         self.rec += f"{self.data} / {other} = {self.data / other}\n"
 #         return self.data
 #     def get_rec(self):
 #         print("--------Record--------")
