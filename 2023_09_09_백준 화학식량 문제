@@ -1,0 +1,53 @@
+# 원자별 질량
+# 수소(H): 1 , 탄소(C): 12, 산소(O): 16
+# CH(CO2H)3    CH + (12 +16 * 2 + 1) * 3 == 13(CH) + 135 = 148
+N = input() # ((CH)2(OH2H)(C(H))O)3
+chemical = []
+answer = 0
+atom = {"H" : 1, "C" : 12, "0" : 16}
+for i in N:
+  if i == "(":
+    chemical.append(i)
+  elif i == "H" or i == "C" or i == "O":
+    chemical.append(atom[i])
+  elif i == ")":
+     a = 0
+     while True:
+       if chemical[-1] == "(":
+         chemical.pop()
+         chemical.append(a)
+         break
+       else:
+            a += chemical.pop()
+  else:
+      chemical.append(chemical.pop() * int(i))
+
+print(answer)                            #백준 '화학식량'문제 내 풀이 못 품 ㅠ
+#-----------------------------------------------------------------------------------------------------------------------
+import sys
+input = sys.stdin.readline
+
+evaluation = input().rstrip()
+atom = {"H" : 1, "C" : 12, "O" : 16}
+stack = []
+
+for ev in evaluation:
+    if ev == "(":
+        stack.append(ev)
+    elif ev == ")":
+        summery = 0
+        # 반복문을 통해 괄호 안에 있는 수를 더하여 stack에 추가
+
+        while True:
+            st = stack.pop()
+            if st == "(":
+                break
+            summery += st
+        stack.append(summery)
+    # 문자가 원자라면 stack에 원자량을 추가
+    elif ev in atom:
+        stack.append(atom[ev])
+        # 입력받은 문자가 괄호도 아니고 원자도 아니면 숫자이므로
+        # stack에 마지막 숫자를 입력바든 문자로 곱해준다.
+    else:
+        stack[-1] *= int(ev)
