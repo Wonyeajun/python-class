@@ -48,6 +48,6 @@ for ev in evaluation:
     elif ev in atom:
         stack.append(atom[ev])
         # 입력받은 문자가 괄호도 아니고 원자도 아니면 숫자이므로
-        # stack에 마지막 숫자를 입력바든 문자로 곱해준다.
+        # stack에 마지막 숫자를 입력받 문자로 곱해준다.
     else:
         stack[-1] *= int(ev)
