@@ -1,0 +1,92 @@
+# import sys
+# input = sys.stdin.readline
+#
+# n = int(input()) # n번 명령을 입력받는다.
+# queue = [] # []
+#
+# front = 0   # front번재 값을 볼 인덱스
+# back = -1   # back번째 값을 볼 인덱스
+#
+# for _ in range(n):
+#     order = input().split()  # ['push',x],[front], [back],[size],[empty]
+#     # push X: 정수 X를 큐에 넣는 연산이다.
+#     if order[0] == "push":
+#         queue.append(order[1])
+#         back += 1
+#     elif order[0] == "pop":
+#         if back - front == -1:
+#             print(-1)
+#         else:
+#             print(queue[front])
+#             front += 1
+#     elif order[0] == "size":
+#         print(back - front + 1)
+#     elif order[0] == "empty":
+#         print((back - front == -1) + 0)
+#     elif order[0] == "front":
+#         #비어있다면:
+#         if back - front == -1:
+#             print(-1)
+#         else:
+#             print(queue[front])
+#     elif order[0] == "back":
+#         if back - front == -1:
+#             print(-1)
+#         else:
+#             print(queue[back])   # 백준 '큐 2'문제 선생님 풀이(정답!)
+#----------------------------------------------------------------------------------------------------------------
+# def solution(bridge_length, weight, truck_weights):
+#     answer = 0
+#     bridge = []
+#     for i in range(bridge_length):
+#         bridge.append(0)        # [6]
+#     while len(bridge) != 0:
+#         answer += 1    # answer = 7     []
+#         bridge.pop(0)
+#         print(bridge)
+#         print(answer)
+#         if len(truck_weights) != 0:
+#             if sum(bridge) + truck_weights[0] <= weight:
+#                 bridge.append(truck_weights.pop(0))
+#             else:
+#                 bridge.append(0)
+#     return answer
+# print(solution(2, 10, [7, 4, 5, 6]))            #프로그래머스 '다리를 지나는 트럭' 문제 내 풀이(거의 다 했는데...테.케 5번 틀림)
+#-------------------------------------------------------------------------------------------------------
+# def solution(bridge_length, weight, truck_weights):
+#     on_truck = []           # 다리에 올라가 있는 트럭들 현황
+#     on_weight = 0           # 다리에 올라가 있는 트럭들의 무게의 합
+#     seconds = 1             # 현재 시간
+#
+#     # 다리 위에 트럭을 하나 올리고
+#     # 트럭의 무게와 다리를 지나는데 걸리는 시간을 저장
+#     on_weight += truck_weights[0]
+#     on_truck.append([truck_weights.pop(0), seconds + bridge_length])
+#     print(on_truck)
+#     while True:
+#         # 가장 앞의 트럭이 도달했다면
+#         if seconds >= on_truck[0][1]:
+#             truck = on_truck.pop(0)
+#             on_weight -= truck[0]
+#         # 다리에 진입 대기중인 트럭이 있다면
+#         if truck_weights:
+#             # 올라갈 수 있는지 판단 후, 다리 위에 트럭을 올린다.
+#             if on_weight + truck_weights[0] <= weight:
+#                 on_weight += truck_weights[0]
+#                 on_truck.append([truck_weights.pop(0), seconds + bridge_length])
+#         # 다리 위에 트럭이 없다면 모든 트럭이 지나간 것이므로 break
+#         if not on_truck:
+#             break
+#         seconds += 1
+#     return seconds
+# print(solution(2, 10, [7, 5, 6, 4]))
+#-------------------------------------------------------------------------------------------
+def solution(priorities, location):
+    answer = 0
+    # queue = []
+    for i in range(len(priorities) - 1):
+        del priorities[priorities.index(priorities[location])]
+        if priorities[location] <= priorities[i]:
+            answer += 1
+    return answer
+print(solution([2, 1, 3, 2], 2))   # 프로그래머스 '프로세스' 문제
