@@ -1,0 +1,63 @@
+class QueueElement:
+    def __init__(self, data, link = None):
+        self.data = data
+        self.link = link
+class Queue:
+    def __init__(self):
+        self.rear = None     # <-- rear : 입구(가장 최근에 들어온 element를 가리킨다.)
+        self.front = None    # <-- front : 출구(다음에 나갈 element를 가리킨다.)
+        self.length = 0
+    # data를 입력 받고 element를 Queue에 추가하는 함수
+    def enque(self,data):
+        #Queue가 비어있을 때
+        if self.rear is None:
+            elem = QueueElement(data)
+            self.rear = self.front = elem
+        #Queue가 비어있지 않을 때
+        else:
+            elem = QueueElement(data)
+            self.rear.link = elem
+            self.rear = elem
+        self.length += 1
+    def deque(self):
+        #비어있을 때
+        if self.front is None:
+            return None
+        #elem이 하나 있을 때
+        elif self.rear == self.front:
+            ret_data = self.front.data
+            self.rear = self.front = None
+            self.length -= 1
+            return ret_data
+        #elem이 여러 개 존재할 때
+        else:
+             ret_data = self.front.data
+             self.front = self.front.link
+             self.length -= 1
+             return ret_data
+    def reverse(self):
+        # 1. Queue안의 element들의 link를 바꿔준다.
+        #    바꾸기 위해선 현재 element를 가리키는 curr, 원래 link가 가리킬 prev,그리고
+        #    curr을 다음 element로 이동시키기 위한 next라는 변수를 만든다.
+        #    curr이 가리키는 element의 link를 prev를 바라보게 한 뒤, prev는 curr로, curr은 next로 이동시킨다.
+        #    위 과정을 curr이 존재 할 때 까지 반복한다.
+        # 2. 모든 element의 link를 변경했다면, front와 rear가 가리키는 값을 서로 교환한다.
+        curr = self.front
+        prev = None
+        while curr:
+            next = curr.link
+            curr.link = prev
+            prev = curr
+            curr = next
+        self.rear,self.front = self.front,self.rear
+    def __len__(self):
+        return self.length
+
+q = Queue()
+for i in range(1,6):
+    q.enque(i)
+print(len(q))
+q.reverse()
+
+for _ in range(6):
+    print(q.deque())
