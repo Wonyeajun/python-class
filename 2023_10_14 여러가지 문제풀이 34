@@ -1,0 +1,108 @@
+def solution(s):
+    answer = []
+    b = []
+    Num = []
+    a = ",".join(s).split(",")
+    for i in range(len(a)):
+        if a[i].isdigit():
+            b.append(a[i])
+        result = list(map(int,b))
+        if i == len(a) - 2:
+            return result
+            # if i == len(a) - 1:
+            #     for i in
+        if a[i] == "}":
+            Num.append(b)
+            b = []
+    #for i in range(len(Num)):
+
+print(solution("{{2},{2,1},{2,1,3},{2,1,3,4}}"))         #실패
+-----------------------------------------------------------------------------------------
+def solution(n, words):
+    num, turn = 1,1
+
+    for i in range(1, len(words)):
+        num += 1
+        if num > n:
+            turn += 1
+            num = 1
+        if words[i - 1][-1] != words[i][0]:
+            return [num, turn]
+        elif words[i] in words[:i]:
+            return [num,turn]
+        elif len(words[i]) == 1:
+            return [num,turn]
+
+    return [0, 0]
+
+n = 2
+words = ["hello", "one", "even", "never", "now", "world", "draw"]
+print(solution(n, words))                     #프로그래머스 '영어 끝말잇기'문제 #선생님 풀이 (집 가서 내가 풀어봐야 됌)
+-------------------------------------------------------------------------------------------------------------
+def solution(citations):
+    answer = 0
+    H_index = []
+    for i in range(1, max(citations) + 1):
+        cnt = 0
+        for j in citations:
+            if i >= j:
+                cnt += 1
+        if cnt >= i:
+            H_index.append(i)
+    answer = max(H_index)
+    return answer
+print(solution([3, 0, 6, 1, 5]))          # 내 풀이(정답이지만 런 타임 에러 ....오래 걸린다) 프로그래머스 'H-index'문제
+#---------------------------------------------------------------------------------------------------------
+def solution(citations):
+    answer = 0
+    citations.sort()
+    # 논문 n편 중에서 인용횟수가 h번 이상인 논문이 h번 이상이고, h번 이하인 논문이 h번 이하이면 answer = h다.
+    for h in range(1, len(citations) + 1):  #[3, 0, 6, 1, 5]
+        cnt_h = 0
+        cnt_l = 0
+        for i in citations: #[0, 1, 3, 6, 5]
+            if i >= h:
+                cnt_h += 1
+            elif i <= h:
+                cnt_l += 1
+            if cnt_h >= h and cnt_l <= h and answer < h:
+                answer = h
+
+    return answer
+#-------------------------------------------------------------------------------------------------------
+def solution(cacheSize, cities):
+    answer = 0
+    cache = []
+    a = []
+    for i in cities:
+        b = i.lower()
+        a.append(b)
+        print(a)
+    for i in range(len(a)):
+        if a[i] in cache:
+            answer += 1
+            cache.append(a[i])
+        else:
+            answer += 5
+            cache.append(a[i])
+        if len(cache) > cacheSize:
+            del cache[0]
+    return answer                                               #프로그래머스 '캐시'문제 반 성공(65점)
+print(solution(3, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "Jeju", "Pangyo", "Seoul", "NewYork", "LA"]))
+#---------------------------------------------------------------------------------------------------------------
+def solution(cacheSize, cities):
+    seconds = 0
+    hit = 1
+    miss = 5
+    memory = [' '] * cacheSize
+    for city in cities:
+        city = city.lower()
+        if city not in memory[:cacheSize]:
+            seconds += miss
+            memory.insert(0, city.lower())
+        else:
+            seconds += hit
+            idx = memory.index(city)
+            memory.insert(0, memory.pop(idx))
+
+    return seconds             #선생님 풀이(성공...)
