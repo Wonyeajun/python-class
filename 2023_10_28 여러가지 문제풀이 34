@@ -1,0 +1,55 @@
+from collections import deque
+#1개의 사용 위치
+def move(visit,x,y,maps,num):
+    visit[x][y] = True
+    eq = deque()
+    eq.appendleft([x,y])
+    while eq:
+        a,b = eq.popleft()
+        offset = [[a - 1, b], [a + 1, b], [a, b - 1], [a, b + 1]]
+        for i,j in offset:
+            if -1 < i < len(maps) and -1 < j < len(maps[i]):
+                if not visit[i][j] and maps[i][j] != 'X':
+                    visit[i][j] = True
+                    num += int(maps[i][j])
+                    eq.append([i,j])
+    return num
+
+def solution(maps):
+    answer = []
+    visit = [[False] * len(maps[0]) for _ in range(len(maps))]
+    for x in range(len(maps)):
+        for y in range(len(maps[x])):
+            if not visit[x][y] and maps[x][y].isdigit():
+                n = move(visit,x,y,maps,int(maps[x][y]))
+                print(x,y,n)
+                answer.append(n)
+
+    if len(answer) != 0:
+        answer.sort()
+    else:
+        answer = [-1]
+    return answer                #프로그래머스 '무인도 여행' 문제 선생님 풀이(정답)
+--------------------------------------------------------------------------------------------------
+def solution(n, a, b):  # 7, 9, 27, 33
+    answer = 1
+    while abs(a - b) != 1:
+        if a % 2 == 0:
+            a //= 2
+        else:
+            a = (a // 2) + 1
+        if b % 2 == 0:
+            b //= 2
+        else:
+            b = (b // 2) + 1
+        answer += 1
+    return answer               # 프로그래머스 ' 예상 대진표' 문제 내 풀이(88.2점)
+--------------------------------------------------------------------------------
+def solution(n,a,b):
+    cnt = 0
+    while a != b:
+        a -= a// 2
+        b -= b // 2
+        cnt += 1
+    return cnt                 #선생님 풀이(정답)
+-------------------------------------------------------------------------------------
