@@ -1,0 +1,58 @@
+def solution(n):
+    answer = []
+    a = 1
+    b = []
+    direction = 1
+    triangle = -1
+    cnt = 0
+    for i in range(1, n + 1):
+        c = []
+        for j in range(i):
+            c.append(0)
+        b.append(c)
+    print(b)
+    for i in range(1, n + 1):
+        if direction % 3 == 1:
+            for j in range(1, n - cnt + 1 ):
+                b[j][0] = a
+                a += 1
+        elif direction % 3 == 2:
+            for j in range(n - cnt + 1):
+                b[triangle][1 + j] = a
+                a += 1
+        else:
+            for j in range(1 ,n - cnt + 1):
+                b[triangle - 1][-1] = a
+                a += 1
+        direction += 1
+        cnt += 1
+        triangle -= 1
+    return answer
+print(solution(4))            #프로그래머스 '삼각 달팽이' 문제 내 풀이 //모르겟다.............................................
+#---------------------------------------------------------------------------------------------------------------
+def solution(n):
+    answer = [[0] * i for i in range(1, n + 1)]
+    # [[0],
+    # [0, 0],
+    # [0, 0, 0],
+    # [0, 0, 0, 0]]
+    movement = [[1, 0], [0 ,1], [-1, -1]]
+    # 밑으로 -> 오른쪽 -> 대각선 위(왼쪽)
+    #{"down" : [1, 0], "right" : [0, 1], "up" : [-1, 0], "left" : [0, -1]}
+    numbers = [i for i in range(n, 0, -1)]
+    m = 0
+    num = 1
+    x,y = -1,0
+    for number in numbers:  # [4, 3, 2, 1]
+        for _ in range(number):
+            x += movement[m % 3][0]
+            y += movement[m % 3][1]
+            answer[x][y] = num
+            num += 1
+        m += 1
+    return [a for ans in answer for a in ans]
+                                    # 선생님 풀이 (정답........)
+print(solution(4))
+print([1,2,9,3,10,8,4,5,6,7])
+#--------------------------------------------------------------------------------------------------------------
+숙제 : 두 큐 합 같게 만들기(프로그래머스 문제)
