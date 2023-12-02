@@ -1,0 +1,117 @@
+def solution(bandage, health, attacks):  # 5   1   5
+    limited_health = health   #30
+    Num_attack = 0      # 0
+    heal_cnt = 0        # 0
+    for i in range(1, attacks[-1][0] + 1):
+        if i == attacks[Num_attack][0]:
+            health -= attacks[Num_attack][1]
+            heal_cnt = 0
+            Num_attack += 1
+            if health <= 0:
+                return -1
+        else:
+            heal_cnt += 1
+            if heal_cnt == bandage[0]:
+                if health + bandage[2] <= limited_health:
+                    health += bandage[2]
+                else:
+                    health = limited_health
+            if health + bandage[1] <= limited_health:
+                health += bandage[1]
+            else:
+                health = limited_health
+    return health
+----------------------------------------------------------------------------------------------------------------------------------------------
+def solution(topping):
+    answer = 0
+    dict_topping_left = []
+    dict_topping_right = []
+    for i in range(1, len(topping) + 1):                     #프로그래머스 '롤 케이크 자르기' 문제
+        left = topping[0:i]
+        right = topping[i:len(topping) + 1]
+        left_topping = 0
+        right_topping = 0
+        for j in range(len(left)):
+            if left[j] not in dict_topping_left:
+                left_topping += 1
+                dict_topping_left.append(left[j])
+                print(left_topping)
+        for u in range(len(right)):
+            if right[u] not in dict_topping_right:
+                left_topping += 1
+                dict_topping_right.append(right[u])
+                print(right_topping)
+        if left_topping == right_topping:
+            print(f"left : {left}, left_topping : {left_topping}")
+            print(f'right : {right}, right_topping : {right_topping}')
+            answer += 1
+    return answer
+print(solution([1,2,1,3,1,4,1,2]))                                # 내 풀이.......(역시 실패...)
+------------------------------------------------------------------------------------------------------------------------------
+def solution(topping):
+    bro1 = {}
+    bro2 = {}
+    cnt = 0
+    for t in topping:
+        if t in bro1:
+            bro1[t] += 1
+        else:
+            bro1[t] = 1
+    # 동생 토핑 종류의 수 계산
+    for t in topping:
+        if t in bro2:
+            bro2[t] += 1
+        else:
+            bro2[t] = 1
+        bro1[t] -= 1
+        if bro1[t] == 0:
+            del bro1[t]
+        if len(bro1) == len(bro2):
+            cnt += 1
+    return cnt
+topping = [1, 2, 1, 3, 1, 4, 1, 2]
+#----------------------------------------------------------------------------------------------------------------------------
+# import sys                      >                     input()
+# imput = sys.stdin.readline      >                     # 더 빠르고 줄바꿈을 해줌(대신 포맷 X)
+# 백준 10989번 수 정렬하기 3
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+arr = [0] * 10001
+# 최대 1000만개의 정수가 들어온다.
+# 정수의 크기는 최대 1만이다.
+# 최대한 적은 개수의 정수들을 저장해야 한다.
+# 해결법은?
+for _ in range(n):
+    x = int(input())
+    arr[x] += 1
+
+for i in range(1, len(arr)):
+    if arr[i] != 0:
+        for j in range(arr[i]):
+            print(i)
+#-------------------------------------------------------------------------------------------------------------------------------------
+n = int(input())                                          #터렛 문제(백준)
+A = []
+B = []
+C = []
+for i in range(n):
+    A.append((input()))
+print(A)                   #A = ['0 0 13 40 0 37', '0 0 3 0 7 4', '1 1 1 1 1 5' ]
+for i in A:
+        B.append(i.split(" "))
+for i in range(len(B)):
+    D = []
+    for j in range(6):
+        D.append(int(B[i][j]))
+    C.append(D)
+print(B)
+print(C)
+for i in range(len(C)):
+    if C[0] == C[3] and C[1] == C[4] and C[2] == C[5]:
+        print(-1)
+        if C[0] == C[3] and C[1] == C[4] and C[2] == C[5]:
+    elif C[0] == C[3] and C[1] == C[4] and C[2] != C[5]:
+        print(0)
+    elif
