@@ -1,0 +1,109 @@
+n = int(input())                                          #터렛 문제(백준)
+A = []
+B = []
+C = []
+for i in range(n):
+    A.append((input()))
+print(A)                   #A = ['0 0 13 40 0 37', '0 0 3 0 7 4', '1 1 1 1 1 5' ]
+for i in A:
+        B.append(i.split(" "))
+for i in range(len(B)):
+    D = []
+    for j in range(6):
+        D.append(int(B[i][j]))
+    C.append(D)
+print(B)
+print(C)
+for i in range(len(C)):
+    if C[0] == C[3] and C[1] == C[4] and C[2] == C[5]:
+        print(-1)
+        if C[0] == C[3] and C[1] == C[4] and C[2] == C[5]:
+    elif C[0] == C[3] and C[1] == C[4] and C[2] != C[5]:
+        print(0)
+    elif
+완전히 겹칠 때                                                  # 이해는 했는데.......코드로 못 쓰겠다 ㅠㅠ
+
+만나지 않는 경우
+  외부에서 만나지 않는 경우
+  내부에서 만나지 않는 경우
+  중심이 같고 안에 포함(동심원)
+
+접하는 경우
+  외접
+  내접
+-----------------------------------------------------------------------------------------------------------------------
+from math import sqrt
+
+n = int(input())
+
+for _ in range(n):
+    #map(함수, iterable)
+    x1, y1, r1, x2, y2, r2 = map(int, input().split())
+    distance = sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)  # 두 원의 거리(원의 방정식 활용)
+    if distance == 0 and r1 == r2: # 두 원이 동심원이고 반지름이 같을 때
+        print(-1)
+    elif abs(r1 - r2) == distance or r1 + r2 == distance:  # 내접, 외접일 때
+        print(1)
+    elif abs(r1 - r2) < distance < r1 + r2 :  # 두 원이 서로 다른 두 점에서 만날 때
+        print(2)
+    else:
+        print(0)                        # 선생님 풀이(정답)
+
+#Map 사용 tip
+arr = [1, 2, 3, 4]
+A = list(map(lambda x : x ** 2, arr))
+print(A)
+-----------------------------------------------------------------------------------------------------------------------
+import sys
+input = sys.stdin.readline
+
+N, M = map(int, input().split())
+board = []
+A = []
+for _ in range(N):
+    board.append(input())           # 보드판 입력
+for i in range(len(board)):
+    board[i] = ",".join(board[i]).split(",")
+    board[i] = board[i][0:N]
+print(board)
+print(i)
+for i in range(N - 7):
+    for j in range(M - 7):
+        cnt = 0
+        for u in range(len(board)):
+            if cnt == N + 1:
+                break
+            A.append(board[0 : N])
+            cnt += 1
+            #print(A)                 #백준 (체스판 다시 칠하기)       아직 다 못품
+-----------------------------------------------------------------------------------------------------------------------
+import sys                                                     # 백준 '체스판 다시 칠하기' 문제
+input = sys.stdin.readline
+
+N, M = map(int, input().split())
+board = []
+for _ in range(N):
+    board.append(input().strip())
+minimum = 2500
+BW = "BW" * 4  # "BWBWBWBW"
+WB = "WB" * 4  # "WBWBWBWB"
+chess1 = [BW,WB] * 4# 좌측상단을 B ["BWBWBWBW","WBWBWBWBWB","BWBWBWBW","WBWBWBWBWB","BWBWBWBW","WBWBWBWBWB","BWBWBWBW","WBWBWBWBWB","BWBWBWBW","WBWBWBWBWB"]
+chess2 = [WB,BW] * 4 # 우측상단을 W ["WBWBWBWB", "BWBWBWBW","WBWBWBWBWB","BWBWBWBW","WBWBWBWBWB","BWBWBWBW","WBWBWBWBWB","BWBWBWBW","WBWBWBWBWB","BWBWBWBW"]
+for x in range(N - 7):
+    for y in range(M - 7):
+        cnt1 = 0
+        cnt2 = 0
+        for i in range(8):
+            cnt1 = 0
+            cnt2 = 0
+            for i in range(8):
+                for j in range(8):
+                    if board[x + i][y + j] != chess1[i][j]:
+                        cnt1 += 1
+                    if board[x + i][y + j] != chess2[i][j]:
+                        cnt2 += 1
+            if minimum > min(cnt1,cnt2):
+                minimum = min(cnt1, cnt2)
+print(minimum)                                                            #선생님 풀이 (정답)
+-----------------------------------------------------------------------------------------------------------------------
+숙제 : 프로그래머스 "시소 짝꿍" 문제
