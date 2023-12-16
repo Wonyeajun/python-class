@@ -1,0 +1,153 @@
+# 클래스 생성 방법
+# class 클래스이름:
+#     클래스 내용...
+
+class Myclass:
+    a = 1 # 클래스 변수
+
+    def __init__(self):
+        # 인스턴스 변수
+        self.v1 = 0
+        self.v2 = 10
+        self.sv ="Hello"
+
+
+    #1개의 사용 위치
+    def GetA(self):
+        return Myclass.a
+ins = Myclass()
+ins2 = Myclass()
+
+
+ins.v1 = 30
+ins.v2 = 60
+ins.sv = "meet"
+print(ins.v1, ins.v2, ins.sv)
+
+
+print(ins2.v1, ins2.v2, ins2.sv)
+
+
+ins.a = 10 # 인스턴스 변수로 선언
+Myclass.a = 30
+print(ins.a, ins.GetA())
+
+
+print(ins2.a, ins2.GetA())
+=======================================================================================================================
+
+class 상속
+
+
+2개의 사용 위치
+class Family: # 부모 클래스
+    lastname = "홈"
+#   2개의 사용 위치
+    def lname(self):
+        print("성은 %s입니다." % self.lastname)
+
+# 1개의 사용 위치
+class Person(Family): # 자식 클래스
+    firstname = "길동"
+#   1개의 사용 위치
+    def fname(self):
+        print("이름은 %s입니다." % self.firstname)
+
+a = Family()
+b = Person()
+
+a.lname() # 성은 홍입니다.
+b.fname() # 이름은 길동입니다.
+b.lname() # 성은 홍입니다.
+a.fname() # AttributeError: 'Family' object has no attribute 'fname'
+#=======================================================================================================================
+class FirstClass:
+    def __init__(self):
+        self.v1 = 0
+        self.v2 = 1
+        self.v3 = ['a', 'b', 'c']
+
+
+    def GetV3(self):
+        return self.v3
+
+
+class SecondClass:
+    def __init__(self):
+        self.c1 = [1, 2, 3]
+        self.c2 = "hello"
+        self.c3 = FirstClass()
+
+
+obj = SecondClass()
+print(obj.c1)
+print(obj.c2)
+print(obj.c3)
+
+print(obj.c3.v1)
+print(obj.c3.v2)
+print(obj.c3.v3)
+print(obj.c3.GetV3())
+
+
+
+print(obj.c1 + obj.c3.GetV3())
+#=======================================================================================================================
+# 1개의 사용 위치
+class Student:
+    def __init__(self, n, a, g):
+        self.name = n
+        self.age = a
+        self.grade = g
+
+    def GetName(self):
+        return self.name
+
+    def GetAge(self):
+        return self.age
+
+    def GetGrade(self):
+        return self.grade
+#
+    def ShowData(self):
+        print("학생 이름 : %s  학생 나이 : %s 학생 학년 : %s" % (self.name, self.age, self.grade))
+
+class StudentManager:
+    def __init__(self):
+        self.sl = []
+
+    def InputStudent(self):
+        in_name = input("이름 : ")
+        in_age = input("나이 : ")
+        in_grade = input("학년 : ")
+        self.sl.append(Student(in_name, in_age, in_grade))
+
+    def ShowAll(self):
+        print("--------------------전체 학생 목록-------------------")
+        for i in range(len(self.sl)):
+            self.sl[i].ShowData()
+        print("---------------------------------------------------")
+
+#obj = Student("홍길동, 10, 3)
+
+
+sm = StudentManager()
+
+while True:
+    print("<<학생관리 시스템 메뉴>>")
+    print("-----------------------------")
+    print("1. 학생 추가")
+    print("2. 학생 조회")
+    print("0. 종료")
+    print("------------------------------")
+    i = input(">> 값 입력 : ")
+    if i == "1":
+        sm.InputStudent()
+        print("성공적으로 추가됨")
+    elif i == "2":
+        sm.ShowAll()
+    elif i == "0":
+        print("프로그램 종료됨")
+        break
+    else:
+        print("잘못된 입력값입니다. 다시 입력해주세요.")
