@@ -1,0 +1,141 @@
+n = input()
+a = (n.replace(",", ""))
+account = ".".join(a).split(".")
+answer = ''
+del account[-1]
+print(account)
+A = []
+Big_number = ["일","십", "백", "천"]
+Bigger_number = ["천", "만", "억", "조"]
+Small_num = ['', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구']
+for _ in range(4):
+    if len(account) >= 4:
+        A.append(account[-4:(len(account) + 1)])
+        del account[-4 : len(account) + 1]
+        print(f"account:{account}")
+    else:
+        if account != []:
+            A.append(account[-4:(len(account) + 1)])
+            del account[-4: len(account) + 1]
+print(f"A:{A}")
+for i in range(len(A), 0,-1):
+    small_answer = ''
+    print(f"len(A) : {len(A)}")
+    print(f"i : {i}")
+    if i == len(A):
+        for j in range(len(A[i - 1])):
+            if j != len(A[i - 1]):
+                if A[i - 1][j] == '1':
+                    small_answer += Big_number[len(A[i - 1][j])]
+                else:
+                    small_answer += Small_num[int(A[i - 1][j])]
+                    if Big_number[len(A[i - 1]) -(1 +j)] != '일':
+                        small_answer += Big_number[len(A[i - 1]) -(1 +j)]
+            else:
+                small_answer += Small_num[int(A[i - 1][j])]
+            print(f"small_answer : {small_answer}")
+        small_answer += Bigger_number[len(A) - 1]
+        answer += small_answer
+    else:
+        for u in range(len(A[i - 1])):
+            if u == len(A[i - 1]):
+                small_answer += Small_num[int(A[i - 1][u])]
+                if Big_number[len(A[i - 1]) - (1 + u)] != '일':
+                    small_answer += Big_number[len(A[i - 1]) - (1 + u)]
+            else:
+                small_answer += Small_num[int(A[i - 1][u])] + Big_number[-i]
+print(answer)                                 #프로젝트 오일러 '암아존 배조스씨를 위한 계좌이체 한글 음성 안내' 문제(내 풀이....인데 이걸 못 푸네) 실패
+-------------------------------------------------------------------------------------------------------------------------------------------------
+def get_kor_num(int_num:str):
+    int_num = int(int_num.rstrip('원\n').replace(',',''))
+    # 숫자
+    digit_list = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"]
+    # 십 ~ 천 단위
+    low_part_list = {1: "", 10: "십", 100: "백", 1000: "천", }
+    # 억 ~ 조 단위
+    high_part_list = {1: "", 10000: "만", 100000000: "억", 1000000000000: "조"}
+    # 최대 읽을 수 있는 단위 "조"
+    high_part_div = 1000000000000
+    ret_str = ""
+    while int_num:
+        part = int_num // high_part_div
+        low_part_div = 1000
+        low_str = ""
+        if not part:
+            high_part_div //= 10000
+            continue
+        while part:
+            num = part // low_part_div
+            n = digit_list[num]
+            p = low_part_list[low_part_div]
+            if num > 1 or num == 1 and low_part_div == 1:
+                low_str += n
+            if num:
+                low_str += p
+            part %= low_part_div
+            low_part_div //= 10
+
+        hp = high_part_list[high_part_div]
+        if hp == "만" and low_str == "일":
+            ret_str += hp+' '
+        else:
+            ret_str += low_str + hp+' '
+        int_num %= high_part_div
+        high_part_div //= 10000
+
+    return ret_str.rstrip()+'원'
+---------------------------------------------------------------------------------------------------------------------------------------------------
+# 정점과 간선의 개수
+v, e = map(int, input().split())
+matrix = [[0 for _ in range(v)] for _ in range(v)]
+# a b => a에서 b로 갈 수 있다.
+for _ in range(e):
+    a,b = map(int,input().split())
+    matrix[a - 1][b - 1] = 1
+    matrix[b - 1][a - 1] = 1
+matrix = [[0, 1, 1 ,0],
+          [1, 0, 1, 0],
+          [1, 1, 0, 1],
+          [0, 0, 1, 0]]
+visit = [False] * len(matrix)
+def DFS(matrix,visit,curr):
+    print(f"{curr}정점 방문")
+    visit[curr] = True
+
+
+    for _next in range(len(matrix[curr])):
+        if not visit[_next] and matrix[curr][_next]:
+            DFS(matrix,visit,_next)
+
+DFS(matrix, visit, 0)
+=============================================================================================================================================
+com = int(input())
+net = int(input())
+# network 초기값
+network = [[0 for _ in range(com + 1)] for _ in range(com + 1)]
+
+# network 연결상태 반영
+for _ in range(net):
+    a,b = map(int, input().split())
+    network[a][b] = 1
+    network[b][a] = 1
+print(network)
+
+visit = [False] * (com + 1)
+
+def DFS(curr):
+    # 1. 방문표시
+    # 2. network[a][b] == 1 : a정점에서 b정점으로 갈 수 있다.
+    #    network[a][b] == 0 : a정점에서 b정점으로 갈 수 없다.
+    #    a == b: 자기 자신에서 움직이려는 의미, 확인할 필요가 없다.
+    # 3. DFS는 재귀 함수로 구현했기에 방문한 모든 정점에 대해 True로 변경했다.
+    #    방문한 정점은 바이러스에 감염되었다는 의미
+    # 즉, 1번 컴퓨터를 제외하고
+    visit[curr] = True
+    for _next in range(len(network[curr])):
+        if not visit[_next] and network[curr][_next]:
+            DFS(_next)
+
+DFS(1)
+print(visit[2:].count(True))
+#----------------------------------------------------------------------------------------------------------------------------------------------
