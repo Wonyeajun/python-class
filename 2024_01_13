@@ -1,0 +1,92 @@
+class Students:
+    def __init__(self,name, age, grade, num, club = ''):
+        self.name = name
+        self.age = age
+        self.grade = grade
+        self.class_num = num
+        self.club = club
+
+    def name(self):
+        return self.name
+
+    def age(self):
+        return self.age
+
+    def grade(self):
+        return self.grade
+
+    def class_num(self):
+        return self.class_num
+
+    def club(self):
+        return self.club
+
+    def Students_Data(self):
+        if self.club == "":
+            return (f"학생 이름 : {self.name} / 나이 : {self.age} / 학년 : {self.grade} / 출석부 번호 : {self.class_num} / 동아리 없음")
+        else:
+            return (f"학생 이름 : {self.name} / 나이 : {self.age} / 학년 : {self.grade} / 출석부 번호 : {self.class_num} / 동아리 : {self.club}")
+
+
+obj = Students('원예준', 16, 3, 0, '수학사랑')
+
+print(obj.Students_Data())
+#-----------------------------------------------------------------------------------------------------------------------
+
+
+
+class Management:
+    def __init__(self):
+        self.sl = []
+
+    def Input(self):
+        input_name = input("이름 : ")
+        input_age = input("나이 : ")
+        input_grade = input("학년 : ")
+        input_num = input("출석부 번호 : ")
+        input_club = input("동아리 : ")
+        if input_club == "":
+            self.sl.append(Students(input_name, input_age, input_grade, input_num, "동아리 없음"))
+        else:
+            self.sl.append(Students(input_name, input_age, input_grade, input_num, input_club + '동아리'))
+
+
+    def ShowAll(self):
+        print("--------------------------------------------------------------------------")
+        for i in range(len(self.sl)):
+            print(self.sl[i].Students_Data())
+        print("--------------------------------------------------------------------------")
+        print(f"self.sl : {self.sl}")
+
+    def Delete(self):
+        print("삭제하실 학생의 정보를 입력해주세요.")
+        delete_name = input("학생 이름 : ")
+        delete_age = input("나이 : ")
+        delete_grade = input("학년 : ")
+        delete_num = input("출석부 번호 : ")
+        delete_club = input("동아리 : ")
+        del self.sl[self.sl.index(f"학생 이름 : {delete_name}")]
+
+
+mg = Management()
+while True:
+    print("<<학생관리 시스템 메뉴>>")
+    print("-----------------------------")
+    print("1. 학생 추가")
+    print("2. 학생 조회")
+    print("3. 학생 삭제")
+    print("0. 종료")
+    print("------------------------------")
+    i = input(">> 값 입력 : ")
+    if i == "1":
+        mg.Input()
+        print("성공적으로 추가됨")
+    elif i == "2":
+        mg.ShowAll()
+    elif i == "3":
+        mg.Delete()
+    elif i == "0":
+        print("프로그램 종료됨")
+        break
+    else:
+        print("잘못된 입력값입니다. 다시 입력해주세요.")
