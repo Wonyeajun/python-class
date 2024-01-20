@@ -1,0 +1,148 @@
+class Students:
+    def __init__(self,name, age, grade, group, num, club = ''):
+        self.name = name
+        self.age = age
+        self.grade = grade
+        self.group = group
+        self.class_num = num
+        self.club = club
+
+    def name(self):
+        return self.name
+
+    def age(self):
+        return self.age
+
+    def grade(self):
+        return self.grade
+
+    def class_num(self):
+        return self.class_num
+
+    def club(self):
+        return self.club
+
+    def group(self):
+        return self.group
+
+    def Students_Data(self):
+        if self.club == "동아리 없음" or self.club == "":
+            return (f"학생 이름 : {self.name} / 나이 : {self.age} / 학년 : {self.grade} / 반 : {self.group} / 출석부 번호 : {self.class_num} / 동아리 없음")
+        else:
+            return (f"학생 이름 : {self.name} / 나이 : {self.age} / 학년 : {self.grade} / 반 : {self.group} /  출석부 번호 : {self.class_num} / {self.club} 동아리")
+#-----------------------------------------------------------------------------------------------------------------------
+
+class Management:
+    def __init__(self):
+        self.sl = []
+        self.default()
+
+    def Input(self):
+        input_name = input("이름 : ")
+        input_age = input("나이 : ")
+        input_grade = input("학년 : ")
+        input_group = input("학급 : ")
+        input_num = input("출석부 번호 : ")
+        input_club = input("동아리 : ")
+        if input_club == "":
+            self.sl.append(Students(input_name, input_age, input_grade, input_group, input_num, "동아리 없음"))
+        else:
+            self.sl.append(Students(input_name, input_age, input_grade, input_group, input_num, input_club))
+
+    def ShowAll(self):
+        print("--------------------------------------------------------------------------")
+        for i in range(len(self.sl)):
+            print(self.sl[i].Students_Data())
+        print("--------------------------------------------------------------------------")
+
+    def Delete(self):
+        print("삭제하실 학생의 이름을 입력해주세요.")
+        delete_name = input("학생 이름 : ")
+        length = len(self.sl)
+        for i in range(length - 1):
+            if self.sl[i].name == delete_name:
+                del self.sl[i]
+
+    def Club(self):
+        cluber = input("동아리 : ")
+        Ccluber = ''
+        for i in range(len(self.sl)):
+            if self.sl[i].club == cluber:
+                if Ccluber != '':
+                    Ccluber += f", {self.sl[i].name}"
+                else:
+                    Ccluber += self.sl[i].name
+        print(f"동아리 회원 : {Ccluber}")
+
+    def Own_num(self):
+        global x
+        x = ''
+        target = input("학생이름 : ")
+        own_num = ""
+        for i in range(len(self.sl)):
+            if self.sl[i].name == target:
+                own_num += str(self.sl[i].grade)
+                if int(self.sl[i].group) >= 10:
+                    own_num += self.sl[i].group
+                else:
+                    own_num += f"0{self.sl[i].group}"
+                if int(self.sl[i].class_num) >= 10:
+                    own_num += str(self.sl[i].class_num)
+                else:
+                    own_num += f"0{self.sl[i].class_num}"
+            x += f'{own_num},'
+        print(own_num)
+
+    def name_and_own_num(self):
+        All = ''
+        List = []
+        for i in range(len(self.sl)):
+            worker = ''
+            List.append(x.split(','))
+            a = self.sl[i].name
+            worker += f'<{List[i]}> {a}'
+            if len(self.sl) == 1:
+                All += worker
+            else:
+                if i != len(self.sl):
+                    All += f'{worker} / '
+                else:
+                    All += worker
+        print(All)
+    def default(self):
+        self.sl.append(Students("홍길동", 17, 1, 1, 12, ''))
+        self.sl.append(Students("김준수", 19, 3, 2, 23, "수학"))
+        self.sl.append(Students("유명희", 18, 2, 9, 3, "과학"))
+
+
+mg = Management()
+while True:
+    print("<<학생관리 시스템 메뉴>>")
+    print("-----------------------------")
+    print("1. 학생 추가")
+    print("2. 학생 조회")
+    print("3. 학생 삭제")
+    print("4. 동아리 회원")
+    print("5. 학번")
+    print("6. 학생들 이름,학번")
+    print("0. 종료")
+    print("------------------------------")
+    i = input(">> 값 입력 : ")
+    if i == "1":
+        mg.Input()
+        print("성공적으로 추가됨")
+    elif i == "2":
+        mg.ShowAll()
+    elif i == "3":
+        mg.Delete()
+    elif i == "4":
+        mg.Club()
+    elif i == "5":
+        mg.Own_num()
+    elif i == "6":
+        mg.name_and_own_num()
+    elif i == "0":
+        print("프로그램 종료됨")
+        break
+    else:
+        print("잘못된 입력값입니다. 다시 입력해주세요.")
