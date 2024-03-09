@@ -20,7 +20,7 @@ def solution(k, score):
                     answer.remove(min(answer))
                 answer.append(score[i])
                 Return.append(min(answer))
-    return Return                                                   # 프로그래머스 '명예의 전당' 문제(아직 못품...ㅠ)
+    return Return                                                   # 프로그래머스 '명예의 전당' 문제{다음 깃허브 파일에 정답(풀었음)}
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------
 import random
 from abc import ABC, abstractmethod
