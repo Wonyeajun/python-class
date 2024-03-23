@@ -1,0 +1,66 @@
+class Element:
+    def __init__(self, data, link):
+        self.data = data
+        self.link = link
+
+class Stack:
+    def __init__(self):
+        self.top = None
+
+    def push(self, data):
+        if self.top is None:
+            element = Element(data, None)
+            self.top = element
+            return self.top.data
+        else:
+            element = Element(data, self.top)
+            self.top = element
+            return self.top.data
+
+    def pop(self):
+        if self.top == None:
+            return None
+        else:
+            Past = self.top.data
+            self.top = self.top.link
+            return Past
+s = Stack()
+for i in range(1,6):
+    print(s.push(i))
+print("\n\n")
+for _ in range(5):
+    print(s.pop())
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+class Element:
+    def __init__(self, data, left, right):
+        self.data = data
+        self.left = left
+        self.right = right
+
+class Deque:
+    def __init__(self):
+        self.rear = None
+        self.front= None
+
+
+    # 덱은 양쪽으로 들어오거나 나가는 게 가능하다고 함....!
+
+    def in_rear(self, data):
+        if self.rear == None:
+            element = Element(data, None, None)
+            self.rear = element
+            self.front = element
+        else:
+            element = Element(data, self.rear, self.front)
+            self.rear = element
+            self.rear.left = element
+
+    def in_front(self, data):
+        if self.front == None:
+            element = Element(data, None, None)
+            self.rear = element
+            self.front = element
+        else:
+            element = Element(data, self.rear, self.front)
+            self.front = element
+            #self.front.right = element
