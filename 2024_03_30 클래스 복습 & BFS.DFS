@@ -1,0 +1,55 @@
+N,M,V = map(int, input().split())
+matrix = [[0 for _ in range(N)] for _ in range(N)]
+# a b => a에서 b로 갈 수 있다.
+for _ in range(M):
+    a,b = map(int,input().split())
+    matrix[a - 1][b - 1] = 1
+    matrix[b - 1][a - 1] = 1
+visit = [False] * len(matrix)
+def DFS(matrix,visit,curr):
+    print(f"{curr}정점 방문")
+    visit[curr] = True
+
+
+    for _next in range(len(matrix[curr])):
+        if not visit[_next] and matrix[curr][_next]:
+            DFS(matrix,visit,_next)
+
+DFS(matrix, visit, V)
+#---------------------------------------------------------------------------------------------------------------------------------------------------
+N,M,V = map(int,input().split())
+
+matrix = [[0 for _ in range(N)] for _ in range(N)]
+print(matrix)
+for _ in range(M):
+    a,b = map(int,input().split())
+    matrix[a-1][b-1] = 1
+    matrix[b-1][a-1] = 1
+
+print(matrix)
+
+answer = []
+
+def BFS(visit, curr):
+    pass
+
+BFS(matrix, V)
+
+A = [False] * len(matrix)   # A = [False
+
+def DFS(visit, curr):
+
+    A[curr-1] = True
+
+    for i in range(len(visit[curr])):
+        if visit[curr-1][i] == 1 and A[i] == False:
+            answer.append(i + 1)
+            DFS(visit, i + 1)
+        print(answer)
+
+
+
+
+
+DFS(matrix, V)
+
