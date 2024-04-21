@@ -1,0 +1,64 @@
+n = int(input())
+Words = []
+for _ in range(n):
+    A = str(input())
+    Words.append(A)
+
+
+def solution(words):
+    Dict = []
+    answer = 0
+    for i in range(len(words)):
+        Changed = words[i]
+        if i == 0:
+            Dict.append(words[i])
+            answer += 1
+        else:
+            for j in range(len(Changed)):
+                if Changed in Dict:
+                    break
+                else:
+                    if j == len(Changed) - 1:
+                        Dict.append(words[i])
+                        answer += 1
+                        break
+                Changed = Changed[1 : len(Changed) + 1] + Changed[0]
+    return answer
+print(solution(Words))                                                      # 백준 '사이클 단어' 문제
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+N,L = map(int,input().split())
+D_list = []
+R_list = []
+G_list = []
+for _ in range(N):
+    D,R,G = list(map(int,input().split()))
+    D_list.append(D)
+    R_list.append(R)
+    G_list.append(G)
+
+def Traffic_light(d,r,g):   # d = [3, 5]   r = [5, 2]   g = [5, 2]   time = 7   distance = 5     cnt = 1
+    time = 0
+    distance = 0
+    cnt = 0
+    while distance < L:
+        time += 1
+        distance += 1
+        if time == d[cnt] == 1:
+            continue
+        elif time == d[cnt]:
+            light_colour = ''       # light_colour = 'red'
+            timer = time            # timer = -2
+            B = timer
+            while timer >= 0:
+                timer -= r[cnt]
+                if timer < 0:
+                    light_colour = 'red'
+                    break
+                timer -= g[cnt]
+                if timer < 0:
+                    light_colour = 'green'
+                    break
+            if light_colour == 'red':
+                time += abs(r[cnt] - B)
+    return time
+print(Traffic_light(D_list, R_list, G_list))                                             # 백준 '도로와 신호등' 문제
