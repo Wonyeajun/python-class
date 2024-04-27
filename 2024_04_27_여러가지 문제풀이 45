@@ -1,0 +1,54 @@
+# 호숫가의 개미굴
+N = int(input())
+arr = list(map(int, input().split()))
+def solve(arr):
+    # 쪽방이 있으면 쪽방에 개미가 들어가는것이 최대 이익이다.
+    total = sum(arr)        # 쪽방의 개수
+    # 쪽방의 개수가 0이면, 모두 비어있다는 것이고 이 경우 모든 방의 개수 // 2 만큼의 개미가 있다.
+    if total == 0:
+        return N//2
+    #  방들은 원형으로 연결되어있기 때문에 첫방과 끝방이 연결되어있다.
+    # 그렇기에 계산시 첫방을 쪽방이 있는 방으로 계산하는 것이 더 편한다.
+    idx = 0
+    for idx, a in enumerate(arr):
+        if a:
+            break
+    arr = arr[idx + 1:] + arr[:idx + 1]
+    # 쪽방이 없는 방들은 (쪽방이 없는 방의 수 + 1) // 2 만큼의 개미가 산다.
+    chk = [0]*N
+    for i in range(N):
+        if arr[i] or chk[i]:
+            continue
+        for j in range(i, N):
+            if arr[j]:
+                break
+            chk[j] = 1
+        total += (j - i + 1)//2
+    return total
+    print(solve(arr))
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 백준 카드바꾸기
+
+from sys import stdin
+
+n = int(stdin.readline())
+card = list(map(int, stdin.readline().split()))
+pair = set()
+
+for i in range(n - 1):
+    for j in range(i + 1, n):
+        a = (card[j] - card[i]) / (j - i) # 가능한 모든 기울기(n-1개)
+        if a - int(a) == 0: # 기울기가 정수가 나오지 않으면 탈락(모든 카드가 정수이기 때문)
+            b = card[j] - a * j # a가 정해졌을 때 나오는 b
+            pair.add((a, b))
+print(f"pair: {pair}")
+change_list = []
+for (a, b) in pair: # 가능한 모든 (a, b) 쌍으로 그래프를 만들고 카드를 대입
+    change = 0
+    for l in range(n):
+        if card[l] != a * l + b:
+            change += 1
+    change_list.append(change)
+
+print(min(change_list))
+
