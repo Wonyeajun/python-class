@@ -1,0 +1,60 @@
+# 원소값이 1 부터 10까지 저자되어있는 리스트의 세그먼트 트리 구현하기
+from math import ceil, log
+nums = []
+changing = []
+bouting = []
+N,M,K = map(int, input().split())
+for _ in range(N):
+    A = int(input())
+    nums.append(A)
+
+for i in range(M + K):
+    A,B,C = map(int,input().split())
+    if A == 1:
+        
+H = ceil(log(len(nums),2))          #트리의 높이
+tree_size = pow(2, H + 1) - 1       #트리의 노드의 개수
+# 세그먼트 트리의 0번쨰 원소값은 index계산시 불편해지므로 사용하지 않는다.
+segment_tree = [0] + [0] * tree_size
+print(f"nums : {nums}, H : {H}, tree_size : {tree_size}, segment_tree : {segment_tree}")
+# 좌측 노드: node * 2, 구간 : left - mid
+# 우측 노드: node * 2 + 1, 구간: mid + 1,right
+# 현재 노드의 좌표: node, 구간: left - right, 값: 좌/ 우측 노드의 합
+# 구간 길이가 1이라면(left와 right가 같다면) 트리에 자기 자신을 저장한다: 리프
+
+def segment(left,right,i):
+    if left == right:
+        segment_tree[i] = nums[left]
+        return segment_tree[i]
+    mid = (right + left) // 2
+    segment_tree[i] = segment(left,mid,i*2) + segment(mid+1, right, i*2+1)
+    return segment_tree[i]
+segment(0,len(nums)-1,1)
+print(segment_tree)
+
+def query_sum(start, end, idx, left, right):
+    if left > end or right < start:
+        return 0
+    if left <= start and right >= end:
+        return segment_tree[idx]
+    mid = (start + end) // 2
+    return query_sum(start,mid,idx*2,left,right) + query_sum(mid+1,end,idx*2+1,left,right)
+
+print("0 to 5 : ", query_sum(0, len(nums) - 1, 1, 0, 5))                    #15 , 5 9 3 0 5
+                                                                            # 5 6 12 0 5
+                                                                            # 6 9  25 0 5
+
+def update(start, end, node, idx, val):
+    if start > idx or idx > end:
+        return segment_tree[node]
+    segment_tree[node] += val
+    if start != end:
+        mid = (start + end) // 2
+        update(start, mid, node * 2, idx, val)
+        update(mid + 1, end, node * 2 + 1, idx, val)
+
+
+print("sum 0 to 5 : ", query_sum(0, len(nums) - 1, 1, 0, 5))
+update(0, len(nums) - 1, 1, 0, 2)
+print("sum 0 to 5 : ", query_sum(0, len(nums) -1, 1, 0, 5))
+print(segment_tree)
