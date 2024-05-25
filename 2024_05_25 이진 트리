@@ -1,0 +1,100 @@
+# 완전 이진탐색 트리(binary search Tree)
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class Binary_Tree:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, data):
+        if self.root is None :
+            node = Node(data)
+            self.root = node
+        else:
+            curr = self.root
+            while True:
+                if curr.data < data:
+                    if curr.right is None:
+                        curr.right = Node(data)
+                        return
+                    else:
+                        curr = curr.right
+                else:
+                    if curr.left is None:
+                        curr.left = Node(data)
+                        return
+                    else:
+                        curr = curr.left
+
+
+    def delete(self, data):
+        if self.root is None:
+            return None
+
+        curr = self.root
+        pcurr = None
+        while curr:
+            # print(f"curr.data: {curr.data}")
+            if curr.data < data:
+                # print('01')
+                pcurr = curr
+                curr = curr.right
+            elif curr.data > data:
+                # print('02')
+                pcurr = curr
+                curr = curr.left
+            #지울 데이터를 찾은 경우
+            else:
+                ret_data = curr.data
+                curr_left = curr.left
+                # curr의 자식노드가 없는 경우
+                if curr.left is None and curr.right is None:
+                    if pcurr.left == curr:
+                        pcurr.left = None
+                    else:
+                        pcurr.right = None
+                # curr의 자식노드가 왼쪽에만 있는 경우
+                elif curr.left is not None and curr.right is None:
+                    if pcurr.left == curr:
+                        pcurr.left = curr.left
+                    else:
+                        pcurr.right = curr.left
+                # curr의 자식노드가 오른쪽에만 있는 경우
+                elif curr.left is None and curr.right is not None:
+                    if pcurr.left == curr:
+                        pcurr.left = curr.right
+                    else:
+                        pcurr.right = curr.right
+                # curr의 자식노드가 양쪽 다 있는 경우
+                else:
+                    while curr_left.right != None:
+                        pcurr = curr_left
+                        curr = curr_left.right
+                        curr_left = curr_left
+                    pcurr.right = None
+
+                return ret_data
+        return None
+
+    def inorder(self,curr):
+        if curr is not None:
+            print(curr.data,end = ' ')
+            self.inorder(curr.left)
+            self.inorder(curr.right)
+
+
+
+bsTree = Binary_Tree()
+datas = [20, 10, 30, 3, 15, 25, 50, 5, 27, 6, 7]
+for d in datas:
+    bsTree.insert(d)
+bsTree.inorder(bsTree.root)
+print()
+print(bsTree.delete(50))
+print(bsTree.delete(25))
+print(bsTree.delete(10))
+print(bsTree.delete(13))
+bsTree.inorder(bsTree.root)
