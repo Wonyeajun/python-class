@@ -1,0 +1,61 @@
+# 최소 힙(Min Heap): 가장 좌측에 가장 작은 값이 들어가는 형태의 자료구조
+# 단, 0번째는 자식 노드 계산에 있어서 불편해지므로 사용하지 않는다.
+# 1번째값이 가장 작은 값이다.
+# 자식노드 : 왼쪽 자식노드는 현재 노드의 인덱스 * 2
+#           오른쪽 자식노드는 현재 인덱스 * 2 + 1의 구조를 가진다.
+# 최소힙은 항상 부모노드의 값이 자식노드의 값보다 작다.
+# 최소 힙에 값을 넣을 경우, 힙은 완전이진트리에서 파생되었기 때문에 가장 낮은 단계의 왼쪽 노드에 값을 추가한다.
+# 그 후 부모 노드와 비교하여, 위치를 변경한다.
+# 최소힙에서 값을 추출할 경우, 가장 작은 값인 루트의 값을 반환한다. 그 후 최소힙을 유지하기 위해
+# 부모노드와 자식노드간의 데이터 비교를 한다.
+
+class MinHeap:
+    def __init__(self):
+        self.Heap = [-float('inf')]
+
+
+    def push(self, data):
+        self.Heap.append(data)
+        curr = len(self.Heap) - 1
+        while self.Heap[curr] < self.Heap[curr//2]:
+            self.Heap[curr], self.Heap[curr//2] = self.Heap[curr//2], self.Heap[curr]
+            curr //= 2
+
+    def pop(self, data):
+        if len(self.Heap) == 1: return None
+        ret_value = self.Heap[1]
+        self.Heap[1] = self.Heap[-1]
+        curr = 1
+        while True:
+            if len(self.Heap) > curr * 2 + 1:
+                if self.Heap[curr * 2] <= self.Heap[curr * 2 + 1]:
+                    child = curr * 2
+                else:
+                    child = curr * 2 + 1
+                if self.Heap[curr] > self.Heap[child]:
+                    self.Heap[curr], self.Heap[child] = self.Heap[child], self.Heap[curr]
+                    curr = child
+                else:
+                    break
+            elif len(self.Heap) > curr * 2:
+                if self.Heap[curr] > self.Heap[curr * 2]:
+                    self.Heap[curr], self.Heap[curr * 2] = self.Heap[curr * 2], self.Heap[curr]
+                    curr = curr * 2
+                else:
+                    break
+            else:
+                break
+        return ret_value
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import heapq
+import itertools
+numbers = []
+heapq.heapify(numbers)
+N = int(input())
+for i in range(N):
+    a = list(map(int, input().split()))
+    numbers.append(a)
+numbers = list(itertools.chain(*numbers))
+A = heapq.nlargest(N,numbers)
+print(A[N - 1])
