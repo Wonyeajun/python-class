@@ -1,0 +1,36 @@
+n,k = map(int, input().split())
+
+Coin = []
+for i in range(n):
+    Coin.append(int(input()))
+Coin.sort()
+
+amount = [0] * (k + 1)
+amount[0] = 1
+for i in Coin:
+    for j in range(i, k + 1):
+        amount[j] += amount[j - i]
+    print(amount)                                  # 백준 '동전 1' 문제7
+-----------------------------------------------------------------------------------------------------------------------
+n,k = map(int, input().split())
+
+Coin = []
+for i in range(n):
+    Coin.append(int(input()))
+Coin.sort()
+
+amount = [10001] * (k + 1)
+amount[0] = 1
+for i in Coin:
+    for j in range(i, k + 1):
+        if amount[j] == 10001:
+            amount[j] = j//i
+        else:
+            if amount[j] - i == 0:
+                num = 1
+            else:
+                num = amount[amount[j] - i] + 1
+            if num < amount[j]:
+                amount[j] = num
+
+print(amount[-1])                                    #백준 '동전 2' 문제
