@@ -1,0 +1,46 @@
+import math
+a, b, c = 0, 0, 0
+def decision(a,b,c):
+    a, b, c = input("a, b, c의 값을 입력해 주세요 : ").split()
+    if not a.isdigit():
+        print("입력 형식이 올바르지 않습니다. 다시 입력해 주세요.")
+        decision(a, b, c)
+    if a == '0':
+        print("a값은 0이 될 수 없습니다. 다시 입력해 주세요.")
+        decision(a, b, c)
+    if not b.isdigit():
+        print("입력 형식이 올바르지 않습니다. 다시 입력해 주세요.")
+        decision(a, b, c)
+    if not c.isdigit():
+        print("입력 형식이 올바르지 않습니다. 다시 입력해 주세요.")
+        decision(a, b, c)
+
+def answer(a,b,c, flag):
+    if flag == 'multiple root':
+        x3 = -b/2
+        return x3
+    elif flag == 'even':
+        x1 = (-b + sqrt(b ** 2 - a * c)) / a
+        x2 = (-b - sqrt(b ** 2 - a * c)) / a
+    else:
+        x1 = (-b + sqrt(b ** 2 - 4 * a * c)) / 2 * a
+        x2 = (-b - sqrt(b ** 2 - 4 * a * c)) / 2 * a
+    return x1, x2
+decision(a, b, c)
+
+if b % 2 == 0:
+    D = b ** 2 - a * c
+    flag = 'even'
+else:
+    D = b ** 2 - 4 * a * c
+    flag = 'odd'
+if D == 0:
+    flag = 'multiple root'
+
+if D < 0:
+    print("해가 없습니다.")
+elif D == 0:
+    x = answer(a,b,c,flag)
+    print(f"해는 중근을 가지는 {x}입니다.")
+else:
+    x1, x2 = answer(a,b,c,flag)
