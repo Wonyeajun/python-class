@@ -1,0 +1,35 @@
+from fractions import Fraction
+def calculating(a,b,c):
+    a, b, c = input().split()
+    if not a.isdigit():
+        if ('-' and '.' and '/') not in a:
+            print("계수 a, b, c는 숫자여야만 합니다.")
+    if a == '0':
+        print("a의 값은 0이 될 수 없습니다.")
+    if not b.isdigit():
+        if ('-' and '.' and '/') not in b:
+            print("계수 a, b, c는 숫자여야만 합니다.")
+    if not c.isdigit():
+        if ('-' and '.' and '/') not in c:
+            print("계수 a, b, c는 숫자여야만 합니다.")
+    a,b,c = Fraction(a), Fraction(b), Fraction(c)
+
+    # 판별식 D
+    D = b ** 2 - 4 * a * c
+    if D < 0:
+        if int(D) != D:
+            D = f"({D})i"
+        else:
+            D = f"{-D}i"
+    print(f"D = {D}")
+
+    if D == 0:
+        print(f"x = {-b // 2}(중근)")
+    else:
+        print(f"x = ({-b} + √{D})/{2 * a} or ({-b} - √{D})/{2 * a}")
+
+calculating(0, 0, 0)
+
+# 허수에 대한 처리 : 근의 공식 사용해서 판변실 부분이 0보다 작을 때, 해가 없다가 아니라 허수를 i로 표현
+
+#print('루트' ,2, 'i')
