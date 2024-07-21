@@ -1,0 +1,50 @@
+# Programming assignment 3: A box code (6 points) ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# read_box_code 함수
+! def read_box_code(code):
+    result = {}
+    for co in code: # '0 fds'
+        k,v = co.split()
+        v = ''.join(sorted(v))
+        if k in result:
+            result[k].add(v)
+        else:
+            result[k] = {v}
+    return result
+
+
+alphabet = " abcdefghijklmnopqrstuvwxyz"
+
+! def letter2code(letter, box_code):
+    result = ""
+    num = str(alphabet.find(letter.lower()))
+    for n in num:
+        vals = box_code[n]  # {'adfs','werw'}
+        val = list(vals)[0] # 'adfs'
+        v = ''.join(set(val))
+        result += v + '-'
+
+    return result[:-1]
+
+  ! def code2letter(letter,box_code):
+  num = ""
+  for let in letter.split('-'):   # let : fecgha
+      l = ''.join(sorted(let))
+      for k,vals in box_code.items():
+          if l in vals:
+              num += k
+              break
+  return alphabet[int(num)].upper()
+
+
+! def encode(message, box_code):
+    result = ""
+    for m in message:
+        if not m.isalpha(): continue
+        result += letter2code(m,box_code) + ' '
+    return result
+
+def decode(encoded_message, box_code):
+    result = ""
+    for m in encoded_message.split():
+        result += code2letter(m,box_code)
+    return result
