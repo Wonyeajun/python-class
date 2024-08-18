@@ -135,3 +135,30 @@ def rotate(self):
             c = convert.get(c,c)
             new_string += c
     return Quilt(new_row,new_col,new_string)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def solution(order):
+    answer = 0
+    container = [i for i in range(1,len(order) + 1)]
+    sub_container = []
+    for i in range(len(order)):
+        if container[i] == order[i]:
+            order.pop(0)
+            container.pop(0)
+            answer += 1
+            break
+        else:
+            sub_container.append(container.pop(0))
+        # order = [3, 1, 2, 5], container = [5], sub_container = [1, 2, 3]
+    Flag = 0
+    while Flag != 1:
+        if order[0] == sub_container[-1]:
+            order.pop(0)
+            sub_container.pop()
+            answer += 1
+        elif order[0] == container[0]:
+            order.pop(0)
+            container.pop(0)
+            answer += 1
+        else:
+            break
+    return answer
