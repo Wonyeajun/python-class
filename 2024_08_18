@@ -87,3 +87,51 @@ if __name__ == "__main__":
     # # # Traceback(most recent call last):
     # # # AssertionError: invalid configuration
     #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    class Quilt:
+    def __init__(self,row,col,string):
+        if row * col != len(string):
+            raise AssertionError("invalid configuration")
+        valid_string = "\/+*-|ox"
+        for s in set(string):
+            if s not in valid_string:
+                raise AssertionError("invalid configuration")
+        self.row = row
+        self.col = col
+        self.string = string
+        self.board = [[''] * col for _ in range(row)]
+        for i in range(row):
+            for j in range(col):
+                self.board[i][j] = string[i * col + j]
+
+    def __repr__(self):
+        return f"Quilt({self.row}, {self.col}, {self.string})"
+
+def __str__(self):
+    result = ""
+    for b in self.board:
+        result += ''.join(b)+'\n'
+    return result[:-1]
+
+def __add__(self, other):
+    if self.row != other.row:
+        raise AssertionError("quilts do not have equal height")
+    new_row = self.row
+    new_col = self.col + other.col
+    new_string = ""
+    for i in range(new_row):
+        new_string += ''.join(self.board[i])
+        new_string += ''.join(other.board[i])
+    return Quilt(new_row,new_col,new_string)
+
+
+def rotate(self):
+    convert = {"|": '-', '-':'|', '\\':'/','/':'\\'}
+    new_row = self.col
+    new_col = self.row
+    new_string = ""
+    for i in range(self.col):
+        for j in range(self.row):
+            c = self.board[-(1+j)][i]
+            c = convert.get(c,c)
+            new_string += c
+    return Quilt(new_row,new_col,new_string)
