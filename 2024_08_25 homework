@@ -1,0 +1,53 @@
+def Con(O, C):
+    result = 0
+    while C[0] == O[0]:
+        result += 1
+        O.pop(0)
+        C.pop(0)
+    return result
+def Sub(O, S):
+    result = 0
+    while S[-1] == O[0]:
+        result += 1
+        O.pop(0)
+        S.pop()
+    return result
+def solution(order):
+    answer = 0
+    container = [i for i in range(1,len(order) + 1)]
+    sub_container = []
+    for _ in range(len(order)):
+        if container[0] == order[0]:
+            order.pop(0)
+            container.pop(0)
+            answer += 1
+            break
+        else:
+            sub_container.append(container[0])
+            container.pop(0)
+    print(f"order : {order}, container : {container}, sub_container : {sub_container}")
+        #sub_container = [1, 2, 3], container = [5]
+    Flag = 0
+    while Flag == 0:
+        if len(sub_container) == 0:
+            answer += Con(order, container)
+            Flag = 1
+        elif len(container) == 0:
+            answer += Sub(order, sub_container)
+            Flag = 1
+        else:
+            if sub_container[-1] == order[0]:
+                answer += 1
+                sub_container.pop()
+                order.pop(0)
+            elif container[0] == order[0]:
+                answer += 1
+                container.pop(0)
+                order.pop(0)
+            else:
+                Flag = 1
+    return answer
+
+#print(solution([4, 3, 1, 2, 5]))
+#print(solution([5, 4, 3, 2, 1]))
+print(solution([2, 1, 4, 3, 6, 5, 8, 7, 10, 9]))
