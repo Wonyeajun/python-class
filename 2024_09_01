@@ -53,8 +53,40 @@ def hidato(board):
     if len(board) * len(board[0]) == cnt:
         return True
     else:
-        return False
+        return False                    # 내 풀이
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+def first(board):
+    for i in range(len(board)):
+        for j in range(len(board)):
+            if board[i][j] == 1:
+                return i,j
+
+
+def successor(board, sr, sc):
+    _next = board[sr][sc] + 1
+    for nx in range(sr - 1, sr + 2):
+        for ny in range(sc - 1, sc + 2):
+            if (nx,ny) == (sr,sc) : continue
+            if 0 <= nx < len(board) and 0 <= ny < len(board):
+                if board[nx][ny] == _next:
+                    return nx, ny
+    return None, None
+
+def last(board):
+    x,y = first(board)
+    while True:
+        nx, ny = successor(board, x, y)
+        if (nx, ny) == (None, None):
+            return x, y
+        x, y = nx, ny
+
+
+def hidato(board):
+    x, y = last(board)
+    return board[x][y] == len(board) * len(board[0])                 # 내 풀이
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # print(first([[5, 4, 11, 12], [6, 10, 3, 2], [7, 8, 9, 1]]))                                               #5  4  11  12
 #                                                                                                           #6  10  3   2
