@@ -34,5 +34,69 @@ def solution(numbers):
                 Flag = 1
         if Flag == 0:
             print(i)
+#---------------------------------------------------------------------------------------------------------------------------------------------------------
+from itertools import permutations
+
+def Sieve_of_Eratosthenes(num):
+    cnt = 0
+    C_mon = int(0.5 * int(num)) + 1
+    num = int(num)
+    if num == 1:
+        return False
+    if num == 2:
+        return True
+    for i in range(2, C_mon):
+        if num % i == 0:
+            cnt += 1
+    if cnt == 1:
+        return True
+    return False
+def solution(numbers):
+    answer = 0
+    Nums = []
+    Length = len(numbers)
+    standard = [2, 3, 5, 7]
+    for i in range(1, Length + 1):
+        nums = list(permutations(numbers, i))
+        for j in range(len(nums)):
+            data = ''.join(nums[j])
+            if len(data) == 1 and data[0] == '0':
+                continue
+            while True:
+                if data[0] != '0':
+                    break
+                data = data.replace(data[0], '')
+            if data not in Nums:
+                Nums.append(data)
+    for i in Nums:
+        if Sieve_of_Eratosthenes(i) == True:
+            print(f"i : {i}, type(i) : {type(i)}")
+            answer += 1
+    return answer                                                                         (고친 거)
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+from itertools import permutations
+#permutaions(연속된 자료형, 개수) = 해당 개수만큼 중복되지 않은 수열을 만들어냄
+
+def prime(n):
+    if n < 2:
+        return False
+    #k = n의 제곱근
+    k = int(n ** 0.5) +1
+    #소수는 1과 자기자신까지만 가능하다.
+    #소수인지 판별할때는 제곱근 까지의 수들로 나누어줘도 가능하다.
+    for i in range(2,k):
+        if n % i == 0:
+            return False
+    return True
+
+def solution(numbers):
+    answer = 0
+    nums = set([])
+    for i in range(len(numbers)):
+        num_list = list(permutations(numbers,i+1))
+        for j in num_list:
+            nums.add(int("".join(j)))
+    for i in nums:  
+        if prime(i):
             answer += 1
     return answer
