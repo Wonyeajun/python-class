@@ -151,3 +151,43 @@ def perceptron_NOT(x):
 # 테스트
 print(perception_NOT(0)) # 출력 : 1
 print(perceptron_NOT(1)) # 출력 : 0
+#----------------------------------------------------------------------------------------------------------------------------------
+def common(a):
+    A = a.split(":")
+        return int(A[0]) * 60 + int(A[1])
+def Calculating_time(b):
+    A = int(b) // 60
+    B = int(b) % 60
+    if A < 10 and B < 10:
+        return f"0{A}:0{B}"
+    elif A < 10 and B >= 10:
+        return f"0{A}:{B}"
+    elif A >= 10 and B < 10:
+        return f"{A}:0{B}"
+    else:
+        return f"{A}:{B}
+def skip_determine(pos, start, end):
+    list = [pos, start, end]
+    time = []
+    for i in list:
+        time.append(common(i))
+    if time[1] <= time[0] <= time[2]:
+        return True
+    return False
+def solution(video_len, pos, op_start, op_end, commands):
+    if skip_determine(pos, op_start, op_end):
+        pos = op_end
+    Time = pos
+    for i in commands:
+        if i == "prev":
+            Time = prev(pos)
+        if i == "next":
+            Time next(pos)
+    return Time
+def prev(pos):
+    time = common(pos)
+    if time <= 10:
+        return "00:00"
+    else:
+        return Calculating_time(time - 10)
+def next(pos):
