@@ -1,0 +1,71 @@
+
+def common(a):
+    A = a.split(":")
+    return int(A[0]) * 60 + int(A[1])
+def Calculating_time(b):
+    A = int(b) // 60
+    B = int(b) % 60
+    if A < 10 and B < 10:
+        return f"0{A}:0{B}"
+    elif A < 10 and B >= 10:
+        return f"0{A}:{B}"
+    elif A >= 10 and B < 10:
+        return f"{A}:0{B}"
+    else:
+        return f"{A}:{B}"
+def skip_determine(pos, start, end):
+    list = [pos, start, end]
+    time = []
+    for i in list:
+        time.append(common(i))
+    if time[1] <= time[0] <= time[2]:
+        return True
+    return False
+def prev(pos):
+    time = common(pos)
+    if time <= 10:
+        return "00:00"
+    else:
+        return Calculating_time(time - 10)
+def next(pos, length):
+    time = common(pos)
+    if time >= common(length) - 10:
+        return length
+    else:
+        return Calculating_time(time + 10)
+def solution(video_len, pos, op_start, op_end, commands):
+    if skip_determine(pos, op_start, op_end):
+        pos = op_end
+    Time = pos
+    for i in commands:
+        if i == "prev":
+            Time = prev(Time)
+            print(f"prev_Time : {Time}")
+        if i == "next":
+            Time = next(Time, video_len)
+            print(f"next_Time : {Time}")
+        if skip_determine(Time, op_start, op_end):
+            Time = op_end
+    return Time
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def solution(number, k):
+Num = list(number)
+print(Num)
+while k != 0:
+    num = Num                                                   # Num : [], num : ['1', '2', '3', '1', '2', '3', '4']
+    Num = []
+    for _ in range(len(num)):
+        if len(num) == 1:
+            break
+        if int(num[0]) >= int(num[1]) and num[1] != '0':
+            Num.append(num.pop(0))
+        else:
+            num.pop(0)
+            k -= 1
+            if k == 0:
+                break
+    if len(num) != 0:
+        for i in num:
+            Num.append(i)
+print(Num)
+return ''.join(Num)
