@@ -81,7 +81,7 @@ def solution(number, k):
     if k != 0:
         stack = stack[:-k]
     return ''.join(stack)                                                                                       # 큰 수 만들기(선생님 풀이, 성공)
-
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 import numpy as np
 
 # Sigmoid 함수
@@ -92,3 +92,77 @@ def sigmoid(x):
 x = np.array([1.0, -1.0, 0.0])
 print("Sigmoid 결과 : ", sigmoid(x))
 # Sigmoid 결과 : [0.73105858 0.26894142 0.5
+
+def softmax(x):
+    # Overflow 방지를 위해 입력에서 최댓값을 빼줍니다.
+    exp_x = np.exp(x - np.max(x))
+    return exp_x / np.sum(exp_x, axis = 0)
+
+
+# 예시 입력
+x = np.array([1.0, 2.0, 3.0])
+print("Softmax 결과 : ", softmax(x))
+
+# ReLU 함수
+def relu(x):
+    return np.maximum(0, x) # Leaky ReLU면 (0.01x, x)
+
+
+# 예시 입력
+x = np.array([-2.0, -1.0, 0.0, 1.0, 2.0])
+print("ReLU 결과 : ", relu(x)) # ReLU 결과 : [0. 0. 0. 1. 2.]
+
+# Tanh 함수
+def tanh(x):
+    return np.tanh(x)
+
+
+# 예시 입력
+x = np.array([-2.0, -1.0, 0.0, 1.0, 2.0])
+print("Tanh 결과 : ", tanh(x)) # Tanh 결과 :  [-0.96402758 -0.76159416  0.          0.76159416  0.96402758]
+
+# BCE 손실 함수
+def binary_cross_entropy(y_true, y_pred):
+    # 작은 값 epsilon을 더해서 로그에서 0을 방지합니다.
+    epsilon = 1e-15
+    y_pred = np.clip(y_pred, epsilon, 1 - epsilon)
+    return -np.mean(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
+
+
+# 예시 입력
+y_true = np.array([1, 0, 1])
+y_pred = np.array([0.9, 0.2, 0.8])
+print("BCE 손실 : ", binary_cross_entropy(y_true, y_pred))
+
+# MSE 손실 함수
+def mean_squared_error(y_true, y_pred):
+    return np.mean((y_true - y_pred) ** 2)
+
+
+# 예시 입력
+y_true = np.array([1, 0, 1])
+y_pred = np.array([0.9, 0.2, 0.8])
+print("MSE 손실 : ", mean_squared_error(y_true, y_pred))
+
+# CCE 손실 함수
+def categorical_cross_entropy(y_true, y_pred):
+    # 작은 값 epsilon을 더해서 로그에서 0을 방지합니다.
+    epsilon = 1e-15
+    y_pred = np.clip(y_pred, epsilon, 1 - epsilon)
+    return -np.sum(y_true * np.log(y_pred)) / y_true.shape[0]
+
+# 예시 입력 (One - hot 인코딩)
+y_true = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+y_pred = np.array([[0.9, 0.05, 0.05], [0.1, 0.8, 0.1], [0.05, 0.1, 0.85]])
+print("CCE 손실:", categorical_cross_entropy(y_true, y_pred))
+
+import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.optimizers import SGD
+
+# 1. XOR 데이터셋 정의
+# XOR 문제를 위한 입력과 출력 정의
+# 입력 : 2차원 배열 (두 개의 이진 값)
+# 출력 : XOR 연산 결과 (0 또는 1)
+X = np.array([[0, 0], [0, 1], 능
