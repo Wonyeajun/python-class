@@ -81,3 +81,14 @@ def solution(number, k):
     if k != 0:
         stack = stack[:-k]
     return ''.join(stack)                                                                                       # 큰 수 만들기(선생님 풀이, 성공)
+
+import numpy as np
+
+# Sigmoid 함수
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# 예시 입력
+x = np.array([1.0, -1.0, 0.0])
+print("Sigmoid 결과 : ", sigmoid(x))
+# Sigmoid 결과 : [0.73105858 0.26894142 0.5
