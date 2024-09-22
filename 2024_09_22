@@ -46,7 +46,7 @@ def solution(video_len, pos, op_start, op_end, commands):
             print(f"next_Time : {Time}")
         if skip_determine(Time, op_start, op_end):
             Time = op_end
-    return Time
+    return Time                                                                                                        # 동영상 재생기(성공)
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def solution(number, k):
 Num = list(number)
@@ -68,4 +68,16 @@ while k != 0:
         for i in num:
             Num.append(i)
 print(Num)
-return ''.join(Num)
+return ''.join(Num)                                                                                        # 큰 수 만들기(실패)
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def solution(number, k):
+    stack = []
+    for num in number:
+        while stack and stack[-1] < num and k > 0:
+            k -= 1
+            stack.pop()
+        stack.append(num)
+        # print(f"stack = {stack}")
+    if k != 0:
+        stack = stack[:-k]
+    return ''.join(stack)                                                                                       # 큰 수 만들기(선생님 풀이, 성공)
