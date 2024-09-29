@@ -1,0 +1,70 @@
+mport torch
+import torch.nn as nn
+import torch.optim as optim
+
+# XOR 데이터셋
+x_train = torch.tensor([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=torch.float32)
+y_train = torch.tensor([[0], [1], [1], [0]], dtype=torch.float32)
+
+
+# 신경망 정의 (2층 신경망)
+class XORModel(nn.Module):
+    def __init__(self):
+        super(XORModel, self).__init__()
+        self.layer1 = nn.Linear(2, 2)  # 입력 2개 -> 은닉층 2개
+        self.layer2 = nn.Linear(2, 1)  # 은닉층 2개 -> 출력 1개
+        self.sigmoid = nn.Sigmoid()  # Sigmoid 활성화 함수
+
+    def forward(self, x):
+        out = self.sigmoid(self.layer1(x))  # 은닉층 활성화
+        out = self.sigmoid(self.layer2(out))  # 출력층 활성화
+        return out
+
+
+# 모델과 옵티마이저 정의 (SGD)
+model = XORModel()
+optimizer = optim.SGD(model.parameters(), lr=0.1)  # 기본 SGD
+
+
+# 학습
+def train_model(model, optimizer, epochs=10000):
+    criterion = nn.MSELoss()
+    for epoch in range(epochs):
+        y_pred = model(x_train)
+        loss = criterion(y_pred, y_train)
+        optimizer.zero_grad()  # 기울기 초기화
+        loss.backward()  # 역전파
+        optimizer.step()  # 가중치 업데이트
+        if epoch % 1000 == 0:
+            print(f"Epoch {epoch}, Loss: {loss.item():.4f}")
+
+
+print("Training with SGD:")
+train_model(model, optimizer)
+
+# 모델과 옵티마이저 정의 (SGD with Momentum)
+model = XORModel()
+optimizer = optim.SGD(model.parameters(), lr = 0.1, momentum = 0.9) # Momentum 적용
+
+print("Training with SGD + Momentum:")
+train_model(model, optimizer)
+
+# 모델과 옵티마이저 정의 (AdaGrad)
+model = XORModel()
+optimizer = optim.Adagrad(model.parameters(), lr = 0.1)
+
+print("Training with AdaGrad:")
+train_model(model, optimizer)
+
+# 모델과 옵티마이저 정의 (Rmodel = XORModel())
+optimizer = optim.RMSprop(model.parameters(), lr = 0.01)
+
+print("Training with RMSprop:")
+train_model(model, optimizer)
+
+# 모델과 옵티마이저 정의 (Adam)
+model = XORModel()
+optimizer = optim.Adam(model.parameters(), lr = 0.01)
+
+print("Training with Adam:")
+train_model(model, optimizer)
