@@ -1,0 +1,113 @@
+def solution(mats, park):
+    a,b = 0,0
+    answer = 1
+    Flag = 0
+    offset = (a + 1, b), (a, b + 1)
+    cnt1 = 3
+    cnt2 = 0
+    possible_moves = []
+    for i in range(len(park)):
+        for j in range(len(park[0])):
+            if park[i][j] == "-1":
+                a,b = i,j
+                a,b = offset[0]
+                while cnt2 + 1 < cnt1 * 0.5:
+                    if 0 <= a <= len(park) and 0 <= b <= len(park[0]):
+                        cnt2 += 1
+                        if a == i + 1 and b == j:
+                            possible_moves.append((a,b))
+                    else:
+                        break
+                if 0 <= a <= len(park) and 0 <= b <= len(park[0]):
+                        cnt2 += 1
+                else:
+                    continue
+                a,b = offset[1]
+                while cnt2 <= cnt1:
+                    if 0 <= a len(park) and 0 <= b <= len(park[0]):
+                        cnt2 += 1
+                if cnt2 - 1 == cnt1:
+                                     
+    return answer                                                              PCCP 10번 '공원' 문제 내 풀이 '실패'
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def solution(mats, park):
+    binary_park = [[1 if x == "-1" else 0 for x in p] for p in park] # 돗자리를 놓지 못하는 곳을 0으로 통일
+
+    if not binary_park[0]:
+        return -1
+
+    rows = len(park)
+    cols = len(park[0])
+    max_side = 0
+
+    # DP 테이블 초기화
+    dp = [0] * (cols+1)
+    prev = 0
+
+    # 각 지점을 모든 정사각형의 오른쪽 아래로 보고 진행
+    for r in range(rows):
+        for c in range(1, cols+1):
+            temp = dp[c]
+            if binary_park[r][c-1] == 1:
+                # dp[c] : 이전 행의 같은 열까지 고려한 정사각형의 최대크기
+                # dp[c-1] : 현재 행의 이전 열까지 고려한 정사각형의 최대 크기
+                # prev : 이전 행의 이전 열까지 고려한 정사각형의 최대 크기 (대각선 위 셀)
+                dp[c] = min(dp[c], dp[c-1], prev) + 1
+                max_side = max(max_side, dp[c])
+            else :
+                dp[c] = 0
+            prev = temp
+
+    target = [x for x in mats if x <= max_side]
+    return max(target) if target else -1                                                            # 선생님 풀이 '성공'
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def solution(points, routes):
+    answer = 0
+    Length = []
+    for i in range(len(routes):
+        Gil2 = 0
+        for j in range(len(routes[0])):
+            if j == len(routes[0]) - 1:
+                break
+            else:
+                Length.append(abs(sum(points[routes[i][j] - 1]) - sum(points[routes[i][j + 1] - 1])))
+    Max = max(Length)
+    Time_accident = {}
+    for _ in range(Max):
+        Time_accident.append(_)
+    for i in range(routes)
+    return answer                                                                                    # PCCP 3번 '충돌위험 찾기' 내 풀이 '실패'                        
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def solution(points, routes):
+    coord_record = {}      
+    for route in routes:
+        start = route[0]
+        x,y = points[start-1]
+        sec = 0
+        if (x, y, sec) not in coord_record:
+            coord_record[(x, y, sec)] = 1
+        else:
+            coord_record[(x, y, sec)] += 1
+        for _next in route[1:]:
+            nx,ny = points[_next-1]
+            ox = 1 if x < nx else -1
+            oy = 1 if y < ny else -1
+            while x != nx:
+                x += ox
+                sec += 1
+                if (x,y,sec) not in coord_record:
+                    coord_record[(x,y,sec)] = 1
+                else:
+                    coord_record[(x,y,sec)] += 1
+            while y != ny:
+                y += oy
+                sec += 1
+                if (x,y,sec) not in coord_record:
+                    coord_record[(x,y,sec)] = 1
+                else:
+                    coord_record[(x,y,sec)] += 1
+    answer = 0
+for val in coord_record.values():
+    if val > 1:
+        answer += 1 
+return answer                                                                     # 선생님 풀이 '성공'
