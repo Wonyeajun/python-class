@@ -1,0 +1,72 @@
+from collections import deque
+
+
+# 시간을 분 단위로 변경 함수
+def convert_time(s):
+    h, m = map(int, s.split(':'))
+    return h*60 + m
+def solution(plans):
+    answer = []
+    # plans 재정의 (시작 시간 분으로 변경, 걸리는 시간 int로)
+    plans = [(name, convert_time(start), int(playtime))
+             for name, start, playtime in plans]
+    plans.sort(key=lambda x: x[1])  # 시작 시간 기준 정렬
+
+    assign_q = deque()  # 큐 생성
+    left_time = 0  # 여유 시간
+
+    for i in range(len(plans)):
+        # 현재 진행해야 하는 과제의 정보
+        name, start, playtime = plans[i]
+        # queue안의 요소가 있으면 반복(중간에 멈춘 과제가 있을경우)
+        while assign_q:
+            _name, _playtime = assign_q.pop()
+            # 여유 시간이 과제 해결에 필요한 시간보다 길 경우
+            if left_time >= _playtime:
+                left_time -= _playtime  # 여유 시간 줄이기
+                answer.append(_name)    # 끝난 과제 answer에 추가
+            # 짧은 경우
+            else:
+                # queue에 필요한 시간 - 여유 시간 계산후 다시 넣어줌
+                assign_q.append((_name, _playtime - left_time))
+                break
+    # queue에 현재 시간대의 과제 추가
+    assign_q.append((name, playtime))
+    # 마지막 과제가 아닌 경우
+    if i < len(plans) - 1:
+        next_start = plans[i + 1][1]    # 다음 시작 시간 설정
+        left_time = next_start - start  # 여유 시간 계산
+
+while assign_q:  # 마지막 과제 이후에도 끝내지 못한 과제들
+    _name, _ = assign_q.pop() # answer에 넣어주면서 삭제
+    answer.append(_name)
+
+return answer                                                                                     #과제 진행하기 문제 - 선생님 풀이(정답)
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def solution(plans):
+    answer = []
+    recent_list = []
+    recent_dic = {}
+    recent_target = ''
+    #plans 시간 순서로 정리
+    plans.sort(key = lambda x : x[1].split(':')[0] * 60 + x[1].split(':')[1])
+    #for문 돌리면서 a(plans[i][1]와 plans[i + 1][1]의 차이)와 b(plans[i][2])의 차이 구하기
+    for i in range(len(plans)):
+        if i == len(plans):
+            break
+        else:
+            a = plans[i + 1][1].split(':')[0] * 60 + plans[i + 1][1].split(':')[1]
+            b = plans[i][1].split(':')[0] * 60 + plans[i][1].split(':')[1]
+            k = a - b
+        # a > b이고 i != 0이면 a - b만큼 못한 과제의 남은 시간 빼기
+            if k > 0 and i != 0 and recent_list != []:
+                recent_dic[f'{recent_target[1]}'] -= k
+            # 과제 완료하면 리스트와 딕셔너리에서 제거하고 answer에 추가
+                if recent_dic[f'{recent_target}'] <= 0:
+                    answer.append()
+                    del recent_dic[f'{recent_target}']
+                    del recent_list[-1]
+        # a = b이면 그대로
+        # a < b이면 recent_list와 recent_dic에 각각 다 못한 과제 이름, 과제 이름 + 남은 시간 구하기
+    #for문이 끝나고 list != []이면 리스트와 딕셔너리 마지막 부터 차례대로 answer에 추가
+    return answer                                                                                  # 과제 진행하기 문제 - 내 풀이(푸는 중)
