@@ -1,39 +1,40 @@
-# def solution(users, emoticons):
-#     answer = [0, 0]
-#     data = [10, 20, 30, 40]
-#     dc_rate = []
-#
-#     def dfs(temp, depth):
-#         if depth == len(temp):
-#             dc_rate.append(temp[:])
-#             return
-#         for d in data:
-#             temp[depth] += d
-#             dfs(temp, depth + 1)
-#             temp[depth] -= d
-#
-#     dfs([0] * len(emoticons), 0)
-#     print(dc_rate)
-#     for d in range(len(dc_rate)):
-#         plus_user = 0
-#         paid_emo = 0
-#
-#         for user in users:
-#             paid = 0
-#             for i in range(len(emoticons)):
-#                 if dc_rate[d][i] >= user[0]:
-#                     paid += emoticons[i] * (())
-#             if user[1] <= paid:
-#                 plus_user += 1
-#             else:
-#                 paid_emo += paid
-#
-#         if answer[0] < plus_user:
-#             answer = [plus_user, int(paid_emo)]
-#         elif answer[0] == plus_user:
-#             if answer[1] < paid_emo:
-#                 answer = [plus_user, int(paid_emo)]
-#     return answer
+def solution(users, emoticons):
+    answer = [0, 0]
+    data = [10, 20, 30, 40]
+    dc_rate = []
+
+    def dfs(temp, depth):
+        if depth == len(temp):
+            dc_rate.append(temp[:])
+            return
+        for d in data:
+            temp[depth] += d
+            dfs(temp, depth + 1)
+            temp[depth] -= d
+
+    dfs([0] * len(emoticons), 0)
+    
+    for d in range(len(dc_rate)):
+        plus_user = 0
+        paid_emo = 0
+
+        for user in users:
+            paid = 0
+            for i in range(len(emoticons)):
+                if dc_rate[d][i] >= user[0]:
+                    paid += emoticons[i] * ((100 - dc_rate[d][i]) / 100)
+            if user[1] <= paid:
+                plus_user += 1
+            else:
+                paid_emo += paid
+
+        if answer[0] < plus_user:
+            answer = [plus_user, int(paid_emo)]
+        elif answer[0] == plus_user:
+            if answer[1] < paid_emo:
+                answer = [plus_user, int(paid_emo)]
+
+    return answer
 #-----------------------------------------------------------------------------------------------------------------------
 # stack 구현하기
 class Element:
