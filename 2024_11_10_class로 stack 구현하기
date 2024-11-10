@@ -1,0 +1,85 @@
+# def solution(users, emoticons):
+#     answer = [0, 0]
+#     data = [10, 20, 30, 40]
+#     dc_rate = []
+#
+#     def dfs(temp, depth):
+#         if depth == len(temp):
+#             dc_rate.append(temp[:])
+#             return
+#         for d in data:
+#             temp[depth] += d
+#             dfs(temp, depth + 1)
+#             temp[depth] -= d
+#
+#     dfs([0] * len(emoticons), 0)
+#     print(dc_rate)
+#     for d in range(len(dc_rate)):
+#         plus_user = 0
+#         paid_emo = 0
+#
+#         for user in users:
+#             paid = 0
+#             for i in range(len(emoticons)):
+#                 if dc_rate[d][i] >= user[0]:
+#                     paid += emoticons[i] * (())
+#             if user[1] <= paid:
+#                 plus_user += 1
+#             else:
+#                 paid_emo += paid
+#
+#         if answer[0] < plus_user:
+#             answer = [plus_user, int(paid_emo)]
+#         elif answer[0] == plus_user:
+#             if answer[1] < paid_emo:
+#                 answer = [plus_user, int(paid_emo)]
+#     return answer
+#-----------------------------------------------------------------------------------------------------------------------
+# stack 구현하기
+class Element:
+    def __init__(self, data, link):
+        self.data = data
+        self.link = link
+
+
+
+
+class Stack:
+    # 생성자 함수(constructor)
+    def __init__(self):
+        # 최상위 element를 가리키는 속성값
+        self.top = None
+
+
+    def push(self, val):
+        if self.top is None:
+            elem = Element(val, None)
+            self.top = elem
+        else:
+            elem = Element(val, self.top)
+        self.top = elem
+
+
+    def peak(self):
+        if self.top is None:
+            return None
+        else:
+            return self.top.data
+
+
+    def pop(self):
+        if self.top is None:
+            return None
+        else:
+            ret_value = self.top.data
+            self.top = self.top.link
+            return ret_value
+
+s = Stack()
+
+for i in range(1, 6):
+    s.push(i)
+    print(s.peak())
+# None [1 2 3 4 5
+for _ in range(5):
+    print(s.pop())
