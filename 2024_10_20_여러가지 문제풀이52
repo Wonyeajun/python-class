@@ -45,28 +45,55 @@ return answer                                                                   
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def solution(plans):
     answer = []
-    recent_list = []
     recent_dic = {}
-    recent_target = ''
+    recent_list = []
     #plans 시간 순서로 정리
     plans.sort(key = lambda x : x[1].split(':')[0] * 60 + x[1].split(':')[1])
     #for문 돌리면서 a(plans[i][1]와 plans[i + 1][1]의 차이)와 b(plans[i][2])의 차이 구하기
     for i in range(len(plans)):
-        if i == len(plans):
+        print(f"i : {i}")
+        if i == len(plans) - 1:
+            answer.append(plans[i][0])
             break
         else:
-            a = plans[i + 1][1].split(':')[0] * 60 + plans[i + 1][1].split(':')[1]
-            b = plans[i][1].split(':')[0] * 60 + plans[i][1].split(':')[1]
+            a = (int(plans[i + 1][1].split(':')[0]) * 60 + int(plans[i + 1][1].split(':')[1])) - (int(plans[i][1].split(':')[0]) * 60 + int(plans[i][1].split(':')[1]))
+            b = int(plans[i][2])
             k = a - b
         # a > b이고 i != 0이면 a - b만큼 못한 과제의 남은 시간 빼기
-            if k > 0 and i != 0 and recent_list != []:
-                recent_dic[f'{recent_target[1]}'] -= k
+        if k > 0:
+            answer.append(plans[i][0])
             # 과제 완료하면 리스트와 딕셔너리에서 제거하고 answer에 추가
-                if recent_dic[f'{recent_target}'] <= 0:
-                    answer.append()
-                    del recent_dic[f'{recent_target}']
+            if recent_list != []:
+                print(f"recent_dic : {recent_dic}")
+                print(f"recent_list : {recent_list}")
+                while True:
+                    m = k
+                    k -= recent_dic[recent_list[-1]]
+                    if k <= 0:
+                        break
+                    answer.append(recent_list[-1])
+                    del recent_dic[recent_list[-1]]
                     del recent_list[-1]
+                if k == 0:
+                    answer.append(recent_list[-1])
+                    del recent_dic[recent_list[-1]]
+                    del recent_list[-1]
+                elif recent_list != []:
+                    recent_dic[recent_list[-1]] -= m
         # a = b이면 그대로
+        elif k == 0:
+            answer.append(plans[i][0])
         # a < b이면 recent_list와 recent_dic에 각각 다 못한 과제 이름, 과제 이름 + 남은 시간 구하기
+        elif k < 0:
+            recent_list.append(plans[i][0])
+            recent_dic[plans[i][0]] = -k
     #for문이 끝나고 list != []이면 리스트와 딕셔너리 마지막 부터 차례대로 answer에 추가
-    return answer                                                                                  # 과제 진행하기 문제 - 내 풀이(푸는 중)
+    recent_list.reverse()
+    answer += recent_list
+    return answer
+
+print(solution([["korean", "11:40", "30"], ["english", "12:10", "20"], ["math", "12:30", "40"]]))
+print(solution([["science", "12:40", "50"], ["music", "12:20", "40"], ["history", "14:00", "30"], ["computer", "12:30", "100"]]))
+print(solution([["aaa", "12:00", "20"], ["bbb", "12:10", "30"], ["ccc", "12:40", "10"]]))
+print(solution([["aaa", "12:00", "30"], ["bbb", "12:10", "30"], ["ccc", "14:00", "30"]]))
+                                                                               # 과제 진행하기 문제 - 내 풀이
