@@ -1,0 +1,21 @@
+def solution(begin, target, words):
+    count = 0
+    answer = 0
+    if target not in words:
+        return 0
+    begin = A(begin, target,words)
+    count += 1
+    if begin == target:
+        return count
+def A(begin, target, words):
+    stack = []
+    Words = list(begin)
+    for i in words:
+        cnt = 0
+        B = list(i)
+        for j in range(len(Words)):
+            if Words[j] != i[j]:
+                cnt += 1
+        if cnt == 1:
+            stack.append(i)
+    return stack[-1]
