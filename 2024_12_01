@@ -88,4 +88,4 @@ father = Human('A')
 mother = Human('B')
 I = Human()
 print(I.get_bloodtype())
-print(mother.get_bloodtype())
+print(mother.get_bloodtype())                                                     # ABO식 혈액형
