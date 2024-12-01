@@ -18,4 +18,74 @@ def A(begin, target, words):
                 cnt += 1
         if cnt == 1:
             stack.append(i)
-    return stack[-1]
+    return stack[-1]                                                #프로그래머스 '단어 변환' 문제 (내 풀이 -> 실패)
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+class Human:
+    def __init__(self, bloodtype = None):
+        self.bloodType = bloodtype
+
+    def get_bloodtype(self):
+        if self.bloodType is None:
+            parents = [father, mother]
+            Can = []
+            Cis_AB = []
+            Bombay_O = []
+            for i in parents:
+                if i.get_bloodtype() == 'A':
+                    Can.append("AO")
+                elif i.get_bloodtype() == 'B':
+                    Can.append("BO")
+                elif i.get_bloodtype() == 'O':
+                    Can.append("OO")
+                elif i.get_bloodtype() == 'Cis - AB':
+                    Cis_AB.append("AB")
+                    Cis_AB.append("OO")
+                else:
+                    Bombay_O.append("AO")
+                    Bombay_O.append("BO")
+            if len(Cis_AB) != 0 and len(Bombay_O) != 0:
+                return "A", "B", "AB", "O"
+            elif Cis_AB != []:
+                if Can[0] == "AO":
+                    return "A", "AB", "O"
+                elif Can[0] == "BO":
+                    return "B", "AB", "O"
+                elif Can[0] == "OO" or len(Cis_AB):
+                    return "AB", "O"
+            elif Bombay_O != []:
+                if Can[0] == "AO" or Can[0] == "BO" or len(Bombay_O) == 2:
+                    return "A", "B", "AB"
+                elif Can[0] == "OO":
+                    return "A", "B"
+            else:
+                parents = []
+                possible_sub = []
+                Possible = []
+                A = 0
+                B = 0
+                AB = 0
+                O = 0
+                parents.append(list(Can[0]))
+                parents.append(list(Can[1]))
+                print(parents)
+                for i in range(2):
+                    for j in range(2):
+                        possible_sub.append(parents[0][i] + parents[1][j])
+                if ("AO" or "OA" or "AA") in possible_sub:
+                    Possible.append("A")
+                if ("BO" or "OB" or "BB") in possible_sub:
+                    Possible.append("B")
+                if ("AB" or "BA") in possible_sub:
+                    Possible.append("AB")
+                if "OO" in possible_sub:
+                    Possible.append("O")
+
+        else:
+            return self.bloodType
+
+
+father = Human('A')
+mother = Human('B')
+I = Human()
+print(I.get_bloodtype())
+print(mother.get_bloodtype())
