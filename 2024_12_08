@@ -1,0 +1,81 @@
+class Human:
+    def __init__(self, bloodtype = None ):
+        self.bloodType = bloodtype
+
+    def get_bloodtype(self, Dad, Mom):
+        if self.bloodType is None:
+            parents = [Dad, Mom]
+            #print(parents)
+            Can = []
+            Cis_AB = []
+            Bombay_O = []
+            #for i in parents:
+            if I.get_bloodtype(Dad, Mom) == 'A':
+                Can.append("AO")
+            elif I.get_bloodtype(Dad, Mom) == 'B':
+                Can.append("BO")
+            elif I.get_bloodtype(Dad, Mom) == 'O':
+                Can.append("OO")
+            elif I.get_bloodtype(Dad, Mom) == 'Cis - AB':
+                Cis_AB.append("AB")
+                Cis_AB.append("OO")
+            elif I.get_bloodtype(Dad, Mom) == 'AB':
+                Can.append('AO')
+                Can.append('BO')
+            else:
+                Bombay_O.append("AO")
+                Bombay_O.append("BO")
+            print(f"Can : {Can}")
+            if len(Cis_AB) != 0 and len(Bombay_O) != 0:
+                print('얍삐')
+                return "A", "B", "AB", "O"
+            elif Cis_AB != []:
+                if Can[0] == "AO":
+                    return "A", "AB", "O"
+                elif Can[0] == "BO":
+                    return "B", "AB", "O"
+                elif Can[0] == "OO" or len(Cis_AB):
+                    print('루짜일')
+                    return "AB", "O"
+            elif Bombay_O != []:
+                if Can[0] == "AO" or Can[0] == "BO" or len(Bombay_O) == 2:
+                    return "A", "B", "AB"
+                elif Can[0] == "OO":
+                    print('에스따발라위끼')
+                    return "A", "B"
+            else:
+                print('얍삐이잉')
+                parents = []
+                possible_sub = []
+                Possible = []
+                A = 0
+                B = 0
+                AB = 0
+                O = 0
+                for i in range(len(Can)):
+                    parents.append(list(Can[i]))
+                print(f'parents : {parents}')
+                for i in range(len(parents) - 1):
+                    possible_sub.append(parents[i][0] + parents[i + 1][0])
+                    possible_sub.append(parents[i][0] + parents[i + 1][1])
+                    possible_sub.append(parents[i][1] + parents[i + 1][0])
+                    possible_sub.append(parents[i][1] + parents[i + 1][1])
+                print(f'possible_sub : {possible_sub}')
+                if ("AO" or "OA" or "AA") in possible_sub:
+                    Possible.append("A")
+                if ("BO" or "OB" or "BB") in possible_sub:
+                    Possible.append("B")
+                if ("AB" or "BA") in possible_sub:
+                    Possible.append("AB")
+                if "OO" in possible_sub:
+                    Possible.append("O")
+            return Possible
+        else:
+            return self.bloodType
+
+
+father = Human('AB')
+mother = Human('AB')
+I = Human()
+print(I.get_bloodtype(father, mother))
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
