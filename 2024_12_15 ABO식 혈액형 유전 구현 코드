@@ -1,0 +1,51 @@
+class Human:
+    def __init__(self, bloodtype=None):
+        self.bloodType = bloodtype
+
+    def get_bloodtype(self, Dad, Mom):
+        if self.bloodType is None:
+            parents = [Dad, Mom]
+            possible_bloodtypes = set()
+            possible_bloodtypes_ans = []
+            Can = []
+            answer = []
+
+            # 부모의 혈액형을 기반으로 가능한 자식의 혈액형을 계산
+            for parent in parents:
+                parent_bloodtype = parent.bloodType
+                if parent_bloodtype == 'A':
+                    possible_bloodtypes.update(['A', 'O'])
+                elif parent_bloodtype == 'B':
+                    possible_bloodtypes.update(['B', 'O'])
+                elif parent_bloodtype == 'O':
+                    possible_bloodtypes.add('O')
+                elif parent_bloodtype == 'AB':
+                    possible_bloodtypes.update(['A', 'B'])
+                elif parent_bloodtype == 'Cis - AB':
+                    possible_bloodtypes.update(['AB', 'O'])  # Cis-AB는 AB와 O형 가능
+                elif parent_bloodtype == 'Bombay_O':
+                    possible_bloodtypes.update(['A', 'B', 'O'])  # Bombay-O는 A, B, O형 가능
+                possible_bloodtypes_ans.append(list(possible_bloodtypes))
+                possible_bloodtypes = set()
+            if ('AB' in possible_bloodtypes_ans[0] and 'O' in possible_bloodtypes_ans[1]) or ('AB' in possible_bloodtypes_ans[1] and 'O' in possible_bloodtypes_ans[0]):
+                answer.append('AB')
+            for i in possible_bloodtypes_ans[0]:
+                for j in possible_bloodtypes_ans[1]:
+                    Can.append(i + j)
+            print(f"Can : {Can}")
+            if 'AA' in Can or 'AO' in Can or 'OA' in Can:
+                answer.append('A')
+            if 'BB' in Can or 'BO' in Can or 'OB' in Can:
+                answer.append('B')
+            if ('AB' in Can or 'BA' in Can) and 'AB' not in answer:
+                answer.append('AB')
+            if 'OO' in Can:
+                answer.append('O')
+            return str(answer)
+        else:
+            return [self.bloodType]  # 이미 자식의 혈액형이 주어졌다면 그 값을 반환
+Dad = Human('Cis - AB')
+Mom = Human('Cis - AB')
+
+child = Human()
+print(child.get_bloodtype(Dad, Mom))
