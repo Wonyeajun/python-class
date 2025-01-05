@@ -76,3 +76,67 @@ for i in range(N):
 print(f"time_1 : {time_1}, time_2 : {time_2}")
 print(Time_reset(time_1))
 print(Time_reset(time_2))
+
+
+
+
+
+
+
+import sys
+input = sys.stdin.readline
+
+alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+while True:
+    data = input().rstrip()
+    if data == 'R0C0': break
+    R, C = map(int, data.replace('R', '').replace('C', ' ').split())
+    answer = ""
+    while C:
+        C -= 1
+        answer += alphabet[C % 26]
+        C //= 26
+    print(answer[::-1] + str(R))
+
+
+
+
+
+
+Turing 수신자 모두 9:50 PM
+import sys
+input = sys.stdin.readline
+n = int(input())
+last_time = 0
+winning_team = 0
+team1 = [0, 0]  # [1번팀의 점수, ]
+team2 = [0, 0]  # [2번팀의 점수, ]
+for _ in range(n):
+    win, time = input().split()
+    if win == '1': team1[0] += 1
+    else: team2[0] += 1
+    m, s = map(int, time.split(":"))
+    time = m * 60 + s
+    if team1[0] == team2[0]: # 동점이라면
+        if winning_team == 1:
+            team1[1] += time - last_time
+        else:
+            team2[1] += time - last_time
+        winning_team = 0
+    elif team1[0] > team2[0] and winning_team == 0:
+            last_time = time
+            winning_team = 1
+    elif team1[0] < team2[0] and winning_team == 0:
+            last_time = time
+            winning_team = 2
+if winning_team == 1:
+    team1[1] += 48*60 - last_time
+if winning_team == 2:
+    team2[1] += 48*60 - last_time
+
+print(f"{team1[1] // 60:02d}:{team1[1] % 60:02d}")
+print(f"{team2[1] // 60:02d}:{team2[1] % 60:02d}")
+
+
+https://www.acmicpc.net/problem/3758
