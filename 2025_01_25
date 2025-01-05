@@ -1,0 +1,78 @@
+problem = []
+targets = []
+alphabet = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+target = ''
+answer = ''
+while True:
+    target = str(input())
+    if target == 'R0C0':
+        break
+    problem.append(target)
+
+for i in problem:
+    a = i[1:i.index('C')]
+    b = i[i.index('C') + 1 : len(i)]
+    targets.append([a, b])
+for i in targets:
+    i[0] = int(i[0])
+    i[1] = int(i[1])
+print(targets)
+for i in targets:
+    X = i[1] // 26 ** 2
+    Y = i[1] // 26 ** 3
+    Z = i[1] // 26 ** 4
+    W = i[1] // 26 ** 5
+    if i[1] <= 26:
+        answer = alphabet[i[1]] + str(i[0])
+    elif i[1] <= 26 ** 2:
+        answer = alphabet[i[1] // 26] + str(i[0])
+    elif i[1] <= 26 ** 3:
+        answer = alphabet[X] + alphabet[X // 26] + alphabet[X // 26 % 26] + str(i[0])
+    elif i[1] <= 26 ** 4:
+        answer = alphabet[Y] + alphabet[Y // X] + alphabet[Y // X // 26] + alphabet[Y // X // 26 % 26] + str(i[0])
+    elif i[1] <= 26 ** 5:
+        answer = alphabet[Z] + alphabet[Z // Y] + alphabet[Z // Y // X] + alphabet[Z // Y // X // 26] + alphabet[Z // Y // X // 26 % 26] + str(i[0])
+    else:
+        answer = alphabet[W] + alphabet[W // Z] + alphabet[W // Z // Y] + alphabet[W // Z // Y // X] + alphabet[W // Z // Y // X // 26] + alphabet[W // Z // Y // X // 26 % 26] + str(i[0])
+    print(answer)
+
+
+
+
+
+def Timer(time):
+    a, b = time.split(':')
+    time = int(a) * 60 + int(b)
+    return time
+def Time_reset(time):
+    if (time // 60) == (time % 60) == 0:
+        return '00:00'
+    elif time % 60 == 0 and time // 60 != 0:
+        return f'{time // 60}:00'
+    elif time // 60 == 0 and time % 60 != 0:
+        return f'00:{time % 60}'
+    else:
+        return f'{time // 60}:{time % 60}'
+N = int(input())
+score = []
+for i in range(N):
+    A, B = map(str, input().split(' '))
+    B = Timer(B)
+    score.append([A,B])
+print(score)
+time_1 = 0
+time_2 = 0
+for i in range(N):
+    if i == N - 1:
+        if score[i][1] == '1':
+            time_1 += 2880 - score[i][1]
+        else:
+            time_1 += 2880 - score[i][1]
+    else:
+        if score[i][0] == '1':
+            time_1 += score[i + 1][1] - score[i][1]
+        else:
+            time_2 += score[i + 1][1] - score[i][1]
+print(f"time_1 : {time_1}, time_2 : {time_2}")
+print(Time_reset(time_1))
+print(Time_reset(time_2))
