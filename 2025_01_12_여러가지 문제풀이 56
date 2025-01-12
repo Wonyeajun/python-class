@@ -1,0 +1,77 @@
+import sys
+
+input = sys.stdin.readline
+
+T = int(input())
+
+for _ in range(T):
+    # n : 팀의 수, k : 문제수, ID_t : 우리팀 번호, m : 로그 수
+    n,k,ID_t,m = map(int, input().split())
+    # 총점수 : 문제별 점수, 문제별 점수 : 문제별 받은 점수중 최고점
+    log_data = {} # {팀번호 : {문제번호 : 문제점수, cnt : 제출횟수, last_time : 마지막 제출시간}}
+    for lt in range(m):
+        # ID_i : 제출한 팀 번호, j : 문제번호, s : 문제의 점수
+        ID_i, j, s = map(int, input().split())
+        if ID_i not in log_data:
+            log_data[ID_i] = {'cnt' : 0, "last_time" : -1}
+        if j not in log_data[ID_i]:
+            log_data[ID_i][j] = s
+        else:
+            log_data[ID_i][j] = max(log_data[ID_i][j],s)
+        log_data[ID_i]['cnt'] += 1
+        log_data[ID_i]['last_time'] = lt
+
+
+    for team_id, values in log_data.items():
+        total = 0
+        for q_num in range(1, k + 1):
+            if q_num not in values: continue
+            total += values[q_num]
+        log_data[team_id]['total'] = total
+
+    data = sorted(log_data.items(),key = lambda x : [-x[1]['total'], x[1]['cnt'],x[1]["last_time"]])
+
+    for i in range(n):
+        if data[i][0] == ID_t:
+            print(i + 1)
+            break                           # 백준 KCPC 문제 선생님 풀이 (정답)
+#---------------------------------------------------------------------------------------------
+def convert(x,y):
+    alphabet_coord = dict(zip('ABCDEF', range(1, 7)))
+    return alphabet_coord[x]-1, int(y)-1
+
+def possible(x,y,nx,ny,last=False):
+    dx = [2, 2, -2, -2, 1, -1, 1, -1]
+    dy = [1, -1, 1, -1, 2, 2, -2, -2]
+    for d in range(8):
+        ox = dx[d] + x
+        oy = dy[d] + y
+        # print(ox,oy)
+        if 0 <= ox < 6 and 0 <= oy < 6: # 범위
+            if ox == nx and oy == ny:   # 해당하는 좌표
+                if not last and board[nx][ny]:
+                    return False
+                else:
+                    return True
+    return False
+
+start = x,y = convert(*list(input()))
+
+board = [[False] * 6 for _ in range(6)]
+board[x][y] = True
+
+for _ in range(35):
+    nx,ny = convert(*list(input()))
+    if possible(x,y,nx,ny):
+        board[nx][ny] = True
+        x,y = nx,ny
+    else:
+        print("Invalid")
+        exit()
+
+if possible(x,y,*start,last=True):
+    print("Valid")
+else:
+    print("Invalid")                        # 백준 '나이트 투어' 문제 선생님 풀이(정답)
+#------------------------------------------------------------------------------------------------------------------------------------------------
+https://www.acmicpc.net/problem/3085
