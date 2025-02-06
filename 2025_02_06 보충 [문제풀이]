@@ -1,0 +1,30 @@
+def solution(cap, n, deliveries, pickups):                       # cap : 4
+    answer = 0                                                   # n : 5
+    deliveries.reverse()                                         # deliveries : [0, 0, 3, 0, 1]
+    pickups.reverse()                                            # pickups : [0, 4 ,0, 3, 0]
+    place = -1
+    Act = [deliveries, pickups]
+    remove_set = 0
+    Set_act = [set(deliveries), set(pickups)]
+    while len(Set_act[0]) != 1 or len(Set_act[1]) != 1:
+        c = cap                                                  # c = 1
+        for a in range(2):                                       # deliveries
+            for i in range(n):                                   # n = 1
+                print(i)
+                if len(Set_act[a]) == 1:
+                    continue
+                if Act[a][i] != 0:
+                    c = Act[a][i] - c
+                    if place == -1:
+                        place = i                                    # place = 0
+                    if c < 0:
+                        Act[a][i] = 0
+                        c = -c
+                    elif c >= 0:
+                        Act[a][i] = c
+                        break
+                Set_act[a] = set(Act[a])
+        answer += 2 * (n - place)
+        place = -1
+    return answer
+print(solution(4, 5, [1, 0, 3, 1, 2], [0, 3, 0, 4, 0]))
