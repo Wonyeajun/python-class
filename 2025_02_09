@@ -1,0 +1,52 @@
+def solution(n, times):
+    times.sort()
+    l,r = 0, times[-1] * n
+    while l <= r:
+        min_time = (l + r) // 2
+        passed = 0
+        for t in times:
+            passed += min_time // t
+        if passed >= n:
+            answer = min_time
+            r = min_time - 1
+        else:
+            l = min_time + 1
+    return answer                    # 프로그래머스 '입국심사 문제' # 다른 형 풀이(정답)
+    #--------------------------------------------------------------------------------------------------------------
+    n = int(input())
+rank = []
+people = []
+for _ in range(n):
+    x,y = map(int,input().split())
+    people.append([x,y])
+# N명의 집단에서 각 사람의 덩치 등수는 자신보다 더 "큰 덩치"의 사람의 수로 정해진다.
+# 만일 자신보다 더 큰 덩치의 사람이 k명이라면 그 사람의 덩치 등수는 k+1이 된다.
+# 큰 덩치: 키, 몸무게가 상대보다 둘 다 크다면 큰 덩치로 본다.
+for i in range(n):
+    x,y = people[i]
+    cnt = 0
+    for j in range(n):
+        if i != j:
+            p,q = people[j]
+            if x < p and y < q:
+                cnt += 1
+    rank.append(str(cnt+1))
+print(' '.join(rank))
+
+
+
+
+N = int(input())
+A = []
+B = [1] * N
+for i in range(N):
+    a = list(map(int, input().split()))
+    A.append(a)
+print(A)
+print(B)
+for i in range(N):
+    for j in range(N):
+        if i != j:
+            if (A[i][0] < A[j][0] and A[i][1] < A[j][1]) or (A[i][0] <= A[j][0] and A[i][1] < A[j][1]) or (A[i][0] < A[j][0] and A[i][1] <= A[j][1]):
+                B[j] += 1
+print(B)
