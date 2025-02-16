@@ -66,24 +66,26 @@ def solution(n, wires):
     R = []         #[1, 2, 3, 4, 5, 6 ,7, 8 ,9]
     for i in range(1, n + 1):
         R.append(i)
-    print(R)
-    b = R
-    print(b)
+    b = R[:]
+    print(f"b : {b}")
     for i in range(len(wires)):
-        print(f"wires[i][0] : {wires[i][0]}")
+        L = []
+        R = b[:]
         L.append(wires[i][0])
-        R = b.remove(wires[i][0])
+        R.remove(wires[i][0])
         print(f"R : {R}")
-        for j in range(len(wires)):
-            if i != j:
-                if wires[j][0] in L:
-                    L.append(wires[j][1])
-                    R.remove(wires[j][1])
-                elif wires[j][1] in L:
-                    L.append(wires[j][0])
-                    R.remove(wires[j][0])
+        for _ in range(2):
+            for j in range(len(wires)):
+                if i != j:
+                    if wires[j][0] in L:
+                        L.append(wires[j][1])
+                        R.remove(wires[j][1])
+                    elif wires[j][1] in L:
+                        L.append(wires[j][0])
+                        R.remove(wires[j][0])
         a = abs(len(L) - len(R))
+        print(f"i : {i}, len(L) : {len(L)}, len(R) : {len(R)}, a = {len(L) - len(R)}")
         if a < answer:
             answer = a
     return answer
-print(solution(9, [[1,3],[2,3],[3,4],[4,5],[4,6],[4,7],[7,8],[7,9]]))       # 프로그래머스 '전력량을 둘로 나누기' 문제 (푸는 중)
+print(solution(9, [[1,3],[2,3],[3,4],[4,5],[4,6],[4,7],[7,8],[7,9]]))# 프로그래머스 '전력량을 둘로 나누기' 문제 (푸는 중)
