@@ -1,0 +1,47 @@
+board = []
+correct = []
+whether = [[False] * 4] * 4
+def move(y,x):         # x = 2, y = 2
+    offset = [[y, x - 1], [y - 1, x], [y, x + 1], [y + 1, x]]
+    for i in range(4):
+        if x != 0:
+            if board[y][x - 1] == correct[y][x] and board[y][x] == correct[y][x - 1]:
+                return offset[0]
+        if y != 0:
+            if board[y - 1][x] == correct[y][x] and board[y][x] == correct[y - 1][x]:
+                return offset[1]
+        if x != 3:
+            if board[y][x + 1] == correct[y][x] and board[y][x] == correct[y][x + 1]:
+                return offset[2]
+        if y != 3:
+            if board[y + 1][x] == correct[y][x] and board[y][x] == correct[y + 1][x]:
+                return offset[3]
+for i in range(4):
+    peoples = list(input())
+    board.append(peoples)
+board.reverse()
+print(f"board : {board}")
+while True:
+    peoples = list(input())
+    if 'L' in peoples or 'P' in peoples:
+        correct.append(peoples)
+        break
+for i in range(3):
+    peoples = list(input())
+    correct.append(peoples)
+correct.reverse()
+print(f"correct : {correct}")
+
+for i in range(16):
+    if board[i // 4][i % 4] == correct[i // 4][i % 4]:
+        whether[i // 4][i % 4] = True
+print(f"whether : {whether}")
+
+cnt = 0
+
+for i in range(4):
+    for j in range(4):
+        if not whether[i][j]:
+            C_mon = move(i,j)
+            whether[i][j] = whether[C_mon[0]][C_mon[1]] = True
+            cnt += 1                                                   # 백준 '이세계 게임' (푸는 중)
