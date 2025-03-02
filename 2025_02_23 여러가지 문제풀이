@@ -1,6 +1,6 @@
-board = []
-correct = []
-whether = [[False] * 4] * 4
+board = [] # 현재 배치
+correct = [] # 택희가 원하는 배치
+whether = [[False] * 4] * 4 # 칸마다 board와 whether의 일치 여부 비교
 def move(y,x):         # x = 2, y = 2
     offset = [[y, x - 1], [y - 1, x], [y, x + 1], [y + 1, x]]
     for i in range(4):
@@ -16,11 +16,13 @@ def move(y,x):         # x = 2, y = 2
         if y != 3:
             if board[y + 1][x] == correct[y][x] and board[y][x] == correct[y + 1][x]:
                 return offset[3]
+                                        # 현재 보고 있는 칸을 기준으로 상하좌우 어디로 바꿀지 결정
 for i in range(4):
     peoples = list(input())
     board.append(peoples)
-board.reverse()
+board.reverse()                         # board 만들기
 print(f"board : {board}")
+
 while True:
     peoples = list(input())
     if 'L' in peoples or 'P' in peoples:
@@ -31,17 +33,19 @@ for i in range(3):
     correct.append(peoples)
 correct.reverse()
 print(f"correct : {correct}")
+                                        # correct 만들기
 
 for i in range(16):
     if board[i // 4][i % 4] == correct[i // 4][i % 4]:
         whether[i // 4][i % 4] = True
 print(f"whether : {whether}")
-
-cnt = 0
+                                        # whether 만들기
+cnt = 0                                 # 최소 횟수
 
 for i in range(4):
     for j in range(4):
         if not whether[i][j]:
             C_mon = move(i,j)
             whether[i][j] = whether[C_mon[0]][C_mon[1]] = True
-            cnt += 1                                                   # 백준 '이세계 게임' (푸는 중)
+            cnt += 1 
+print(cnt)                             # 실행문                                         # 백준 '이세계 게임' (푸는 중)
