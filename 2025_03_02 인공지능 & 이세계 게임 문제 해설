@@ -1,0 +1,109 @@
+ from collections import deque
+
+# 배열을 문자열로 변환
+def arr2bit(arr):
+    bit = ''
+    for i in range(4):  # 4x4 배열의 칸을 하나씩 문자열로 변환
+        for j in range(4):
+            bit += arr[i][j]  # 칸을 문자열에 추가
+    return bit  # 결과로 생성된 문자열 반환
+
+# 문자열을 4*4 배열로 변환
+def bit2arr(bit):
+    arr = []
+    for i in range(4):  # 4글자씩 잘라서 4x4 배열로 변환
+        arr.append(list(bit[i * 4:(i + 1) * 4]))  # 한 줄씩 배열로 만들어 추가
+    return arr  # 변환된 배열 반환
+
+inputs = []
+while len(inputs) < 8:  # 입력 데이터가 8줄이 될 때까지 반복
+    tmp = input()  # 사용자로부터 입력 받기
+    if not tmp:  # 빈 줄은 무시
+        continue
+    inputs.append(list(tmp.strip()))  # 각 입력을 리스트로 변환하여 inputs에 추가
+
+# 시작 보드(current_board)와 목표 보드(target_board) 분리
+current_board = inputs[:4]  # 첫 4줄은 시작 보드
+target_board = inputs[4:]  # 나머지 4줄은 목표 보드
+
+# 'L'은 '1'으로, 'P'는 '0'으로 변환하기 위한 딕셔너리
+trans = {'L': '1', 'P': '0'}
+
+# l과 p를 0과 1로 변환
+for i in range(4):
+    for j in range(4):
+        current_board[i][j] = trans[current_board[i][j]]  # 시작 보드 변환
+        target_board[i][j] = trans[target_board[i][j]]  # 목표 보드 변환
+
+
+startbit = arr2bit(current_board)       # 1111000011100010
+target_bit = arr2bit(target_board)      # 1010010110100101
+
+# BFS를 위한 큐 생성
+Q = deque()
+Q.append(startbit)  # 큐에 시작 상태 추가
+
+# 방문 처리할 딕셔너리 생성
+visited = dict()
+visited[startbit] = 0  # 시작 상태를 방문했으므로 방문 횟수 0으로 설정
+
+# BFS 탐색 시작
+while Q:
+    bit = Q.popleft()  # 큐에서 상태를 꺼냄     1111000011100010
+    board = bit2arr(bit)  # 비트 문자열을 4x4 배열로 변환    [1111, 0000, 1110, 0010]
+
+    # 목표 상태에 도달했으면 그때의 방문 횟수를 출력하고 종료
+    if bit == target_bit:
+        ans = visited[bit]  # 목표 상태에 도달했으므로 그때의 횟수를 ans에 저장
+        break
+
+    # 수평 교환 (가로 방향으로 인접한 칸들을 교환)
+    for i in range(4):
+        for j in range(3):
+            if board[i][j] != board[i][j + 1]:  # 두칸이 다른지 확인
+                board[i][j], board[i][j + 1] = board[i][j + 1], board[i][j]  # 두 칸을 교환
+
+                # 교환 후 새로운 상태를 비트 문자열로 변환
+                newbit = arr2bit(board)
+
+                # 이 새로운 상태가 아직 방문되지 않았다면
+                if newbit not in visited:
+                    visited[newbit] = visited[bit] + 1  # 이전 상태에서 1번 더 많이 방문한 상태로 기록
+                    Q.append(newbit)  # 큐에 새 상태 추가
+
+                # 다시 원래대로 복구
+                board[i][j], board[i][j + 1] = board[i][j + 1], board[i][j]  # 복구
+
+        # 세로 방향으로 3번만 비교 (0,1), (1,2), (2,3)
+        for i in range(3):
+            for j in range(4):
+                if board[i][j] != board[i + 1][j]:  # 두 칸이 다르면 교환
+                    board[i][j], board[i + 1][j] = board[i + 1][j], board[i][j]  # 두 칸을 교환
+
+                    # 교환 후 새로운 상태를 비트 문자열로 변환
+                    newbit = arr2bit(board)
+
+                    # 이 새로운 상태가 아직 방문되지 않았을 경우
+                    if newbit not in visited:
+                        visited[newbit] = visited[bit] + 1  # 전에서 1번 더 많이 방문한 상태로 기록
+                        Q.append(newbit)  # 큐에 새 상태 추가
+
+                    # 다시 원래대로 복구
+                    board[i][j], board[i + 1][j] = board[i + 1][j], board[i][j]
+
+# 목표 상태에 도달한 최소 횟수 출력
+if bit == target_bit:
+    print(ans)  # 목표 상태에 도달했을 때의 방문 횟수 출력                                         # 백준 '이세계 게임' 형 풀이(정답)
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------
+import numpy as np
+
+
+def perceptron_AND(x1, x2):
+    # OR 게이트의 가중치와 편향
+    W = np.array([0.5, 0.5])  # 가중치
+    b = -0.7 # 편향
+
+    # 입력값과 가중치의 내적 + 편향
+    z = np.dot업
