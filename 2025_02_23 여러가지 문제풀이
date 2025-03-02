@@ -49,3 +49,14 @@ for i in range(4):
             whether[i][j] = whether[C_mon[0]][C_mon[1]] = True
             cnt += 1 
 print(cnt)                             # 실행문                                         # 백준 '이세계 게임' (푸는 중)
+
+board = [['P', 'P', 'L', 'P'], ['L', 'L', 'L', 'P'], ['P', 'P', 'P', 'P'], ['L', 'L', 'L', 'L']]
+correct = [['P', 'L', 'P', 'L'], ['L', 'P', 'L', 'P'], ['P', 'L', 'P', 'L'], ['L', 'P', 'L', 'P']]
+whether = [['b'] * 4] * 4
+print(whether)
+for i in range(16):
+    print(f"board[i // 4][i % 4] : {board[i // 4][i % 4]}, correct[i // 4][i % 4] : {correct[i // 4][i % 4]}")
+    if board[i // 4][i % 4] == correct[i // 4][i % 4]:
+        print(i)
+        whether[i // 4][i % 4] = 'a'
+print(f"whether : {whether}")
