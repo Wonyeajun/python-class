@@ -1,0 +1,148 @@
+import numpy as np
+
+# Sigmoid 함수
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# 예시 입력
+x = np.array([1.0, -1.0, 0.0])
+print("Sigmoid 결과 : ", sigmoid(x)) # Sigmoid 결과 :  [0.73105858 0.26894142 0.5       ]
+
+# Softmax 함수
+def softmax(x):
+    # Overflow 방지를 위해 입력에서 최대값을 빼줍니다.
+    exp_x = np.exp(x- np.max(x))
+    return exp_x / np.sum(exp_x, axis = 0)
+
+# 예시 입력
+x = np.array([1.0, 2.0, 3.0])
+print("Softmax 결과 : ", softmax(x)) # Softmax 결과 : [0.09003057 0.24472847 0.66524096]
+
+# ReLU 함수
+def relu(x):
+    return np.maximum(0, x) # Leaky ReLU면 (0.01x, x)
+
+# 예시 입력
+x = np.array([-2.0, -1.0, 0.0, 1.0, 2.0])
+print("ReLU 결과 : ", relu(x)) # ReLU 결과 : [0. 0. 0. 1. 2.]
+
+# Tanh 함수
+def tanh(x):
+    return np.tanh(x)
+
+# 예시 입력
+x = np.array([-2.0, -1.0, 0.0, 1.0, 2.0])
+print("Tanh 결과 : ", tanh(x)) # Tanh 결과 :  [-0.96402758 -0.76159416  0.          0.76159416  0.96402758]
+
+# BCE 손실 함수
+def binary_cross_entropy(y_true, y_pred):
+    # 작은 값 epsilon을 더해서 로그에서 0을 방지합니다.
+    epsilon = 1e-15
+    y_pred = np.clip(y_pred, epsilon, 1 - epsilon)
+    return -np.mean(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
+
+# 예시 입력
+y_true = np.array([1, 0, 1])
+y_pred = np.array([0.0, 0.2, 0.8])
+print("BCE 손실 : ", binary_cross_entropy(y_true, y_pred))
+
+# MSE 손실 함수
+def mean_squared_error(y_true, y_pred):
+    return np.mean((y_true - y_pred) ** 2)
+
+# 예시 입력
+y_true = np.array([1, 0, 1])
+y_pred = np.array([0.9, 0.2, 0.8])
+print("MSE 손실 : ", mean_squared_error(y_true, y_pred))
+
+# CCE 손실 함수
+def categorical_cross_entropy(y_true, y_pred):
+    # 작은 값 epsilon을 더해서 로그에서 0을 방지합니다.
+    epsilon = 1e-15
+    y_pred = np.clip(y_pred, epsilon, 1 - epsilon)
+    return -np.sum(y_true * np.log(y_pred)) / y_true.shape[0]
+
+# 예시 입력 (One-hot 인코딩)
+y_true = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+y_pred = np.array([[0.9, 0.05, 0.05], [0.1, 0.8, 0.1], [0.05, 0.1, 0.85]])
+print("CCE 손실 : ", categorical_cross_entropy(y_true, y_pred))
+
+# XOR 문제 해결을 위한 신경망 구축
+# 필요한 라이브러리 불러오기
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.optimizers import SGD
+
+# 1. XOR 데이터셋 정의
+# XOR 문제를 위한 입력과 출력 정의
+# 입력 : 2차원 배열 (두 개의 이진 값)
+# 출력 : XOR 연산 결과 (0 또는 1)
+X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]]) # 입력 (AND, OR 등을 통해 연산 가능)
+y = np.array([[0], [1], [1], [0]]) # XOR 결과(출력)
+
+# 2. 신경망 모델 정의
+model = Sequential()
+
+# 입력 레이어 및 은닉층 추가 (은닉층 2개, 노드 8개)
+model.add(Dense(8, input_dim = 2, activation = 'sigmoid')) # 은닉층 1
+model.add(Dense(1, activation = 'sigmoid')) # 출력층 (이진 분리)
+
+# 3. 모델 컴파일 (손실 함수와 옵티마이저 정의)
+model.compile(loss = 'binary_crossentropy', optimizer = SGD(learning_rate = 0.1), metrics = ['accuracy'])
+
+# 4. 모델 학습
+model.fit(X, y, epochs = 5000, verbose = 0)
+
+# 5. 학습 결과 테스트
+# 새로운 입력 데이터를 넣어 XOR 결과 예측
+predictions = model.predict(X)
+print("XOR 문제 예측 결과 : ")
+for i in range(len(X)):
+    print(f"입력 : {X[i]} -> 예측 출력 : {round(predictions[i][0])}, 실제 출력 : {y[i][0]}")
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+# XOR 데이터셋
+x_train = torch.tensor([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=torch.float32)
+y_train = torch.tensor([[0], [1], [1], [0]], dtype=torch.float32)
+
+
+# 신경망 정의 (2층 신경망)
+class XORModel(nn.Module):
+    def __init__(self):
+        super(XORModel, self).__init__()
+        self.layer1 = nn.Linear(2, 2)  # 입력 2개 -> 은닉층 2개
+        self.layer2 = nn.Linear(2, 1)  # 은닉층 2개 -> 출력 1개
+        self.sigmoid = nn.Sigmoid()  # Sigmoid 활성화 함수
+
+    def forward(self, x):
+        out = self.sigmoid(self.layer1(x))  # 은닉층 활성화
+        out = self.sigmoid(self.layer2(out))  # 출력층 활성화
+        return out
+
+    # 모델과 옵티마이저 정의 (SGD)
+
+
+model = XORModel()
+optimizer = optim.SGD(model.parameters(), lr=0.1)  # 기본 SGD
+
+
+# 학습
+def train_model(selfmodel, optimizer, epochs=10000):
+    criterion = nn.MSELoss()
+    for epoch in range(epochs):
+        y_pred = model(x_train)
+        loss = criterion(y_pred, y_train)
+
+        optimizer.zero_grad()  # 기울기 초기화
+        loss.backward()  # 역전파
+        optimizer.step()  # 가중치 업데이트
+
+        if epoch % 1000 == 0:
+            print(f'Epoch : {epoch}, Loss : {loss.item():.4f}')
+
+
+print("Training with SGD:")
+train_model(model, optimizer)
