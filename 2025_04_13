@@ -23,7 +23,6 @@ def solution(m, n, startX, startY, balls):
         if not (startX == targetX and startY < targetY):
             candidates.append((targetX, 2 * n - targetY))
 
-        # 각 후보에 대해 거리 계산
         for rx, ry in candidates:
             dx = rx - startX
             dy = ry - startY
@@ -33,5 +32,8 @@ def solution(m, n, startX, startY, balls):
                 min_dist_sq = dist_sq
 
         answer.append(min_dist_sq)
+    return answer                                                                    프로그래머스 '당구 연습' 문제 내 풀이(정답!!!!!!!!)
+#--------------------------------------------------------------------------------------------------------------------------------------------
+숫자 변환하기 문제 풀어보기
 
-    return answer
+숙제 : 2 X n 타일링 문제 ( n에 1 2 3 4 넣어보며 규칙 찾아라)
