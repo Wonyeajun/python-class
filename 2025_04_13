@@ -1,0 +1,37 @@
+def solution(m, n, startX, startY, balls):
+    answer = []
+
+    for targetX, targetY in balls:
+        min_dist_sq = float('inf')  # 최소 거리의 제곱값 저장 (루트 안 씌워도 됨)
+
+        # 목표 지점의 반사 위치들을 네 방향으로 대칭
+        candidates = []
+
+        # 왼쪽 벽에 반사
+        if not (startY == targetY and startX > targetX):
+            candidates.append((-targetX, targetY))
+
+        # 오른쪽 벽에 반사
+        if not (startY == targetY and startX < targetX):
+            candidates.append((2 * m - targetX, targetY))
+
+        # 아래쪽 벽에 반사
+        if not (startX == targetX and startY > targetY):
+            candidates.append((targetX, -targetY))
+
+        # 위쪽 벽에 반사
+        if not (startX == targetX and startY < targetY):
+            candidates.append((targetX, 2 * n - targetY))
+
+        # 각 후보에 대해 거리 계산
+        for rx, ry in candidates:
+            dx = rx - startX
+            dy = ry - startY
+            dist_sq = dx * dx + dy * dy  # 제곱거리
+
+            if dist_sq < min_dist_sq:
+                min_dist_sq = dist_sq
+
+        answer.append(min_dist_sq)
+
+    return answer
