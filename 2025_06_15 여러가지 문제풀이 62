@@ -1,0 +1,37 @@
+import sys
+from collections import deque
+
+input = sys.stdin.readline
+n, m = map(int, input().split())
+
+# b를 해킹하면 a도 해킹됨 → 역방향 그래프 생성
+graph = [[] for _ in range(n)]
+for _ in range(m):
+    a, b = map(int, input().split())
+    graph[b - 1].append(a - 1)
+
+def BFS(start):  # BFS
+    count = 1  # 자기 자신 포함
+    visited = [False] * n
+    visited[start] = True
+    que = deque([start])
+
+    while que:
+        node = que.popleft()
+        for neighbor in graph[node]:
+            if not visited[neighbor]:
+                visited[neighbor] = True
+                que.append(neighbor)
+                count += 1
+    return count
+
+
+results = [0] * n
+max_hack = 0
+for i in range(n):
+    results[i] = BFS(i)
+    max_hack = max(max_hack, results[i])
+
+for i in range(n):
+    if results[i] == max_hack:
+        print(i + 1, end=' ')
