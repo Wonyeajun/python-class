@@ -1,0 +1,28 @@
+# 남성 여성 나이별 월 평균 임금 구하기
+age_income_data = df.dropna(subset=['일한달의 월 평균 임금']).groupby(['성별','나이'])['일한달의 월 평균 임금'].mean().reset_index(name='연령별 평균 월급')
+age_income_data
+# Dataframe 기능 최소화 한 상태로 처리
+age_income_data2 = {}
+for gender in ['남','여']:
+    temp = {}
+    for age in range(100):
+        cnt = 0
+        total_income = 0
+        for income in df[(df['나이'] == age) & (df['성별'] == gender)]['일한달의 월 평균 임금'].dropna():
+            cnt += 1
+            total_income += income
+        if cnt:
+            temp[age] = {'인원수': cnt, '총임금': round(total_income,2)}
+            temp[age]['월 평균 임금'] = round(total_income / cnt,2)
+    age_income_data2[gender] = temp
+age_income_data2
+for gender in age_income_data2:
+    for age in age_income_data2[gender]:
+        a,b = age_income_data2[gender][age]['월 평균 임금'] ,  round(age_income_data[(age_income_data['나이'] == age) & (age_income_data['성별'] == gender)]['연령별 평균 월급'].values[0],2)
+        if a != b:
+            print(a,b)
+# 시각화
+sns.lineplot(age_income_data,x='나이',y='연령별 평균 월급', hue='성별')
+plt.title("연령별 남여 월 평균 임금 차이")
+plt.show()
+#-----------------------------------------------------------------------------------------------------
