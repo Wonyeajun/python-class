@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+    <h2>안전장치를 위한 회원가입 페이지</h2>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    
+    <button type="submit">가입 완료</button>
+</form>
+
+    <br>
+    <a href="/account/login/">이미 계정이 있으신가요? 로그인하러 가기</a>
+</body>
+</html>
+

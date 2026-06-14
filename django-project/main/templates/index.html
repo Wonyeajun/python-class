@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소곤소곤 - 우리들의 마음 대피소</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gamja+Flower&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #FFF5EE 0%, #FFE4E1 100%); /* 살구~연분홍 그라데이션 */
+            --point-coral: #FF7A6B;      /* 부드러운 다홍색 */
+            --point-peach: #FFD1C9;      /* 연한 살구/피치 */
+            --card-shadow: 0 8px 20px rgba(255, 122, 107, 0.08);
+            --font-main: 'Gowun Dodum', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: #4A3E3D; /* 부드러운 브라운톤 먹색 */
+            padding-bottom: 60px;
+        }
+
+        /* ----------------------------------
+           1. 동글동글한 상단 탭 내비게이션
+        ---------------------------------- */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            margin: 25px auto 10px auto; /* 마진 하단을 조금 줄였습니다 */
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px); /* 뒤 배경이 살짝 비치는 투명감 */
+            padding: 8px;
+            border-radius: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            color: #7A6865;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        /* 현재 탭 활성화 */
+        .nav-item.active {
+            background-color: var(--point-coral);
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 122, 107, 0.3);
+        }
+
+        .nav-item:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: var(--point-coral);
+        }
+
+        /* ----------------------------------
+           2. 메인 레이아웃 (감성 배치)
+        ---------------------------------- */
+        .wrapper {
+            display: flex;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        /* 왼쪽 인기글: 메모지(Post-it) 컨셉 */
+        .sidebar-memo {
+            flex: 1;
+            max-width: 260px;
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 25px 20px;
+            height: fit-content;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            border-top: 6px solid var(--point-coral); /* 상단 포인트 선 */
+        }
+
+        .sidebar-memo h2 {
+            font-family: 'Gamja Flower', cursive; /* 조금 더 손글씨 같은 폰트 */
+            font-size: 1.6rem;
+            color: var(--point-coral);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .popular-ul {
+            list-style: none;
+        }
+
+        .popular-li {
+            padding: 10px 4px;
+            font-size: 0.9rem;
+            border-bottom: 1px dashed #F5E6E3;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .popular-li a {
+            text-decoration: none;
+            color: #6B5B59;
+            transition: color 0.2s;
+        }
+        .popular-li a:hover {
+            color: var(--point-coral);
+        }
+
+        /* 오른쪽 메인 컨텐츠 */
+        .main-content {
+            flex: 3;
+        }
+
+        /* 조약돌 모양의 둥근 검색바 */
+        .search-container {
+            margin-bottom: 25px;
+        }
+
+        .pebble-search {
+            display: flex;
+            background: #FFFFFF;
+            border-radius: 30px;
+            padding: 6px 6px 6px 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 122, 107, 0.1);
+        }
+
+        .pebble-search input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 0.95rem;
+            color: #555;
+            background: transparent;
+        }
+
+        .pebble-search button {
+            background: var(--point-coral);
+            border: none;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .pebble-search button:hover {
+            background: #E56355;
+        }
+
+        /* 정렬 링크 */
+        .sort-links {
+            display: flex;
+            gap: 15px;
+            padding-left: 10px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+        }
+
+        .sort-links a {
+            text-decoration: none;
+            color: #9C8A87;
+            position: relative;
+        }
+
+        .sort-links a.active {
+            color: var(--point-coral);
+            font-weight: bold;
+        }
+        /* 활성화된 정렬 밑에 작은 점 찍기 */
+        .sort-links a.active::after {
+            content: '•';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+        }
+
+        /* ----------------------------------
+           3. 구름/몽글몽글 스타일 사연 카드 그리드
+        ---------------------------------- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .cloud-card {
+            background: #FFFFFF;
+            border-radius: 28px; /* 극대화된 라운드 처리 */
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 통통 튀는 애니메이션 효과 */
+            cursor: pointer;
+        }
+
+        .cloud-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(255, 122, 107, 0.15);
+        }
+
+        .card-tag {
+            background-color: #FFF0ED;
+            color: var(--point-coral);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            width: fit-content;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #332827;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .card-text {
+            font-size: 0.88rem;
+            color: #7A6865;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        /* 카드 하단 정보 */
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            border-top: 1px dashed #F5E6E3;
+            padding-top: 12px;
+        }
+
+        .anon-profile {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #8A7571;
+            font-weight: bold;
+        }
+
+        /* 익명 프로필 앞에 붙는 작은 원형 아바타 대용 아이콘 */
+        .anon-avatar {
+            width: 8px;
+            height: 8px;
+            background-color: var(--point-coral);
+            border-radius: 50%;
+        }
+
+        .card-reaction {
+            color: #BAA4A0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-reaction span strong {
+            color: var(--point-coral);
+        }
+
+        /* 우측 하단 동근 에그 모양 글쓰기 버튼 */
+        .floating-write {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            background: var(--point-coral);
+            color: white;
+            padding: 16px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 8px 20px rgba(255, 122, 107, 0.4);
+            transition: all 0.2s;
+        }
+
+        .floating-write:hover {
+            transform: scale(1.05);
+            background: #E56355;
+        }
+
+        /* 반응형 모바일 화면 처리 */
+        @media (max-width: 768px) {
+            .wrapper {
+                flex-direction: column;
+            }
+            .sidebar-memo {
+                max-width: 100%;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .nav-container {
+                margin: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-container">
+        <a href="#" class="nav-item active">🎈 커뮤니티</a>
+        <a href="#" class="nav-item">🌳 하루 한 알</a>
+        <a href="#" class="nav-item">💌 상담하기</a>
+    </nav>
+
+    <div style="max-width: 1100px; margin: 0 auto 20px auto; padding: 0 20px; text-align: right; font-size: 0.9rem;">
+        {% if request.session.is_authenticated %}
+    <span>반갑습니다, <b>{{ request.session.user_nickname }}</b>님!</span>
+            <a href="/account/logout/"><button>로그아웃</button></a>
+        {% else %}
+            <a href="/account/login/"><button>로그인</button></a>
+            <a href="/account/signup/"><button>회원가입</button></a>
+        {% endif %}
+    </div>
+
+    <div class="wrapper">
+        
+        <aside class="sidebar-memo">
+            <h2>🔥 지금 핫한 사연</h2>
+            <ul class="popular-ul">
+                {% for story in popular_stories %}
+                    <li class="popular-li">
+                        <a href="#">[{{ story.category }}] {{ story.title }}</a>
+                    </li>
+                {% empty %}
+                    <li class="popular-li">아직 인기글이 없습니다.</li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="search-container">
+                <form class="pebble-search" action="#" method="GET">
+                    <input type="text" name="q" placeholder="고민 키워드나 태그를 검색해보세요...">
+                    <button type="submit">찾기</button>
+                </form>
+            </div>
+
+            <div class="sort-links">
+                <a href="#">최신순</a>
+                <a href="#">답변순</a>
+                <a href="#" class="active">반응순</a>
+            </div>
+
+            <div class="grid-container">
+                
+                {% for story in main_stories %}
+                    <div class="cloud-card" onclick="location.href='#'">
+                        <div>
+                            <span class="card-tag">🎨 {{ story.category }}</span>
+                            <div class="card-title">{{ story.title }}</div>
+                            <div class="card-text">{{ story.preview }}</div>
+                        </div>
+                        <div class="card-bottom">
+                            <div class="anon-profile">
+                                <div class="anon-avatar"></div>
+                                <span>{{ story.author }}</span>
+                            </div>
+                            <div class="card-reaction">
+                                <span>댓글 <strong>{{ story.comments }}</strong></span>
+                                <span>공감 <strong>{{ story.likes }}</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p style="grid-column: 1 / -1; text-align: center; color: #9C8A87; padding: 40px 0;">등록된 사연이 없습니다.</p>
+                {% endfor %}
+
+            </div>
+        </main>
+    </div>
+
+    <a href="#" class="floating-write">✍️ 내 사연 쓰기</a>
+
+</body>
+</html>
