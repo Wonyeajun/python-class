@@ -28,16 +28,14 @@
             padding-bottom: 60px;
         }
 
-        /* ----------------------------------
-           1. 동글동글한 상단 탭 내비게이션
-        ---------------------------------- */
+        /* 1. 동글동글한 상단 탭 내비게이션 */
         .nav-container {
             display: flex;
             justify-content: center;
-            margin: 25px auto 10px auto; /* 마진 하단을 조금 줄였습니다 */
+            margin: 25px auto 10px auto;
             max-width: 500px;
             background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(8px); /* 뒤 배경이 살짝 비치는 투명감 */
+            backdrop-filter: blur(8px);
             padding: 8px;
             border-radius: 40px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.04);
@@ -55,7 +53,6 @@
             transition: all 0.3s ease;
         }
 
-        /* 현재 탭 활성화 */
         .nav-item.active {
             background-color: var(--point-coral);
             color: white;
@@ -67,9 +64,7 @@
             color: var(--point-coral);
         }
 
-        /* ----------------------------------
-           2. 메인 레이아웃 (감성 배치)
-        ---------------------------------- */
+        /* 2. 메인 레이아웃 */
         .wrapper {
             display: flex;
             max-width: 1100px;
@@ -78,7 +73,7 @@
             gap: 30px;
         }
 
-        /* 왼쪽 인기글: 메모지(Post-it) 컨셉 */
+        /* 왼쪽 인기글 */
         .sidebar-memo {
             flex: 1;
             max-width: 260px;
@@ -88,11 +83,11 @@
             height: fit-content;
             box-shadow: var(--card-shadow);
             position: relative;
-            border-top: 6px solid var(--point-coral); /* 상단 포인트 선 */
+            border-top: 6px solid var(--point-coral);
         }
 
         .sidebar-memo h2 {
-            font-family: 'Gamja Flower', cursive; /* 조금 더 손글씨 같은 폰트 */
+            font-family: 'Gamja Flower', cursive;
             font-size: 1.6rem;
             color: var(--point-coral);
             margin-bottom: 15px;
@@ -128,7 +123,7 @@
             flex: 3;
         }
 
-        /* 조약돌 모양의 둥근 검색바 */
+        /* 검색바 */
         .search-container {
             margin-bottom: 25px;
         }
@@ -184,7 +179,6 @@
             color: var(--point-coral);
             font-weight: bold;
         }
-        /* 활성화된 정렬 밑에 작은 점 찍기 */
         .sort-links a.active::after {
             content: '•';
             position: absolute;
@@ -194,9 +188,7 @@
             font-size: 1rem;
         }
 
-        /* ----------------------------------
-           3. 구름/몽글몽글 스타일 사연 카드 그리드
-        ---------------------------------- */
+        /* 3. 사연 카드 그리드 */
         .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -205,7 +197,7 @@
 
         .cloud-card {
             background: #FFFFFF;
-            border-radius: 28px; /* 극대화된 라운드 처리 */
+            border-radius: 28px;
             padding: 25px;
             box-shadow: var(--card-shadow);
             border: 1px solid rgba(255, 255, 255, 0.6);
@@ -213,7 +205,7 @@
             flex-direction: column;
             justify-content: space-between;
             min-height: 200px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 통통 튀는 애니메이션 효과 */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
         }
 
@@ -252,7 +244,6 @@
             margin-bottom: 20px;
         }
 
-        /* 카드 하단 정보 */
         .card-bottom {
             display: flex;
             justify-content: space-between;
@@ -270,7 +261,6 @@
             font-weight: bold;
         }
 
-        /* 익명 프로필 앞에 붙는 작은 원형 아바타 대용 아이콘 */
         .anon-avatar {
             width: 8px;
             height: 8px;
@@ -288,7 +278,6 @@
             color: var(--point-coral);
         }
 
-        /* 우측 하단 동근 에그 모양 글쓰기 버튼 */
         .floating-write {
             position: fixed;
             bottom: 35px;
@@ -309,7 +298,6 @@
             background: #E56355;
         }
 
-        /* 반응형 모바일 화면 처리 */
         @media (max-width: 768px) {
             .wrapper {
                 flex-direction: column;
@@ -329,18 +317,19 @@
 <body>
 
     <nav class="nav-container">
-        <a href="#" class="nav-item active">🎈 커뮤니티</a>
+        <a href="{% url 'post_list' %}" class="nav-item active">🎈 커뮤니티</a>
         <a href="#" class="nav-item">🌳 하루 한 알</a>
         <a href="#" class="nav-item">💌 상담하기</a>
     </nav>
 
     <div style="max-width: 1100px; margin: 0 auto 20px auto; padding: 0 20px; text-align: right; font-size: 0.9rem;">
         {% if user.is_authenticated %}
-    <span>반갑습니다, <b>{{ user.nickname }}</b>님!</span>
-    <a href="/account/logout/"><button>로그아웃</button></a>
+            <span>반갑습니다, <b>{{ user.nickname }}</b>님!</span>
+            <a href="{% url 'mypage' %}"><button style="border:none; background:none; cursor:pointer; color:#7A6865; margin-left:10px;">마이페이지</button></a>
+            <a href="{% url 'logout' %}"><button style="border:none; background:none; cursor:pointer; color:#7A6865; margin-left:5px;">로그아웃</button></a>
         {% else %}
-    <a href="/account/login/"><button>로그인</button></a>
-    <a href="/account/signup/"><button>회원가입</button></a>
+            <a href="{% url 'login' %}"><button style="border:none; background:none; cursor:pointer; color:#7A6865;">로그인</button></a>
+            <a href="{% url 'signup' %}"><button style="border:none; background:none; cursor:pointer; color:#7A6865; margin-left:5px;">회원가입</button></a>
         {% endif %}
     </div>
 
@@ -349,12 +338,12 @@
         <aside class="sidebar-memo">
             <h2>🔥 지금 핫한 사연</h2>
             <ul class="popular-ul">
-                {% for story in popular_stories %}
+                {% for post in posts|slice:":5" %}
                     <li class="popular-li">
-                        <a href="#">[{{ story.category }}] {{ story.title }}</a>
+                        <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
                     </li>
                 {% empty %}
-                    <li class="popular-li">아직 인기글이 없습니다.</li>
+                    <li class="popular-li">아직 등록된 사연이 없습니다.</li>
                 {% endfor %}
             </ul>
         </aside>
@@ -369,40 +358,40 @@
             </div>
 
             <div class="sort-links">
-                <a href="#">최신순</a>
+                <a href="#" class="active">최신순</a>
                 <a href="#">답변순</a>
-                <a href="#" class="active">반응순</a>
+                <a href="#">반응순</a>
             </div>
 
             <div class="grid-container">
                 
-                {% for story in main_stories %}
-                    <div class="cloud-card" onclick="location.href='#'">
+                {% for post in posts %}
+                    <div class="cloud-card" onclick="location.href='{% url 'post_detail' post.pk %}'">
                         <div>
-                            <span class="card-tag">🎨 {{ story.category }}</span>
-                            <div class="card-title">{{ story.title }}</div>
-                            <div class="card-text">{{ story.preview }}</div>
+                            <span class="card-tag">🌸 고민글</span>
+                            <div class="card-title">{{ post.title }}</div>
+                            <div class="card-text">{{ post.content }}</div>
                         </div>
                         <div class="card-bottom">
                             <div class="anon-profile">
                                 <div class="anon-avatar"></div>
-                                <span>{{ story.author }}</span>
+                                <span>{{ post.author.nickname }}</span>
                             </div>
                             <div class="card-reaction">
-                                <span>댓글 <strong>{{ story.comments }}</strong></span>
-                                <span>공감 <strong>{{ story.likes }}</strong></span>
+                                <span>댓글 <strong>{{ post.comments.count }}</strong></span>
+                                <span>공감 <strong>{{ post.likes.count }}</strong></span>
                             </div>
                         </div>
                     </div>
                 {% empty %}
-                    <p style="grid-column: 1 / -1; text-align: center; color: #9C8A87; padding: 40px 0;">등록된 사연이 없습니다.</p>
+                    <p style="grid-column: 1 / -1; text-align: center; color: #9C8A87; padding: 40px 0;">아직 등록된 사연이 없습니다.</p>
                 {% endfor %}
 
             </div>
         </main>
     </div>
 
-    <a href="#" class="floating-write">✍️ 내 사연 쓰기</a>
+    <a href="{% url 'post_create' %}" class="floating-write">✍️ 내 사연 쓰기</a>
 
 </body>
 </html>

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="paper-card">
+    <h2 style="margin-bottom: 25px; font-family: 'Gamja Flower', cursive; color: var(--point-coral);">✍️ 고민 털어놓기</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label style="display: block; margin-bottom: 8px; font-weight: bold;">제목</label>
+        <input type="text" name="title" placeholder="어떤 고민이 있으신가요?" required>
+        
+        <label style="display: block; margin-bottom: 8px; font-weight: bold;">내용</label>
+        <textarea name="content" placeholder="누구에게도 말하지 못했던 마음을 여기에 털어놔보세요." rows="10" required></textarea>
+        
+        <div style="display: flex; gap: 10px;">
+            <button type="submit" class="btn-coral" style="flex: 2;">소중한 사연 등록하기</button>
+            <a href="{% url 'post_list' %}" style="flex: 1; text-align: center; padding: 10px; border-radius: 20px; background: #EEE; font-weight: bold;">취소</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+<h1>고민 게시판</h1>
+
+{% if user.is_authenticated %}
+    <p>
+        <strong>{{ user.nickname }}</strong>님 환영합니다! | 
+        <a href="{% url 'mypage' %}">👤 마이페이지</a> | 
+        <a href="{% url 'logout' %}">로그아웃</a>
+    </p>
+{% else %}
+    <p>
+        <a href="{% url 'login' %}">로그인</a> | 
+        <a href="{% url 'signup' %}">회원가입</a>
+    </p>
+{% endif %}
+
+<a href="{% url 'post_create' %}">고민 작성하기</a>
+
+<hr>
+
+{% for post in posts %}
+    <article>
+        <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+        <p>작성자: {{ post.author.nickname }}</p>
+        <p>{{ post.content }}</p>
+        <small>{{ post.created_at }}</small>
+    </article>
+
+    <hr>
+{% empty %}
+    <p>아직 작성된 고민이 없습니다.</p>
+{% endfor %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="paper-card" style="text-align: center; background: rgba(255,255,255,0.9);">
+    <div style="width: 80px; height: 80px; background: var(--point-coral); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+        👤
+    </div>
+    <h2>{{ user.nickname }}님</h2>
+    <p style="color: #8A7571; margin-top: 5px;">{{ user.username }} | 마음 대피소의 소중한 일원</p>
+</div>
+
+<div class="paper-card">
+    <h3 style="margin-bottom: 15px; font-family: 'Gamja Flower', cursive;">📝 내가 쓴 고민</h3>
+    {% for post in posts %}
+        <div style="padding: 10px 0; border-bottom: 1px dashed #F5E6E3;">
+            <a href="{% url 'post_detail' post.pk %}" style="font-weight: bold;">{{ post.title }}</a>
+            <small style="float: right; color: #BAA4A0;">{{ post.created_at|date:"m-d" }}</small>
+        </div>
+    {% empty %}
+        <p style="color: #BAA4A0;">아직 작성한 글이 없습니다.</p>
+    {% endfor %}
+</div>
+
+<div class="paper-card">
+    <h3 style="margin-bottom: 15px; font-family: 'Gamja Flower', cursive;">💬 내가 남긴 응원</h3>
+    {% for comment in comments %}
+        <div style="padding: 10px 0; border-bottom: 1px dashed #F5E6E3;">
+            <a href="{% url 'post_detail' comment.post.pk %}">{{ comment.post.title }} 에 남긴 위로</a>
+            <small style="float: right; color: #BAA4A0;">{{ comment.created_at|date:"m-d" }}</small>
+        </div>
+    {% empty %}
+        <p style="color: #BAA4A0;">아직 남긴 댓글이 없습니다.</p>
+    {% endfor %}
+</div>
+{% endblock %}

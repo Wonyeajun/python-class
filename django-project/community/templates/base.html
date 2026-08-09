@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소곤소곤 - 우리들의 마음 대피소</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gamja+Flower&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #FFF5EE 0%, #FFE4E1 100%);
+            --point-coral: #FF7A6B;
+            --card-shadow: 0 8px 20px rgba(255, 122, 107, 0.08);
+            --font-main: 'Gowun Dodum', sans-serif;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); }
+        body { background: var(--bg-gradient); background-attachment: fixed; color: #4A3E3D; padding-bottom: 60px; }
+        a { text-decoration: none; color: inherit; }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+        
+        /* 공통 헤더/내비 */
+        .header { padding: 30px 0; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Gamja Flower', cursive; font-size: 2rem; color: var(--point-coral); font-weight: bold; }
+        
+        /* 공통 카드 스타일 */
+        .paper-card {
+            background: #FFFFFF;
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 25px;
+        }
+
+        /* 버튼 스타일 */
+        .btn-coral {
+            background: var(--point-coral);
+            color: white; border: none; padding: 10px 20px;
+            border-radius: 20px; cursor: pointer; font-weight: bold;
+            transition: 0.2s;
+        }
+        .btn-coral:hover { background: #E56355; }
+        
+        /* 폼 스타일 */
+        input[type="text"], textarea {
+            width: 100%; padding: 15px; border-radius: 15px;
+            border: 1px solid #F5E6E3; outline: none; margin-bottom: 15px;
+            font-size: 1rem; color: #4A3E3D;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="{% url 'post_list' %}" class="logo">🌸 소곤소곤</a>
+            <div style="font-size: 0.9rem;">
+                {% if user.is_authenticated %}
+                    <b>{{ user.nickname }}</b>님 | <a href="{% url 'mypage' %}">마이페이지</a> | <a href="{% url 'logout' %}">로그아웃</a>
+                {% else %}
+                    <a href="{% url 'login' %}">로그인</a> | <a href="{% url 'signup' %}">회원가입</a>
+                {% endif %}
+            </div>
+        </header>
+
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

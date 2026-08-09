@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="paper-card">
+    <span style="color: var(--point-coral); font-weight: bold;">🌸 오늘의 고민</span>
+    <h2 style="margin: 15px 0;">{{ post.title }}</h2>
+    <p style="color: #8A7571; font-size: 0.9rem; margin-bottom: 20px;">
+        작성자: <b>{{ post.author.nickname }}</b> | {{ post.created_at|date:"Y-m-d H:i" }}
+    </p>
+    <div style="line-height: 1.8; font-size: 1.05rem; min-height: 150px;">
+        {{ post.content|linebreaksbr }}
+    </div>
+
+    <div style="margin-top: 30px; text-align: center;">
+        <form action="{% url 'post_like' post.pk %}" method="POST">
+            {% csrf_token %}
+            {% if user in post.likes.all %}
+                <button type="submit" class="btn-coral">❤️ 공감 취소 ({{ post.likes.count }})</button>
+            {% else %}
+                <button type="submit" class="btn-coral" style="background: white; color: var(--point-coral); border: 2px solid var(--point-coral);">🤍 공감하기 ({{ post.likes.count }})</button>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+<div class="paper-card" style="border-radius: 20px;">
+    <h3 style="margin-bottom: 20px; font-family: 'Gamja Flower', cursive;">💬 따뜻한 한마디</h3>
+    
+    {% for comment in post.comments.all %}
+        <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #F5E6E3;">
+            <p><strong>{{ comment.author.nickname }}</strong> <small style="color: #BAA4A0;">{{ comment.created_at|date:"Y-m-d H:i" }}</small></p>
+            <p style="margin-top: 5px;">{{ comment.content|linebreaksbr }}</p>
+        </div>
+    {% empty %}
+        <p style="color: #BAA4A0; text-align: center; padding: 20px 0;">아직 도착한 응원이 없어요. 첫 번째 응원을 남겨주세요!</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <form action="{% url 'comment_create' post.pk %}" method="POST" style="margin-top: 20px;">
+            {% csrf_token %}
+            <textarea name="content" placeholder="따뜻한 위로의 말을 남겨주세요." rows="3" required></textarea>
+            <button type="submit" class="btn-coral" style="width: 100%;">응원 남기기</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

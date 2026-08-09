@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from .forms import SignupForm
@@ -58,3 +59,18 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect("index")
+
+@login_required
+def mypage(request):
+    # 로그인된 유저가 작성한 글과 댓글 가져오기
+    user_posts = request.user.post_set.all().order_by("-created_at")
+    user_comments = request.user.comment_set.all().order_by("-created_at")
+
+    return render(
+        request,
+        "mypage.html",
+        {
+            "posts": user_posts,
+            "comments": user_comments,
+        },
+    )
