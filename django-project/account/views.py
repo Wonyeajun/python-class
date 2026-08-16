@@ -70,6 +70,7 @@ def mypage(request):
         request,
         "mypage.html",
         {
+            "user": request.user,
             "posts": user_posts,
             "comments": user_comments,
         },

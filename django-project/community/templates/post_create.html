@@ -1,19 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="paper-card">
-    <h2 style="margin-bottom: 25px; font-family: 'Gamja Flower', cursive; color: var(--point-coral);">✍️ 고민 털어놓기</h2>
+<div class="paper-card" style="max-width: 600px; margin: 40px auto; padding: 30px; background: #FFF; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    <h2 style="margin-bottom: 25px; font-family: 'Gamja Flower', cursive; color: #FF6B6B;">✍️ 고민 털어놓기</h2>
     <form method="POST">
         {% csrf_token %}
-        <label style="display: block; margin-bottom: 8px; font-weight: bold;">제목</label>
-        <input type="text" name="title" placeholder="어떤 고민이 있으신가요?" required>
         
-        <label style="display: block; margin-bottom: 8px; font-weight: bold;">내용</label>
-        <textarea name="content" placeholder="누구에게도 말하지 못했던 마음을 여기에 털어놔보세요." rows="10" required></textarea>
+        <!-- 고민 키워드(카테고리) 선택 -->
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #4A3E3D;">고민 키워드 선택</label>
+            <select name="category" style="width: 100%; padding: 12px; border: 1px solid #FFE3DE; border-radius: 12px; font-size: 14px; background-color: #FFF5F3;" required>
+                <option value="" disabled selected>키워드를 선택해 주세요</option>
+                {% for code, name in categories %}
+                    <option value="{{ code }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- 제목 입력 -->
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #4A3E3D;">제목</label>
+            <input type="text" name="title" placeholder="어떤 고민이 있으신가요?" style="width: 100%; padding: 12px; border: 1px solid #FFE3DE; border-radius: 12px; font-size: 14px;" required>
+        </div>
         
+        <!-- 내용 입력 -->
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #4A3E3D;">내용</label>
+            <textarea name="content" placeholder="누구에게도 말하지 못했던 마음을 여기에 털어놔보세요." rows="8" style="width: 100%; padding: 12px; border: 1px solid #FFE3DE; border-radius: 12px; font-size: 14px;" required></textarea>
+        </div>
+        
+        <!-- 버튼 영역 -->
         <div style="display: flex; gap: 10px;">
-            <button type="submit" class="btn-coral" style="flex: 2;">소중한 사연 등록하기</button>
-            <a href="{% url 'post_list' %}" style="flex: 1; text-align: center; padding: 10px; border-radius: 20px; background: #EEE; font-weight: bold;">취소</a>
+            <button type="submit" class="btn-coral" style="flex: 2; padding: 12px; border-radius: 20px; background: #FF6B6B; color: white; border: none; font-weight: bold; cursor: pointer;">소중한 사연 등록하기</button>
+            <a href="{% url 'post_list' %}" style="flex: 1; text-align: center; padding: 12px; border-radius: 20px; background: #EEE; color: #666; font-weight: bold; text-decoration: none;">취소</a>
         </div>
     </form>
 </div>
