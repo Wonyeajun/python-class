@@ -16,7 +16,7 @@ def signup(request):
             user.save()
 
             login(request, user)
-            return redirect("index")
+            return redirect("post_list")
 
     else:
         form = SignupForm()
@@ -43,7 +43,7 @@ def user_login(request):
 
         if user is not None:
             login(request, user)
-            return redirect("index")
+            return redirect("post_list")
 
         return render(
             request,
@@ -58,7 +58,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect("index")
+    return redirect("post_list")
 
 @login_required
 def mypage(request):

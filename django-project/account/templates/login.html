@@ -1,37 +1,164 @@
-<h2>로그인</h2>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소곤소곤 - 로그인</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gamja+Flower&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #FFF5EE 0%, #FFE4E1 100%);
+            --point-coral: #FF7A6B;
+            --card-shadow: 0 10px 25px rgba(255, 122, 107, 0.1);
+            --font-main: 'Gowun Dodum', sans-serif;
+        }
 
-{% if error %}
-    <p style="color: red;">{{ error }}</p>
-{% endif %}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+        }
 
-<form method="POST">
-    {% csrf_token %}
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: #4A3E3D;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-    <p>
-        <input
-            type="text"
-            name="username"
-            placeholder="아이디를 입력하세요"
-            required
-        >
-    </p>
+        .auth-card {
+            background: #FFFFFF;
+            width: 100%;
+            max-width: 420px;
+            padding: 40px 35px;
+            border-radius: 32px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            text-align: center;
+        }
 
-    <p>
-        <input
-            type="password"
-            name="password"
-            placeholder="비밀번호를 입력하세요"
-            required
-        >
-    </p>
+        .auth-card h2 {
+            font-family: 'Gamja Flower', cursive;
+            font-size: 2.2rem;
+            color: var(--point-coral);
+            margin-bottom: 25px;
+        }
 
-    <button type="submit">로그인</button>
-</form>
+        .error-message {
+            background: #FFE8E8;
+            color: #E53935;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 0.88rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
 
-<br>
+        .input-group {
+            margin-bottom: 16px;
+        }
 
-<p>아직 회원이 아니신가요?</p>
+        .input-group input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid #F5E6E3;
+            border-radius: 20px;
+            background: #FFF9F8;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+            color: #4A3E3D;
+        }
 
-<a href="{% url 'signup' %}">
-    회원가입하기
-</a>
+        .input-group input:focus {
+            border-color: var(--point-coral);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(255, 122, 107, 0.15);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--point-coral);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(255, 122, 107, 0.3);
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: #E56355;
+            transform: translateY(-2px);
+        }
+
+        .auth-footer {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed #F5E6E3;
+            font-size: 0.9rem;
+            color: #8A7571;
+        }
+
+        .auth-footer a {
+            color: var(--point-coral);
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card">
+        <h2>🔑 로그인</h2>
+
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="아이디를 입력하세요"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="비밀번호를 입력하세요"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn-submit">로그인</button>
+        </form>
+
+        <div class="auth-footer">
+            <span>아직 회원이 아니신가요?</span>
+            <a href="{% url 'signup' %}">회원가입하기</a>
+        </div>
+    </div>
+
+</body>
+</html>

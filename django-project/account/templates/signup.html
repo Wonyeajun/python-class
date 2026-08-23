@@ -1,23 +1,283 @@
-{% if error %}
-    <p style="color: red;">{{ error }}</p>
-{% endif %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소곤소곤 - 회원가입</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gamja+Flower&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #FFF5EE 0%, #FFE4E1 100%);
+            --point-coral: #FF7A6B;
+            --card-shadow: 0 10px 25px rgba(255, 122, 107, 0.1);
+            --font-main: 'Gowun Dodum', sans-serif;
+            --error-color: #FF5252;
+            --success-color: #4CAF50;
+        }
 
-<h2>회원가입</h2>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+        }
 
-<p>
-    가입하면 랜덤 닉네임(예: <strong>피곤한 하이에나</strong>)이 자동으로 부여됩니다.
-</p>
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: #4A3E3D;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+        }
 
-<form method="POST">
-    {% csrf_token %}
+        .auth-card {
+            background: #FFFFFF;
+            width: 100%;
+            max-width: 420px;
+            padding: 40px 35px;
+            border-radius: 32px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            text-align: center;
+        }
 
-    {{ form.as_p }}
+        .auth-card h2 {
+            font-family: 'Gamja Flower', cursive;
+            font-size: 2.2rem;
+            color: var(--point-coral);
+            margin-bottom: 10px;
+        }
 
-    <button type="submit">가입하기</button>
-</form>
+        .sub-notice {
+            font-size: 0.88rem;
+            color: #7A6865;
+            background: #FFF0ED;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
 
-<br>
+        .sub-notice strong {
+            color: var(--point-coral);
+        }
 
-<a href="{% url 'login' %}">
-    이미 계정이 있으신가요? 로그인하기
-</a>
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #7A6865;
+            margin-bottom: 6px;
+            padding-left: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 18px;
+            border: 1px solid #F5E6E3;
+            border-radius: 20px;
+            background: #FFF9F8;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+            color: #4A3E3D;
+        }
+
+        .form-group input:focus {
+            border-color: var(--point-coral);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(255, 122, 107, 0.15);
+        }
+
+        /* 실시간 피드백 메세지 */
+        .msg-list {
+            list-style: none;
+            margin-top: 6px;
+            padding-left: 8px;
+        }
+
+        .msg-item {
+            font-size: 0.78rem;
+            color: var(--error-color);
+            display: none; /* 평소에는 숨김 */
+            margin-top: 3px;
+            font-weight: bold;
+        }
+
+        .msg-item.active {
+            display: block;
+        }
+
+        .msg-item.valid {
+            color: var(--success-color);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--point-coral);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(255, 122, 107, 0.3);
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: #E56355;
+            transform: translateY(-2px);
+        }
+
+        .auth-footer {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed #F5E6E3;
+            font-size: 0.9rem;
+            color: #8A7571;
+        }
+
+        .auth-footer a {
+            color: var(--point-coral);
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card">
+        <h2>🌸 회원가입</h2>
+
+        <p class="sub-notice">
+            가입하면 🌿 <strong>랜덤 닉네임</strong>이 자동으로 부여됩니다.
+        </p>
+
+        <form method="POST" id="signupForm">
+            {% csrf_token %}
+
+            <!-- 아이디 -->
+            <div class="form-group">
+                <label for="username">아이디</label>
+                <input type="text" name="username" id="username" autocomplete="off" required>
+                <div id="username-msg" class="msg-item"></div>
+            </div>
+
+            <!-- 비밀번호 -->
+            <div class="form-group">
+                <label for="password1">비밀번호</label>
+                <input type="password" name="password1" id="password1" required>
+                <div id="pwd-len-msg" class="msg-item">✕ 비밀번호는 8자 이상이어야 합니다.</div>
+                <div id="pwd-num-msg" class="msg-item">✕ 숫자로만 구성할 수 없습니다.</div>
+            </div>
+
+            <!-- 비밀번호 확인 -->
+            <div class="form-group">
+                <label for="password2">비밀번호 확인</label>
+                <input type="password" name="password2" id="password2" required>
+                <div id="pwd-match-msg" class="msg-item">✕ 비밀번호가 일치하지 않습니다.</div>
+            </div>
+
+            <button type="submit" class="btn-submit">가입하기</button>
+        </form>
+
+        <div class="auth-footer">
+            <span>이미 계정이 있으신가요?</span>
+            <a href="{% url 'login' %}">로그인하기</a>
+        </div>
+    </div>
+
+    <script>
+        const usernameInput = document.getElementById('username');
+        const pwd1Input = document.getElementById('password1');
+        const pwd2Input = document.getElementById('password2');
+
+        const usernameMsg = document.getElementById('username-msg');
+        const pwdLenMsg = document.getElementById('pwd-len-msg');
+        const pwdNumMsg = document.getElementById('pwd-num-msg');
+        const pwdMatchMsg = document.getElementById('pwd-match-msg');
+
+        // 1. 아이디 실시간 검수
+        usernameInput.addEventListener('input', () => {
+            const val = usernameInput.value;
+            if (val.length === 0) {
+                usernameMsg.classList.remove('active');
+            } else if (val.length < 3) {
+                usernameMsg.textContent = '✕ 아이디는 3자 이상 입력해야 합니다.';
+                usernameMsg.className = 'msg-item active';
+            } else {
+                usernameMsg.textContent = '✓ 사용 가능한 아이디 형태입니다.';
+                usernameMsg.className = 'msg-item active valid';
+            }
+        });
+
+        // 2. 비밀번호 실시간 검수
+        pwd1Input.addEventListener('input', () => {
+            const val = pwd1Input.value;
+
+            if (val.length === 0) {
+                pwdLenMsg.classList.remove('active');
+                pwdNumMsg.classList.remove('active');
+                return;
+            }
+
+            // 길이 검사 (8자 이상)
+            if (val.length < 8) {
+                pwdLenMsg.textContent = '✕ 비밀번호는 8자 이상이어야 합니다.';
+                pwdLenMsg.className = 'msg-item active';
+            } else {
+                pwdLenMsg.textContent = '✓ 8자 이상 입력되었습니다.';
+                pwdLenMsg.className = 'msg-item active valid';
+            }
+
+            // 숫자만으로 된 경우 검사
+            if (/^\d+$/.test(val)) {
+                pwdNumMsg.textContent = '✕ 문자를 포함해야 합니다. (숫자로만 구성 불가)';
+                pwdNumMsg.className = 'msg-item active';
+            } else {
+                pwdNumMsg.classList.remove('active');
+            }
+
+            // 비밀번호 확인 칸도 함께 재비교
+            checkPasswordMatch();
+        });
+
+        // 3. 비밀번호 재확인 검수
+        pwd2Input.addEventListener('input', checkPasswordMatch);
+
+        function checkPasswordMatch() {
+            const val1 = pwd1Input.value;
+            const val2 = pwd2Input.value;
+
+            if (val2.length === 0) {
+                pwdMatchMsg.classList.remove('active');
+                return;
+            }
+
+            if (val1 === val2) {
+                pwdMatchMsg.textContent = '✓ 비밀번호가 일치합니다.';
+                pwdMatchMsg.className = 'msg-item active valid';
+            } else {
+                pwdMatchMsg.textContent = '✕ 비밀번호가 일치하지 않습니다.';
+                pwdMatchMsg.className = 'msg-item active';
+            }
+        }
+    </script>
+</body>
+</html>

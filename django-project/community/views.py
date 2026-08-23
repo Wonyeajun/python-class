@@ -1,46 +1,46 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
+from django.http import JsonResponse
 from .models import Post, Comment
 
 
 def post_list(request):
-    sort = request.GET.get('sort', 'recent')  # 기본값: 최신순
+    sort = request.GET.get('sort', 'recent')
     q = request.GET.get('q', '').strip()
 
     posts = Post.objects.all()
 
-    # 카테고리 라벨 <-> 코드 매핑 dictionary
+    # hot_score 계산 (distinct=True 제거 -> 각 반응 종류별 개수가 개별로 합산됨)
+    hot_post = Post.objects.annotate(
+        hot_score=Count('likes') + Count('thumbs') + Count('sads')
+    ).order_by('-hot_score', '-created_at').first()
+
+    # 카테고리 매핑
     category_map = {name: code for code, name in Post.CATEGORY_CHOICES}
 
-    # 검색어가 있을 경우 카테고리(키워드) 우선 검색
+    # 드롭다운 선택 필터링
     if q:
-        # 사용자가 입력한 검색어가 카테고리 이름(예: '연애', '친구')과 일치하는지 확인
-        target_category = category_map.get(q)
-        
-        if target_category:
-            # 선택한 키워드(카테고리) 기준으로만 필터링
-            posts = posts.filter(category=target_category)
-        else:
-            # 카테고리 코드 직접 검색 또는 제목/내용 검색
-            posts = posts.filter(
-                Q(category__icontains=q) | 
-                Q(title__icontains=q) | 
-                Q(content__icontains=q)
-            )
+        target_category = category_map.get(q, q)
+        posts = posts.filter(
+            Q(category=target_category) | 
+            Q(category__icontains=q)
+        )
 
-    # 정렬 조건
+    # 정렬
     if sort == 'comments':
         posts = posts.annotate(comment_cnt=Count('comments')).order_by('-comment_cnt', '-created_at')
     elif sort == 'reactions':
+        # 반응순 정렬 시에도 distinct=True 제거
         posts = posts.annotate(
-            total_rx=Count('likes', distinct=True) + Count('thumbs', distinct=True) + Count('sads', distinct=True)
+            total_rx=Count('likes') + Count('thumbs') + Count('sads')
         ).order_by('-total_rx', '-created_at')
     else:
         posts = posts.order_by('-created_at')
 
     return render(request, 'post_list.html', {
         'posts': posts,
+        'hot_post': hot_post,
         'sort': sort,
         'q': q,
         'categories': Post.CATEGORY_CHOICES,
@@ -67,6 +67,8 @@ def post_create(request):
     })
 
 
+# 비로그인 유저 접근 제한
+@login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, "post_detail.html", {
@@ -82,14 +84,22 @@ def comment_create(request, pk):
         content = request.POST.get("content", "").strip()
 
         if content:
-            comment = Comment(
+            comment = Comment.objects.create(
                 post=post,
                 author=request.user,
                 content=content
             )
-            comment.save()
+            nickname = request.user.nickname if hasattr(request.user, 'nickname') and request.user.nickname else request.user.username
+            
+            return JsonResponse({
+                "status": "success",
+                "author": nickname,
+                "created_at": comment.created_at.strftime("%Y-%m-%d %H:%M"),
+                "content": comment.content,
+                "total_comments": post.comments.count()
+            })
 
-    return redirect("post_detail", pk=pk)
+    return JsonResponse({"status": "error"}, status=400)
 
 
 @login_required
@@ -98,27 +108,46 @@ def post_like(request, pk):
 
     if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)
+        active = False
     else:
         post.likes.add(request.user)
+        active = True
 
-    return redirect("post_detail", pk=pk)
+    return JsonResponse({
+        "count": post.likes.count(),
+        "active": active
+    })
 
 
 @login_required
 def post_thumb(request, pk):
     post = get_object_or_404(Post, pk=pk)
+
     if request.user in post.thumbs.all():
         post.thumbs.remove(request.user)
+        active = False
     else:
         post.thumbs.add(request.user)
-    return redirect('post_detail', pk=pk)
+        active = True
+
+    return JsonResponse({
+        "count": post.thumbs.count(),
+        "active": active
+    })
 
 
 @login_required
 def post_sad(request, pk):
     post = get_object_or_404(Post, pk=pk)
+
     if request.user in post.sads.all():
         post.sads.remove(request.user)
+        active = False
     else:
         post.sads.add(request.user)
-    return redirect('post_detail', pk=pk)
+        active = True
+
+    return JsonResponse({
+        "count": post.sads.count(),
+        "active": active
+    })

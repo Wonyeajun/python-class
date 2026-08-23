@@ -1,236 +1,446 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>소곤소곤 - 우리들의 마음 안식처</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    :root {
-      --bg-warm: #FFF0ED;
-      --card-bg: #FFFFFF;
-      --primary-coral: #FF6B6B;
-      --primary-hover: #E85555;
-      --text-main: #4A3E3D;
-      --text-muted: #8C7B7A;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소곤소곤 - 우리들의 마음 대피소</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gamja+Flower&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #FFF5EE 0%, #FFE4E1 100%); /* 살구~연분홍 그라데이션 */
+            --point-coral: #FF7A6B;      /* 부드러운 다홍색 */
+            --point-peach: #FFD1C9;      /* 연한 살구/피치 */
+            --card-shadow: 0 8px 20px rgba(255, 122, 107, 0.08);
+            --font-main: 'Gowun Dodum', sans-serif;
+        }
 
-    body {
-      background-color: var(--bg-warm);
-      color: var(--text-main);
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-      min-height: 100vh;
-      position: relative;
-      padding-bottom: 80px;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+        }
 
-    .top-nav {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-      margin-bottom: 25px;
-    }
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: #4A3E3D; /* 부드러운 브라운톤 먹색 */
+            padding-bottom: 60px;
+        }
 
-    .nav-tab-btn {
-      padding: 10px 24px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 15px;
-      color: var(--text-main);
-      background-color: rgba(255, 255, 255, 0.6);
-      transition: all 0.2s ease;
-    }
+        /* 1. 동글동글한 상단 탭 내비게이션 */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            margin: 25px auto 10px auto;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 8px;
+            border-radius: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
 
-    .nav-tab-btn.active {
-      background-color: var(--primary-coral);
-      color: white;
-      box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
-    }
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            color: #7A6865;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
 
-    .nav-tab-btn:hover:not(.active) {
-      background-color: #FFFFFF;
-    }
+        .nav-item.active {
+            background-color: var(--point-coral);
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 122, 107, 0.3);
+        }
 
-    .btn-coral {
-      background-color: var(--primary-coral);
-      color: white;
-      border: none;
-      transition: all 0.2s ease;
-    }
-    .btn-coral:hover {
-      background-color: var(--primary-hover);
-      color: white;
-      transform: translateY(-2px);
-    }
+        .nav-item:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: var(--point-coral);
+        }
 
-    /* 그리드 카드 카드 스타일 */
-    .warm-card {
-      background-color: var(--card-bg);
-      border: 1px solid #FFE3DE;
-      border-radius: 18px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    .warm-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.15) !important;
-    }
+        /* 2. 메인 레이아웃 */
+        .wrapper {
+            display: flex;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 30px;
+        }
 
-    .post-title-link {
-      color: var(--text-main);
-      text-decoration: none;
-    }
-    .post-title-link:hover {
-      color: var(--primary-coral);
-    }
+        /* 왼쪽 인기글 */
+        .sidebar-memo {
+            flex: 1;
+            max-width: 260px;
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 25px 20px;
+            height: fit-content;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            border-top: 6px solid var(--point-coral);
+        }
 
-    .badge-warm {
-      background-color: #FFEAE6;
-      color: var(--primary-coral);
-      font-weight: 600;
-    }
+        .sidebar-memo h2 {
+            font-family: 'Gamja Flower', cursive;
+            font-size: 1.6rem;
+            color: var(--point-coral);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-    .floating-write-btn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 1000;
-      background-color: var(--primary-coral);
-      color: white;
-      padding: 14px 28px;
-      border-radius: 50px;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-      transition: all 0.2s ease;
-    }
-    .floating-write-btn:hover {
-      background-color: var(--primary-hover);
-      color: white;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
-    }
+        .popular-ul {
+            list-style: none;
+        }
 
-    .sort-link {
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-muted);
-    }
-    .sort-link.active {
-      color: var(--primary-coral);
-      font-weight: 700;
-      border-bottom: 2px solid var(--primary-coral);
-      padding-bottom: 2px;
-    }
+        .popular-li {
+            padding: 10px 4px;
+            font-size: 0.9rem;
+            border-bottom: 1px dashed #F5E6E3;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
 
-    /* 카드 내용 줄바꿈 및 간격 고정 */
-    .card-content-preview {
-      color: var(--text-muted);
-      font-size: 14px;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      min-height: 60px;
-    }
-  </style>
+        .popular-li a {
+            text-decoration: none;
+            color: #6B5B59;
+            transition: color 0.2s;
+        }
+        .popular-li a:hover {
+            color: var(--point-coral);
+        }
+
+        /* 오른쪽 메인 컨텐츠 */
+        .main-content {
+            flex: 3;
+        }
+
+        /* 검색바 (드롭다운 스타일) */
+        .search-container {
+            margin-bottom: 25px;
+        }
+
+        .pebble-search {
+            display: flex;
+            background: #FFFFFF;
+            border-radius: 30px;
+            padding: 6px 6px 6px 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 122, 107, 0.1);
+        }
+
+        .pebble-select {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 0.95rem;
+            color: #555;
+            background: transparent;
+            cursor: pointer;
+            padding-right: 10px;
+        }
+
+        .pebble-search button {
+            background: var(--point-coral);
+            border: none;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .pebble-search button:hover {
+            background: #E56355;
+        }
+
+        /* 정렬 링크 */
+        .sort-links {
+            display: flex;
+            gap: 15px;
+            padding-left: 10px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+        }
+
+        .sort-links a {
+            text-decoration: none;
+            color: #9C8A87;
+            position: relative;
+        }
+
+        .sort-links a.active {
+            color: var(--point-coral);
+            font-weight: bold;
+        }
+        .sort-links a.active::after {
+            content: '•';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+        }
+
+        /* 3. 사연 카드 그리드 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .cloud-card {
+            background: #FFFFFF;
+            border-radius: 28px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .cloud-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(255, 122, 107, 0.15);
+        }
+
+        /* 태그 수정: 제목과 안 겹치도록 inline-block 및 margin-bottom 확장 */
+        .card-tag {
+            background-color: #FFF0ED;
+            color: var(--point-coral);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            width: fit-content;
+            margin-bottom: 14px;
+            display: inline-block;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #332827;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .card-text {
+            font-size: 0.88rem;
+            color: #7A6865;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            border-top: 1px dashed #F5E6E3;
+            padding-top: 12px;
+        }
+
+        .anon-profile {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #8A7571;
+            font-weight: bold;
+        }
+
+        .anon-avatar {
+            width: 8px;
+            height: 8px;
+            background-color: var(--point-coral);
+            border-radius: 50%;
+        }
+
+        .card-reaction {
+            color: #BAA4A0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-reaction span strong {
+            color: var(--point-coral);
+        }
+
+        .floating-write {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            background: var(--point-coral);
+            color: white;
+            padding: 16px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 8px 20px rgba(255, 122, 107, 0.4);
+            transition: all 0.2s;
+        }
+
+        .floating-write:hover {
+            transform: scale(1.05);
+            background: #E56355;
+        }
+
+        @media (max-width: 768px) {
+            .wrapper {
+                flex-direction: column;
+            }
+            .sidebar-memo {
+                max-width: 100%;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .nav-container {
+                margin: 15px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- 메인 영역 너비 확장 (max-width 1200px) -->
-  <div class="container py-3" style="max-width: 1200px;">
-    
-    <!-- 1. 상단 메뉴 탭 -->
-    <div class="top-nav">
-      <a href="{% url 'post_list' %}" class="nav-tab-btn active">📌 커뮤니티</a>
-      <a href="#" class="nav-tab-btn">🌲 하루 한 알</a>
-      <a href="{% url 'post_create' %}" class="nav-tab-btn">💌 상담하기</a>
+    <!-- 1. 상단 탭 -->
+    <nav class="nav-container">
+        <a href="{% url 'post_list' %}" class="nav-item active">🎈 커뮤니티</a>
+        <a href="#" class="nav-item">🌳 하루 한 알</a>
+        <a href="{% url 'post_create' %}" onclick="return checkAuth(event);" class="nav-item">💌 상담하기</a>
+    </nav>
+
+    <!-- 2. 회원 상태창 -->
+    <div style="max-width: 1100px; margin: 0 auto 20px auto; padding: 0 20px; text-align: right; font-size: 0.9rem;">
+        {% if user.is_authenticated %}
+            <span>반갑습니다, <b>{{ user.nickname|default:user.username }}</b>님!</span>
+            <a href="{% url 'mypage' %}"><button style="border:none; background:none; cursor:pointer; color:#7A6865; margin-left:10px;">마이페이지</button></a>
+            <a href="{% url 'logout' %}"><button style="border:none; background:none; cursor:pointer; color:#7A6865; margin-left:5px;">로그아웃</button></a>
+        {% else %}
+            <a href="{% url 'login' %}"><button style="border:none; background:none; cursor:pointer; color:#7A6865;">로그인</button></a>
+            <a href="{% url 'signup' %}"><button style="border:none; background:none; cursor:pointer; color:#7A6865; margin-left:5px;">회원가입</button></a>
+        {% endif %}
     </div>
 
-    <!-- 2. 회원 상태 바 -->
-    <div class="d-flex justify-content-end align-items-center mb-3 px-2">
-      {% if request.user.is_authenticated %}
-        <div class="d-flex align-items-center gap-2">
-          <span class="small" style="color: var(--text-muted);">반갑습니다, <strong style="color: var(--text-main);">{{ request.user.nickname|default:request.user.username }}</strong>님!</span>
-          <a href="{% url 'mypage' %}" class="btn btn-sm btn-outline-secondary rounded-pill px-3 ms-1" style="font-size: 12px;">마이페이지</a>
-        </div>
-      {% else %}
-        <a href="{% url 'login' %}" class="btn btn-coral btn-sm rounded-pill px-3 fw-bold">로그인</a>
-      {% endif %}
-    </div>
+    <!-- 3. 메인 콘텐츠 -->
+    <div class="wrapper">
+        
+        <!-- 왼쪽: 핫한 사연 -->
+        <aside class="sidebar-memo">
+            <h2>🔥 지금 핫한 사연</h2>
+            <ul class="popular-ul">
+                {% if hot_post %}
+                    <li class="popular-li">
+                        <a href="{% url 'post_detail' hot_post.pk %}" onclick="return checkAuth(event);">{{ hot_post.title }}</a>
+                    </li>
+                {% else %}
+                    {% for post in posts|slice:":5" %}
+                        <li class="popular-li">
+                            <a href="{% url 'post_detail' post.pk %}" onclick="return checkAuth(event);">{{ post.title }}</a>
+                        </li>
+                    {% empty %}
+                        <li class="popular-li">아직 등록된 사연이 없습니다.</li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </aside>
 
-    <!-- 3. 키워드 선택 및 검색 바 -->
-    <form method="GET" action="{% url 'post_list' %}" class="mb-4 mx-auto" style="max-width: 700px;">
-      <div class="input-group rounded-pill overflow-hidden bg-white shadow-sm" style="border: 1px solid #FFE3DE;">
-        <input type="text" name="q" value="{{ q }}" class="form-control px-4 py-2" placeholder="고민 키워드(연애, 친구, 학업 등)를 입력해보세요..." style="border: none; outline: none; box-shadow: none;">
-        <button class="btn btn-coral px-4 fw-bold" type="submit">찾기</button>
-      </div>
+        <!-- 오른쪽: 검색, 정렬, 게시글 카드가 들어가는 공간 -->
+        <main class="main-content">
+            
+            <!-- 드롭다운 검색바 -->
+            <div class="search-container">
+    <form class="pebble-search" action="{% url 'post_list' %}" method="GET">
+        {% if sort %}<input type="hidden" name="sort" value="{{ sort }}">{% endif %}
+        <select name="q" class="pebble-select" onchange="this.form.submit()">
+            <!-- hidden 속성으로 클릭 시 드롭다운 목록 안에는 나타나지 않음 -->
+            <option value="" hidden {% if not q %}selected{% endif %}>키워드를 선택해 주세요</option>
+            {% for code, name in categories %}
+                <option value="{{ code }}" {% if q == code or q == name %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">찾기</button>
     </form>
+</div>
 
-    <!-- 4. 정렬 옵션 -->
-    <div class="d-flex gap-3 mb-4 px-2">
-      <a href="?sort=recent{% if q %}&q={{ q }}{% endif %}" class="sort-link {% if sort == 'recent' %}active{% endif %}">최신순</a>
-      <a href="?sort=comments{% if q %}&q={{ q }}{% endif %}" class="sort-link {% if sort == 'comments' %}active{% endif %}">답변순</a>
-      <a href="?sort=reactions{% if q %}&q={{ q }}{% endif %}" class="sort-link {% if sort == 'reactions' %}active{% endif %}">반응순</a>
+            <!-- 정렬 링크 -->
+            <div class="sort-links">
+                <a href="?sort=recent{% if q %}&q={{ q }}{% endif %}" class="{% if sort == 'recent' or not sort %}active{% endif %}">최신순</a>
+                <a href="?sort=comments{% if q %}&q={{ q }}{% endif %}" class="{% if sort == 'comments' %}active{% endif %}">답변순</a>
+                <a href="?sort=reactions{% if q %}&q={{ q }}{% endif %}" class="{% if sort == 'reactions' %}active{% endif %}">반응순</a>
+            </div>
+
+            <!-- 사연 카드 그리드 -->
+            <div class="grid-container">
+                
+                {% for post in posts %}
+                    <div class="cloud-card" onclick="checkAuthAndNavigate(event, '{% url 'post_detail' post.pk %}')">
+                        <div>
+                            <span class="card-tag">🌸 {{ post.get_category_display|default:"고민글" }}</span>
+                            <div class="card-title">{{ post.title }}</div>
+                            <div class="card-text">{{ post.content }}</div>
+                        </div>
+                        <div class="card-bottom">
+                            <div class="anon-profile">
+                                <div class="anon-avatar"></div>
+                                <span>{{ post.author.nickname|default:post.author.username }}</span>
+                            </div>
+                            <div class="card-reaction">
+                                <span>댓글 <strong>{{ post.comments.count }}</strong></span>
+                                <span>공감 <strong>{{ post.likes.count|add:post.thumbs.count|add:post.sads.count }}</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p style="grid-column: 1 / -1; text-align: center; color: #9C8A87; padding: 40px 0;">아직 등록된 사연이 없습니다.</p>
+                {% endfor %}
+
+            </div>
+        </main>
     </div>
 
-    <!-- 5. 게시글 목록 (3~4개씩 배치되는 그리드) -->
-    {% if posts %}
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">
-        {% for post in posts %}
-          <div class="col">
-            <div class="card warm-card p-3 shadow-sm">
-              <div class="card-body d-flex flex-column p-1">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <a href="?q={{ post.get_category_display }}" class="text-decoration-none">
-                    <span class="badge badge-warm rounded-pill px-2 py-1" style="font-size: 11px;">🏷️ {{ post.get_category_display }}</span>
-                  </a>
-                  <span class="small text-muted" style="font-size: 11px;">{{ post.created_at|date:"m.d H:i" }}</span>
-                </div>
+    <!-- 작성 플로팅 버튼 -->
+    <a href="{% url 'post_create' %}" onclick="return checkAuth(event);" class="floating-write">✍️ 내 사연 쓰기</a>
 
-                <h6 class="fw-bold mb-2 text-truncate">
-                  <a href="{% url 'post_detail' post.pk %}" class="post-title-link">
-                    {{ post.title }}
-                  </a>
-                </h6>
-                
-                <p class="card-content-preview mb-3">
-                  {{ post.content }}
-                </p>
+    <!-- 로그인 체크 스크립트 -->
+    <script>
+        const isAuthenticated = {{ user.is_authenticated|lower }};
 
-                <div class="mt-auto pt-2 border-top border-light small d-flex justify-content-between align-items-center">
-                  <span class="text-truncate" style="color: var(--text-main); font-weight: 600; max-width: 90px; font-size: 12px;">👤 {{ post.author.nickname|default:post.author.username }}</span>
-                  
-                  <div class="d-flex align-items-center gap-2" style="color: var(--text-muted); font-size: 11px;">
-                    <span>❤️ {{ post.likes.count }}</span>
-                    <span>👍 {{ post.thumbs.count }}</span>
-                    <span>🥺 {{ post.sads.count }}</span>
-                    <span>💬 {{ post.comments.count }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <div class="text-center py-5 warm-card">
-        <p class="mb-3" style="color: var(--text-muted);">해당 키워드의 등록된 사연이 없습니다.</p>
-        <a href="{% url 'post_create' %}" class="btn btn-coral rounded-pill px-4">첫 사연 나누기</a>
-      </div>
-    {% endif %}
+        function checkAuth(event) {
+            if (!isAuthenticated) {
+                event.preventDefault();
+                alert("로그인이 필요합니다.");
+                window.location.href = "{% url 'login' %}";
+                return false;
+            }
+            return true;
+        }
 
-  </div>
-
-  <a href="{% url 'post_create' %}" class="floating-write-btn">
-    ✍️ 내 사연 쓰기
-  </a>
-
+        function checkAuthAndNavigate(event, url) {
+            if (!isAuthenticated) {
+                alert("로그인이 필요합니다.");
+                window.location.href = "{% url 'login' %}";
+            } else {
+                window.location.href = url;
+            }
+        }
+    </script>
 </body>
 </html>
