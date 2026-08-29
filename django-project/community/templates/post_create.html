@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="paper-card" style="max-width: 600px; margin: 40px auto; padding: 30px; background: #FFF; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-    <h2 style="margin-bottom: 25px; font-family: 'Gamja Flower', cursive; color: #FF6B6B;">✍️ 고민 털어놓기</h2>
+<!-- '고민 목록으로' 상단 통일 버튼 -->
+<div>
+    <a href="{% url 'post_list' %}" class="btn-back-list">
+        👈 고민 목록으로
+    </a>
+</div>
+
+<div class="paper-card" style="max-width: 650px; margin: 10px auto 40px auto; padding: 35px; background: #FFF; border-radius: 28px; box-shadow: var(--card-shadow);">
+    <h2 style="margin-bottom: 25px; font-family: 'Gamja Flower', cursive; color: var(--point-coral); font-size: 1.8rem;">✍️ 고민 털어놓기</h2>
     <form method="POST">
         {% csrf_token %}
         
@@ -31,8 +38,8 @@
         
         <!-- 버튼 영역 -->
         <div style="display: flex; gap: 10px;">
-            <button type="submit" class="btn-coral" style="flex: 2; padding: 12px; border-radius: 20px; background: #FF6B6B; color: white; border: none; font-weight: bold; cursor: pointer;">소중한 사연 등록하기</button>
-            <a href="{% url 'post_list' %}" style="flex: 1; text-align: center; padding: 12px; border-radius: 20px; background: #EEE; color: #666; font-weight: bold; text-decoration: none;">취소</a>
+            <button type="submit" class="btn-coral" style="flex: 2; padding: 14px; border-radius: 20px; font-size: 1rem; cursor: pointer;">소중한 사연 등록하기</button>
+            <a href="{% url 'post_list' %}" style="flex: 1; text-align: center; padding: 14px; border-radius: 20px; background: #F0EAE8; color: #666; font-weight: bold; text-decoration: none;">취소</a>
         </div>
     </form>
 </div>

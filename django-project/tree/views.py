@@ -13,7 +13,7 @@ def tree_view(request, page=1):
     if not current_tree:
         return redirect('tree:tree_view', page=total_trees)
 
-    return render(request, 'tree/tree.html', {
+    return render(request, 'tree.html', {
         'tree': current_tree,
         'fruits': current_tree.fruits.all(),
         'current_page': current_tree.page_number,

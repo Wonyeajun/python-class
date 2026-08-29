@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>소곤소곤 - {{ post.title }}</title>
+
+  <!-- 손글씨 및 웹폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   
   <style>
@@ -65,41 +71,38 @@
 
     .detail-top-nav {
       max-width: 800px;
-      margin: 30px auto 12px auto;
+      margin: 20px auto 12px auto;
       padding: 0 10px;
       display: flex;
       justify-content: flex-start;
     }
 
-    .btn-back {
+    /* 🌸 소곤소곤 브랜드 로고 스타일 */
+    .brand-logo-link {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      color: #7A6865;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-family: 'Nanum Pen Script', 'Caveat', cursive, sans-serif;
+      font-size: 2.2rem;
       font-weight: bold;
-      padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      transition: all 0.2s ease;
+      color: var(--primary-coral);
+      transition: transform 0.2s ease;
     }
 
-    .btn-back:hover {
-      background: #FFFFFF;
-      color: #FF7A6B;
-      transform: translateX(-3px);
+    .brand-logo-link:hover {
+      color: #E85555;
+      transform: scale(1.03);
     }
   </style>
 </head>
 <body>
 
-<!-- 상단 버튼 -->
+<!-- 상단 로고 링크 -->
 <div class="detail-top-nav">
-    <a href="{% url 'post_list' %}" class="btn-back">
-        👈 고민 목록으로
-    </a>
+  <a href="{% url 'post_list' %}" class="brand-logo-link">
+    🌸 소곤소곤
+  </a>
 </div>
 
 <div class="container pb-5" style="max-width: 800px;">
@@ -127,31 +130,28 @@
     </div>
 
     <!-- 반응 이모티콘 3종 (❤️, 👍, 🥺) -->
-<div class="d-flex align-items-center gap-2 mb-5">
-  <!-- 좋아요 버튼 -->
-  <button type="button" 
-          id="btn-like" 
-          onclick="sendReaction('{% url 'post_like' post.pk %}', 'btn-like', 'cnt-like')" 
-          class="btn btn-reaction {% if request.user in post.likes.all %}active{% endif %}">
-    ❤️ <strong id="cnt-like">{{ post.likes.count }}</strong>
-  </button>
+    <div class="d-flex align-items-center gap-2 mb-5">
+      <button type="button" 
+              id="btn-like" 
+              onclick="sendReaction('{% url 'post_like' post.pk %}', 'btn-like', 'cnt-like')" 
+              class="btn btn-reaction {% if request.user in post.likes.all %}active{% endif %}">
+        ❤️ <strong id="cnt-like">{{ post.likes.count }}</strong>
+      </button>
 
-  <!-- 따봉 버튼 -->
-  <button type="button" 
-          id="btn-thumb" 
-          onclick="sendReaction('{% url 'post_thumb' post.pk %}', 'btn-thumb', 'cnt-thumb')" 
-          class="btn btn-reaction {% if request.user in post.thumbs.all %}active{% endif %}">
-    👍 <strong id="cnt-thumb">{{ post.thumbs.count }}</strong>
-  </button>
+      <button type="button" 
+              id="btn-thumb" 
+              onclick="sendReaction('{% url 'post_thumb' post.pk %}', 'btn-thumb', 'cnt-thumb')" 
+              class="btn btn-reaction {% if request.user in post.thumbs.all %}active{% endif %}">
+        👍 <strong id="cnt-thumb">{{ post.thumbs.count }}</strong>
+      </button>
 
-  <!-- 슬픔 버튼 -->
-  <button type="button" 
-          id="btn-sad" 
-          onclick="sendReaction('{% url 'post_sad' post.pk %}', 'btn-sad', 'cnt-sad')" 
-          class="btn btn-reaction {% if request.user in post.sads.all %}active{% endif %}">
-    🥺 <strong id="cnt-sad">{{ post.sads.count }}</strong>
-  </button>
-</div>
+      <button type="button" 
+              id="btn-sad" 
+              onclick="sendReaction('{% url 'post_sad' post.pk %}', 'btn-sad', 'cnt-sad')" 
+              class="btn btn-reaction {% if request.user in post.sads.all %}active{% endif %}">
+        🥺 <strong id="cnt-sad">{{ post.sads.count }}</strong>
+      </button>
+    </div>
 
     <hr class="my-4" style="border-color: #FFE3DE;">
 
@@ -226,7 +226,7 @@
 
     // 2. 답글 작성 비동기 처리
     function submitComment(event, url) {
-        event.preventDefault(); // 페이지 새로고침 차단
+        event.preventDefault();
 
         const form = document.getElementById('comment-form');
         const formData = new FormData(form);
@@ -242,11 +242,9 @@
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                // 비어있는 상태 문구 제거
                 const noMsg = document.getElementById('no-comment-msg');
                 if (noMsg) noMsg.remove();
 
-                // 새 댓글 HTML 요소 추가
                 const commentList = document.getElementById('comment-list');
                 const newCommentHtml = `
                     <div class="comment-item">
@@ -259,7 +257,6 @@
                 `;
                 commentList.insertAdjacentHTML('beforeend', newCommentHtml);
 
-                // 댓글 수 갱신 및 폼 초기화
                 document.getElementById('comment-total-cnt').textContent = `(${data.total_comments})`;
                 document.getElementById('content').value = '';
             }

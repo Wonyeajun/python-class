@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>소곤소곤 - 하루 한 알</title>
+  
+  <!-- 둥근 손글씨 폰트(Gamja Flower) 불러오기 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Gamja+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg-warm: #FFF5F3;
+      --primary-coral: #FF6B6B;
+      --text-main: #4A3E3D;
+      --text-muted: #8C7B7A;
+    }
+
+    body {
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      font-family: 'Pretendard', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-nav {
+      max-width: 1000px;
+      margin: 15px auto 0 auto;
+      padding: 0 20px;
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    /* 🌸 첫 번째 사진 스타일로 통일한 브랜드 로고 */
+    .brand-logo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-family: 'Gamja Flower', cursive, sans-serif;
+      font-size: 2.3rem;
+      font-weight: bold;
+      color: var(--primary-coral);
+      letter-spacing: 2px;
+      transition: transform 0.2s ease;
+    }
+
+    .brand-logo-link:hover {
+      color: #E85555;
+      transform: scale(1.03);
+    }
+
+    /* 웅장한 세계수 무대 영역 */
+    .tree-stage {
+      position: relative;
+      width: 92vw;
+      max-width: 850px;
+      height: 480px;
+      margin: 10px auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      overflow: visible;
+    }
+
+    .tree-visual {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+
+    /* 열매 스타일 */
+    .fruit-item {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      z-index: 10;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+    }
+
+    .fruit-item:hover {
+      transform: scale(1.35);
+      z-index: 30;
+    }
+
+    .fruit-item .author-hover-label {
+      visibility: hidden;
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: #FFFFFF;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .fruit-item:hover .author-hover-label {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* 심플 네비게이션 (< 1 / 2 >) */
+    .simple-page-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 12px 0;
+    }
+
+    .nav-arrow-btn {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 2px 8px;
+      transition: color 0.2s ease, transform 0.2s ease;
+      user-select: none;
+    }
+
+    .nav-arrow-btn:hover:not(.disabled) {
+      color: var(--primary-coral);
+      transform: scale(1.2);
+    }
+
+    .nav-arrow-btn.disabled {
+      color: #D3C5C3;
+      cursor: default;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .page-nav-num {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+    }
+
+    /* 사과 모달 */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .apple-modal-card {
+      position: relative;
+      width: 320px;
+      height: 310px;
+      animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes modalPop {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .apple-modal-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      filter: drop-shadow(0 10px 25px rgba(255, 82, 82, 0.4));
+    }
+
+    .apple-modal-content {
+      position: absolute;
+      top: 68px;
+      left: 45px;
+      right: 45px;
+      bottom: 35px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow: hidden;
+    }
+
+    .modal-author {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #000000;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 6px;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+      padding-bottom: 6px;
+      width: 100%;
+    }
+
+    .modal-body-text {
+      font-family: 'Gamja Flower', 'Nanum Pen Script', cursive, sans-serif;
+      font-weight: 700;
+      color: #000000;
+      line-height: 1.35;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
+      padding: 5px 0;
+    }
+
+    .btn-modal-close {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      z-index: 3;
+      background: rgba(0, 0, 0, 0.15);
+      border: none;
+      color: #000;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-modal-close:hover {
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+    }
+
+    .btn-coral {
+      background-color: var(--primary-coral);
+      color: white;
+      border: none;
+    }
+
+    .btn-coral:hover {
+      background-color: #E85555;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="{% url 'post_list' %}" class="brand-logo-link">
+    🌸 소곤소곤
+  </a>
+</div>
+
+<div class="container py-2 text-center" style="max-width: 900px;">
+  <h3 class="fw-bold mb-1" style="color: var(--primary-coral);">🌳 하루 한 알</h3>
+  <p class="text-muted small mb-2">오늘 하루 마음속 짧은 응원이나 소감을 20자 이내로 매달아 보세요.</p>
+
+  <!-- 세계수 무대 -->
+  <div class="tree-stage">
+    <svg class="tree-visual" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="trunkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#3E2723"/>
+          <stop offset="40%" stop-color="#5D4037"/>
+          <stop offset="70%" stop-color="#8D6E63"/>
+          <stop offset="100%" stop-color="#3E2723"/>
+        </linearGradient>
+        <linearGradient id="leafDeep" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#2E7D32"/>
+          <stop offset="100%" stop-color="#1B5E20"/>
+        </linearGradient>
+        <linearGradient id="leafMid" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#4CAF50"/>
+          <stop offset="100%" stop-color="#2E7D32"/>
+        </linearGradient>
+        <linearGradient id="leafLight" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#81C784"/>
+          <stop offset="100%" stop-color="#388E3C"/>
+        </linearGradient>
+      </defs>
+
+      <path d="M 430 600 Q 460 480 480 350 C 400 320 280 280 150 240 L 190 215 C 310 250 420 285 490 310 L 490 220 C 430 170 330 110 260 85 L 295 72 C 360 98 440 150 495 190 L 495 110 L 505 110 L 505 190 C 560 150 640 98 705 72 L 740 85 C 670 110 570 170 510 220 L 510 310 C 580 285 690 250 810 215 L 850 240 C 720 280 600 320 520 350 Q 540 480 570 600 Z" fill="url(#trunkGrad)"/>
+
+      <circle cx="500" cy="110" r="115" fill="url(#leafDeep)"/>
+      <circle cx="360" cy="130" r="110" fill="url(#leafDeep)"/>
+      <circle cx="640" cy="130" r="110" fill="url(#leafDeep)"/>
+      <circle cx="240" cy="180" r="110" fill="url(#leafDeep)"/>
+      <circle cx="760" cy="180" r="110" fill="url(#leafDeep)"/>
+      <circle cx="140" cy="240" r="100" fill="url(#leafDeep)"/>
+      <circle cx="860" cy="240" r="100" fill="url(#leafDeep)"/>
+
+      <circle cx="500" cy="170" r="125" fill="url(#leafMid)"/>
+      <circle cx="380" cy="200" r="110" fill="url(#leafMid)"/>
+      <circle cx="620" cy="200" r="110" fill="url(#leafMid)"/>
+      <circle cx="260" cy="250" r="105" fill="url(#leafMid)"/>
+      <circle cx="740" cy="250" r="105" fill="url(#leafMid)"/>
+      <circle cx="170" cy="300" r="95" fill="url(#leafMid)"/>
+      <circle cx="830" cy="300" r="95" fill="url(#leafMid)"/>
+
+      <circle cx="500" cy="220" r="115" fill="url(#leafLight)"/>
+      <circle cx="410" cy="260" r="100" fill="url(#leafLight)"/>
+      <circle cx="590" cy="260" r="100" fill="url(#leafLight)"/>
+      <circle cx="310" cy="300" r="95" fill="url(#leafLight)"/>
+      <circle cx="690" cy="300" r="95" fill="url(#leafLight)"/>
+      <circle cx="220" cy="340" r="85" fill="url(#leafLight)"/>
+      <circle cx="780" cy="340" r="85" fill="url(#leafLight)"/>
+    </svg>
+
+    <script>
+      const fruitPositions = [
+        { top: '15%', left: '49%' },
+        { top: '19%', left: '39%' },
+        { top: '18%', left: '59%' },
+        { top: '24%', left: '28%' },
+        { top: '26%', left: '48%' },
+        { top: '25%', left: '68%' },
+        { top: '32%', left: '18%' },
+        { top: '34%', left: '35%' },
+        { top: '33%', left: '55%' },
+        { top: '32%', left: '78%' },
+        { top: '42%', left: '12%' },
+        { top: '40%', left: '26%' },
+        { top: '39%', left: '44%' },
+        { top: '40%', left: '62%' },
+        { top: '42%', left: '84%' },
+        { top: '48%', left: '21%' },
+        { top: '46%', left: '33%' },
+        { top: '45%', left: '53%' },
+        { top: '46%', left: '72%' },
+        { top: '50%', left: '80%' }
+      ];
+    </script>
+
+    {% for fruit in fruits %}
+      <div class="fruit-item" 
+           id="fruit-{{ forloop.counter0 }}"
+           onclick="openAppleModal('{{ fruit.author.nickname|default:fruit.author.username }}', '{{ fruit.content|escapejs }}')">
+        🍎
+        <div class="author-hover-label">
+          👤 {{ fruit.author.nickname|default:fruit.author.username }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="simple-page-nav">
+    {% if current_page > 1 %}
+      <a href="{% url 'tree:tree_view' current_page|add:-1 %}" class="nav-arrow-btn">&lt;</a>
+    {% else %}
+      <span class="nav-arrow-btn disabled">&lt;</span>
+    {% endif %}
+
+    <span class="page-nav-num">{{ current_page }} / {{ total_pages }}</span>
+
+    {% if current_page < total_pages %}
+      <a href="{% url 'tree:tree_view' current_page|add:1 %}" class="nav-arrow-btn">&gt;</a>
+    {% else %}
+      <span class="nav-arrow-btn disabled">&gt;</span>
+    {% endif %}
+  </div>
+
+  <form action="{% url 'tree:fruit_create' tree.id %}" method="POST" class="mt-2" style="max-width: 500px; margin: 0 auto;">
+    {% csrf_token %}
+    <div class="input-group">
+      <input type="text" name="content" maxlength="20" class="form-control rounded-start-pill px-3" placeholder="20자 이내로 따뜻한 온기를 나누세요..." required>
+      <button class="btn btn-coral px-4 rounded-end-pill fw-bold" type="submit">열매 매달기</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal-overlay" id="appleModal" onclick="closeAppleModal(event)">
+  <div class="apple-modal-card" onclick="event.stopPropagation()">
+    <button class="btn-modal-close" onclick="closeAppleModalDirect()">✕</button>
+    
+    <svg class="apple-modal-bg" viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="modalAppleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#FF5252"/>
+          <stop offset="65%" stop-color="#FF406C"/>
+          <stop offset="100%" stop-color="#C2185B"/>
+        </linearGradient>
+        <linearGradient id="modalLeafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#9CCC65"/>
+          <stop offset="100%" stop-color="#689F38"/>
+        </linearGradient>
+      </defs>
+      <path d="M 98 25 C 80 5, 60 15, 65 30 C 80 32, 95 28, 98 25 Z" fill="url(#modalLeafGrad)"/>
+      <path d="M 100 32 C 125 15, 192 25, 195 95 C 198 150, 145 185, 105 186 C 102 186, 98 186, 95 186 C 55 185, 2 150, 5 95 C 8 25, 75 15, 100 32 Z" fill="url(#modalAppleGrad)" />
+    </svg>
+
+    <div class="apple-modal-content">
+      <div class="modal-author">
+        <span>👤</span>
+        <span id="modalAuthorName">작성자</span>
+      </div>
+      <div class="modal-body-text" id="modalFruitContent">
+        내용이 들어갑니다.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const fruits = document.querySelectorAll('.fruit-item');
+    fruits.forEach((fruit, index) => {
+      if (fruitPositions[index]) {
+        fruit.style.top = fruitPositions[index].top;
+        fruit.style.left = fruitPositions[index].left;
+      }
+    });
+  });
+
+  function openAppleModal(author, content) {
+    document.getElementById('modalAuthorName').innerText = author;
+    
+    const contentEl = document.getElementById('modalFruitContent');
+    contentEl.innerText = content;
+
+    const len = content.length;
+    let fontSize;
+
+    if (len <= 5) {
+      fontSize = '2.2rem';
+    } else if (len <= 10) {
+      fontSize = '1.8rem';
+    } else if (len <= 15) {
+      fontSize = '1.5rem';
+    } else {
+      fontSize = '1.3rem';
+    }
+
+    contentEl.style.fontSize = fontSize;
+    document.getElementById('appleModal').classList.add('active');
+  }
+
+  function closeAppleModal(event) {
+    if (event.target.id === 'appleModal') {
+      document.getElementById('appleModal').classList.remove('active');
+    }
+  }
+
+  function closeAppleModalDirect() {
+    document.getElementById('appleModal').classList.remove('active');
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeAppleModalDirect();
+    }
+  });
+</script>
+
+</body>
+</html>
